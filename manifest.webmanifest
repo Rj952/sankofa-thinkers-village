@@ -1,0 +1,10 @@
+{
+  "name": "Sankofa Thinkers' Village",
+  "short_name": "Sankofa Village",
+  "description": "An illustrated journey through philosophy from ancient Africa to the Caribbean and the age of AI.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0e1420",
+  "theme_color": "#141b29",
+  "icons": [{"src": "icon.svg", "sizes": "any", "type": "image/svg+xml"}]
+}

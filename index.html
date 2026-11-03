@@ -152,6 +152,39 @@ body::after{content:"";position:fixed;inset:-50%;z-index:95;pointer-events:none;
 .cred-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 48px;margin-top:48px}
 .cred-grid section h3{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
 .cred-grid .who{font-weight:600;color:var(--parch);font-size:14px;margin-top:12px}
+.skip{position:absolute;left:-999px;top:8px;z-index:99;background:var(--gold);color:#241a08;padding:8px 14px;border-radius:8px;font-weight:600}
+.skip:focus{left:16px}
+.badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;padding:3px 9px;border-radius:999px;border:1px solid;margin-top:10px}
+.badge.ai{color:#f5d48c;border-color:rgba(245,212,140,.5);background:rgba(20,16,8,.35)}
+.badge.ok{color:#bfeee6;border-color:rgba(47,158,143,.7);background:rgba(8,30,28,.45)}
+.qlabel{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-top:8px;padding-left:19px}
+.qlabel em{font-style:normal;text-transform:none;letter-spacing:0;font-size:12px}
+.linkrow{display:flex;flex-wrap:wrap;gap:8px}
+.linkrow a{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--ink-2);border-radius:999px;padding:6px 12px;font-size:13.5px;color:#bfeee6;text-decoration:none}
+.linkrow a:hover{border-color:var(--sea)}
+.listen{display:inline-flex;align-items:center;gap:8px;border-radius:999px;border:1px solid var(--gold);background:transparent;color:var(--gold-2);padding:7px 14px;font-size:14px;cursor:pointer;margin-top:12px}
+.listen[aria-pressed="true"]{background:var(--gold);color:#241a08}
+.cases{background:linear-gradient(180deg,#0b1222,#101828);padding-block:70px;padding-left:var(--gutter-l);padding-right:var(--gutter-r);position:relative;z-index:5}
+.cases-in{max-width:1100px;margin:0 auto}
+.cases h2{font-size:clamp(32px,4.5vw,52px);text-align:center}
+.case-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:18px;margin-top:36px}
+.case{background:var(--ink-2);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.case h3{font-size:22px}
+.case p{margin:0;font-size:14.5px;color:#e2d8c3}
+.case .q{color:var(--gold-2);font-family:var(--f-display);font-size:18px;line-height:1.3}
+.case ol{margin:0;padding-left:20px;font-size:14px;color:#d9cfba}
+.case .lab{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.changes{max-width:760px;margin:48px auto 0}
+.changes h3{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:8px}
+.changes ul{margin:10px 0 0;padding-left:18px;font-size:14px;color:#d9cfba}
+.changes time{display:block;font-family:var(--f-mono);font-size:12px;color:var(--mute);margin-top:14px}
+.field{display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:13px;color:var(--mute)}
+.field input{border-radius:10px;border:1px solid var(--line);background:#0f1522;color:var(--parch);padding:8px 10px;font:inherit;font-size:14px}
+/* lite mode */
+body.lite::after{display:none}
+body.lite .cloud,body.lite .fly,body.lite .skyline,body.lite .lb,body.lite .stars{display:none}
+body.lite *,body.lite *::before{animation:none!important;transition:none!important}
+body.lite .scene{transform:none!important}
 .cmp-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
 .cmp-pick select{width:100%;min-width:0;border-radius:10px;border:1px solid var(--line);background:#0f1522;color:var(--parch);padding:9px 10px;font:inherit;font-size:14px}
 .cmp-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
@@ -309,11 +342,15 @@ footer b{color:var(--parch);font-weight:600}
   html{scroll-behavior:auto}
 }
 </style>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#141b29">
 <script src="media.js"></script>
 </head>
 <body>
 
 
+<a class="skip" href="#map">Skip to the map</a>
 <header class="bar">
   <div class="bar-in">
     <a class="brand" href="#top" aria-label="Back to the start">
@@ -361,10 +398,11 @@ footer b{color:var(--parch);font-weight:600}
         <button class="cta" id="startBtn">Begin at the Nile</button>
         <button class="cta ghost" id="resumeBtn" hidden>Continue the journey</button>
         <button class="cta ghost" id="flyBtn">▶ Play the fly-through</button>
+        <a class="cta ghost" href="#cases" style="text-decoration:none">Policy case files</a>
       </div>
       <div class="facts">
         <div><b id="fStops">64</b>houses on the road</div>
-        <div><b>9</b>districts, 4,400 years</div>
+        <div><b id="fChapters">10</b>chapters, 4,400 years</div>
         <div><b>6</b>threads to follow</div>
       </div>
     </div>
@@ -383,7 +421,7 @@ footer b{color:var(--parch);font-weight:600}
 
 <section class="howto" aria-label="How to use the village">
   <div class="howto-in">
-    <div><h3>Walk the road</h3><p>Open each house in order, or jump to any district from the bar above. Your progress is kept on this device.</p></div>
+    <div><h3>Walk the road</h3><p>Open each house in order, or jump to any chapter from the bar above. Your progress is kept on this device.</p></div>
     <div><h3>Read across lenses</h3><p>Every thinker is read three ways: the idea, its life in learning, and its life in policy and public life.</p></div>
     <div><h3>Question hard</h3><p>Each house ends with critical questions written for doctoral-level seminars and debates.</p></div>
     <div><h3>Write yourself in</h3><p>Answer the personal prompt. Your notebook gathers every reflection for you to copy or download.</p></div>
@@ -401,6 +439,15 @@ footer b{color:var(--parch);font-weight:600}
   <div id="districts"></div>
 </main>
 
+<section class="cases" id="cases" aria-labelledby="casesH">
+  <div class="cases-in">
+    <div class="eyebrow" style="text-align:center">Apply the road</div>
+    <h2 id="casesH">Policy case files</h2>
+    <p class="sub" style="text-align:center;color:var(--mute);max-width:62ch;margin:12px auto 0">Each file sets out a live Caribbean question and three thinkers from different chapters. Read their houses, then work through the tasks alone, in pairs or as a seminar.</p>
+    <div class="case-grid" id="caseGrid"></div>
+  </div>
+</section>
+
 <section class="credits" id="sources" aria-labelledby="srcH">
   <div class="credits-in">
     <div class="eyebrow" style="text-align:center">End credits</div>
@@ -408,6 +455,7 @@ footer b{color:var(--parch);font-weight:600}
     <p class="sub">Primary works by each thinker, with selected studies, listed in APA 7th edition style. Dates in brackets give the original publication or composition date.</p>
     <div class="disclaim" role="note"><b>A note on accuracy</b>This resource was researched and written with the assistance of AI tools and reviewed by the author. Every effort has been made to be accurate, but it may still contain errors, omissions or simplifications in dates, quotations, attributions, interpretations or references. Lines shown in quotation marks are drawn from widely circulated translations; other taglines are summaries, not direct quotations. Please check details against the original sources before citing them in academic work, and treat the summaries here as starting points for your own reading. If you spot an error, please let the author know so it can be corrected.</div>
     <div class="cred-grid" id="credGrid"></div>
+    <div class="changes" id="changes"></div>
   </div>
 </section>
 <div class="flybar" id="flybar" hidden><span id="flyCap">Fly-through</span><button class="sbtn" id="flyStop">Stop</button></div>
@@ -459,8 +507,10 @@ footer b{color:var(--parch);font-weight:600}
     <h2>Your notebook</h2>
     <p style="color:var(--mute);font-size:14.5px;margin-top:8px">Reflections stay in this browser only. Nothing is sent anywhere. Copy them into your journal or assignment.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <label class="field" style="width:100%" for="stuName">Your name (for the portfolio, stays on this device)<input id="stuName" type="text" autocomplete="name"></label>
       <button class="sbtn" id="copyNotes">Copy all reflections</button>
       <button class="sbtn" id="dlNotes" hidden>Download as text</button>
+      <button class="sbtn" id="dlPortfolio" hidden>Download portfolio (Word)</button>
       <button class="sbtn" id="resetBtn">Reset progress…</button>
     </div>
     <div id="resetConfirm" hidden class="note" style="border-color:var(--clay)">
@@ -484,6 +534,11 @@ footer b{color:var(--parch);font-weight:600}
       <li><b>Presenting live:</b> “Play the fly-through” moves the camera slowly through every chapter, pausing on each title card.</li>
       <li><b>Capstone:</b> the Algorithm Lighthouse asks learners to build their own framework from at least three districts.</li>
     </ul>
+    <h3 style="font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-top:22px">Display</h3>
+    <p><button class="sbtn" id="liteBtn" aria-pressed="false">Turn on lite mode</button></p>
+    <p style="font-size:13px;color:var(--mute)">Lite mode switches off animation, film grain and parallax. Use it on slow connections, older devices, or if motion is uncomfortable. On GitHub Pages the village also works offline after your first visit.</p>
+    <h3 style="font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-top:22px">Accuracy and review</h3>
+    <p>Each house shows whether a subject specialist has reviewed it. To mark one as reviewed, add a line to <code>REVIEWED</code> in the page's script, for example <code>REVIEWED.freire = {by:"Dr A. Name", date:"2026-12-01"}</code>. Readers can report errors from any house.</p>
     <h3 style="font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-top:22px">Adding your videos</h3>
     <p>Edit <code>media.js</code> in the repository. Use a thinker's id (shown below each house title) or <code>district:</code> plus a district id:</p>
 <pre>window.VILLAGE_MEDIA = {
@@ -1280,7 +1335,7 @@ freire:["Freire, P. (1970). _Pedagogy of the oppressed_ (M. B. Ramos, Trans.). H
 foucault:["Foucault, M. (1977). _Discipline and punish: The birth of the prison_ (A. Sheridan, Trans.). Pantheon. (Original work published 1975)"],
 rawls:["Rawls, J. (1971). _A theory of justice_. Harvard University Press."],
 sen:["Sen, A. (1999). _Development as freedom_. Oxford University Press.","Nussbaum, M. C. (2011). _Creating capabilities: The human development approach_. Harvard University Press."],
-hooks:["hooks, b. (1994). _Teaching to transgress: Education as the practice of freedom_. Routledge."],
+hooks:["Hooks, B. (1994). _Teaching to transgress: Education as the practice of freedom_. Routledge."],
 west:["West, C. (1989). _The American evasion of philosophy: A genealogy of pragmatism_. University of Wisconsin Press.","West, C. (1993). _Race matters_. Beacon Press."],
 butler:["Butler, J. (1990). _Gender trouble: Feminism and the subversion of identity_. Routledge.","Butler, J. (2004). _Precarious life: The powers of mourning and violence_. Verso."],
 nkrumah:["Nkrumah, K. (1964). _Consciencism: Philosophy and ideology for decolonisation_. Heinemann.","Nkrumah, K. (1965). _Neo-colonialism: The last stage of imperialism_. Thomas Nelson & Sons."],
@@ -1306,6 +1361,191 @@ mills:["Mills, C. W. (1997). _The racial contract_. Cornell University Press.","
 gordon:["Gordon, L. R. (1995). _Bad faith and antiblack racism_. Humanities Press.","Gordon, L. R. (2006). _Disciplinary decadence: Living thought in trying times_. Paradigm."],
 lighthouse:["Benjamin, R. (2019). _Race after technology: Abolitionist tools for the new Jim Code_. Polity.","Couldry, N., & Mejias, U. A. (2019). _The costs of connection: How data is colonizing human life and appropriating it for capitalism_. Stanford University Press.","Noble, S. U. (2018). _Algorithms of oppression: How search engines reinforce racism_. NYU Press."]
 };
+
+/* ---- additions: Caribbean Awakening & Shore ---- */
+const NEW_THINKERS = [
+{ id:"hostos", dist:"awakening", n:"Eugenio María de Hostos", d:"1839–1903", o:"Mayagüez, Puerto Rico",
+  q:"Teach people to think, and they will free themselves.",
+  idea:"Hostos was a Puerto Rican educator, sociologist and campaigner for Antillean independence. He dreamed of a confederation of Cuba, Puerto Rico and the Dominican Republic. In Santo Domingo he founded the first teacher-training school (1880), and in his 1873 lecture on the scientific education of women he argued that women deserve the same rigorous education as men. His Moral social (1888) treats ethics as the basis of a free society.",
+  c:["Education for citizenship","Scientific education of women","Antillean confederation"],
+  edu:"Hostos built teacher education as the engine of nation-building. His normal school trained teachers to reason rather than recite, a model still relevant to Caribbean teacher colleges.",
+  pol:"His vision of an Antillean confederation is an early version of regional integration, asking whether small island states can be free alone.",
+  qs:["Hostos tied women's education to national freedom in 1873. Where does Caribbean policy still treat gender equity in education as optional?","Is a regional confederation, as Hostos imagined, more realistic or less realistic today than in the 1870s?","What would a teacher-training curriculum built on Hostos's principles look like now?"],
+  self:"What did your teacher training teach you to reason about, and what did it teach you simply to repeat?",
+  th:["learning","liberation","justice"], ln:["marti","wollstonecraft","nyerere"] },
+
+{ id:"firmin", dist:"awakening", n:"Anténor Firmin", d:"1850–1911", o:"Cap-Haïtien, Haiti",
+  q:"Human beings are equal; science must prove it, not deny it.",
+  idea:"Firmin was a Haitian anthropologist, diplomat and politician. Admitted to the Anthropological Society of Paris, he answered Arthur de Gobineau's claim that races are unequal with his own book, De l'égalité des races humaines (1885). Using evidence from history, Egypt and Haiti itself, he argued that all human races are equal and that racial hierarchy was bad science serving colonial interests.",
+  c:["Scientific anti-racism","Haiti as proof of equality","Critique of colonial science"],
+  edu:"Firmin shows how to answer biased science with better evidence. He is a model for students learning to critique the research behind policy.",
+  pol:"His work anticipates today's debates about biased data and algorithms: when science is used to justify inequality, the response must be both moral and methodological.",
+  qs:["Firmin answered Gobineau with evidence. Why did the racist book shape policy while Firmin's reply was largely forgotten?","Which 'scientific' claims about Caribbean learners deserve Firmin's kind of scrutiny today?","How might Firmin read a modern algorithm that sorts people by risk?"],
+  self:"Have you ever had to use evidence to answer a claim that diminished people like you?",
+  th:["knowledge","liberation","justice"], ln:["hume","wynter","pricemars"] },
+
+{ id:"marti", dist:"awakening", n:"José Martí", d:"1853–1895", o:"Havana, Cuba",
+  q:"“To be educated is the only way to be free.”",
+  idea:"Poet, journalist and leader of Cuba's independence struggle, Martí spent years in exile in New York. In the essay Nuestra América (1891) he urged Latin America and the Caribbean to know and govern themselves through their own realities, warning against imported models and the power of the United States. He died in battle at Dos Ríos in 1895.",
+  c:["Nuestra América","Self-knowledge of the Americas","Education as freedom"],
+  edu:"Martí argued that schools should teach the history and conditions of the people's own land before those of Europe. His line on education and freedom is still quoted across the Hispanic Caribbean.",
+  pol:"Nuestra América is a warning against borrowing foreign models of government. It speaks directly to policy transfer from international agencies.",
+  qs:["Martí warned against imported models of government. Which Caribbean education policies were imported, and did they fit?","How does Martí's 'our America' compare with Garvey's Pan-Africanism as a frame for identity?","Is Martí's link between education and freedom still true when degrees no longer guarantee work?"],
+  self:"What did you learn about your own region before you learned about Europe, if anything?",
+  th:["liberation","learning","culture"], ln:["hostos","garvey","best"] },
+
+{ id:"pricemars", dist:"awakening", n:"Jean Price-Mars", d:"1876–1969", o:"Grande-Rivière-du-Nord, Haiti",
+  q:"Stop imitating; study who you are.",
+  idea:"Physician, diplomat and ethnographer, Price-Mars wrote Ainsi parla l'oncle (1928, So Spoke the Uncle) during the US occupation of Haiti. He criticised the Haitian elite's 'collective bovarysme', its habit of imagining itself French, and argued that Haitian folklore, Kreyòl and Vodou were serious subjects of study and the true basis of national culture.",
+  c:["Collective bovarysme","Folk culture as knowledge","Indigenism"],
+  edu:"Price-Mars called for schools and scholarship to study the people's own culture rather than despise it. He influenced Négritude and Caribbean cultural studies.",
+  pol:"His critique of elites who imitate the former colonial power remains a sharp lens on language policy and on whose culture public institutions honour.",
+  qs:["Where do Caribbean elites still practise 'bovarysme', imagining themselves as somewhere else?","Price-Mars treated Vodou as knowledge. How do Caribbean schools treat African-derived religions today?","Compare Price-Mars with Nettleford on culture as the foundation of development."],
+  self:"Which part of your own culture did you learn to look down on, and when did that change?",
+  th:["culture","knowledge","liberation"], ln:["firmin","cesaire","nettleford"] },
+
+{ id:"marson", dist:"awakening", n:"Una Marson", d:"1905–1965", o:"Santa Cruz, St Elizabeth, Jamaica",
+  q:"A Caribbean woman's voice, broadcast to the world.",
+  idea:"Poet, playwright, journalist and feminist, Marson founded the magazine The Cosmopolitan in Kingston and worked with the League of Coloured Peoples in London. At the BBC she became the first Black woman producer and created the programme Caribbean Voices, which gave a platform to a new generation of Caribbean writers. Her poetry, including The Moth and the Star (1937), explores race, gender and belonging.",
+  c:["Caribbean feminism","Voice and broadcasting","Literature as nation-building"],
+  edu:"Marson used radio as a classroom for a region. She shows how media can build a shared literary culture across scattered islands.",
+  pol:"Her career raises questions about who controls broadcasting and publishing platforms, and therefore whose voices a region hears.",
+  qs:["Caribbean Voices was produced in London. What does it mean when a region's culture is broadcast from the metropole?","Who controls today's platforms for Caribbean voices, and what is lost when they are foreign-owned?","Why has Marson received less recognition than male contemporaries?"],
+  self:"Which platform carries your voice furthest, and who owns it?",
+  th:["culture","liberation"], ln:["amyjacques","hall","claudiajones"] },
+
+{ id:"claudiajones", dist:"awakening", n:"Claudia Jones", d:"1915–1964", o:"Belmont, Port of Spain, Trinidad",
+  q:"The triple oppression of race, class and gender.",
+  idea:"Jones grew up in Harlem and became a leading Black communist journalist. Her 1949 essay on the neglect of the problems of the Negro woman analysed how race, class and gender combine, decades before the term intersectionality. Deported from the United States in 1955, she settled in London, founded the West Indian Gazette (1958) and organised the Caribbean carnival that preceded the Notting Hill Carnival.",
+  c:["Triple oppression","Diaspora organising","Culture as resistance"],
+  edu:"Jones shows political education happening through journalism, community organising and festival, not only in classrooms.",
+  pol:"Her deportation and her work against racist housing and immigration policy in Britain connect directly to later Windrush-era injustices.",
+  qs:["Jones analysed race, class and gender together in 1949. Why is she rarely credited in discussions of intersectionality?","Carnival began partly as a response to racist violence in London. How can culture function as policy advocacy?","What does Jones's deportation teach about the vulnerability of migrant intellectuals?"],
+  self:"Where do your own identities combine to shape how institutions treat you?",
+  th:["justice","liberation","culture"], ln:["marx","hooks","marson"] },
+
+{ id:"goveia", dist:"awakening", n:"Elsa Goveia", d:"1925–1980", o:"Georgetown, British Guiana (Guyana)",
+  q:"Writing West Indian history from the inside.",
+  idea:"Goveia became the first professor of West Indian History at the University of the West Indies and the university's first woman professor. Her study of the historiography of the British West Indies showed how earlier histories had been written from the planters' point of view. Her book on slave society in the Leeward Islands analysed slavery as a whole social system, not only an economic one.",
+  c:["Critique of historiography","Slave society as a system","Caribbean history as a discipline"],
+  edu:"Goveia helped build Caribbean history as a university subject taught by Caribbean scholars, changing what students across the region learned about themselves.",
+  pol:"Her insight that slavery shaped law, values and social structure, not only economics, supports policy that addresses its long social legacy.",
+  qs:["Goveia showed that history depends on whose records survive. Whose records are missing from your research archive?","What changed when Caribbean history began to be taught by Caribbean historians?","How does her idea of slave society as a whole system support or complicate reparations arguments?"],
+  self:"Who wrote the history you were taught in school, and from what standpoint?",
+  th:["knowledge","liberation","culture"], ln:["williams","brathwaite","rodney"] },
+
+{ id:"rastafari", dist:"shore", n:"Rastafari thought", d:"1930s to present", o:"Jamaica, now worldwide",
+  q:"I-and-I: the divine in every person.",
+  idea:"Rastafari emerged in 1930s Jamaica after the coronation of Haile Selassie I of Ethiopia, drawing on Garvey's teaching and early preachers such as Leonard Howell. Through reasoning sessions, music and language, it developed a philosophy of Black dignity, African repatriation, natural living (livity) and resistance to Babylon, the system of oppression. Its word I-and-I expresses the unity of the self, others and the divine.",
+  c:["I-and-I","Reasoning","Babylon and Zion"],
+  edu:"Rastafari reasoning is a dialogic method of learning among equals. Walter Rodney's groundings drew on it, and it parallels Freire's culture circles.",
+  pol:"Rastafari faced persecution, including the 1963 Coral Gardens incident. Questions of religious freedom, land, cannabis law and reparations remain live policy issues.",
+  qs:["Is Rastafari reasoning a form of philosophy in Oruka's sense of philosophic sagacity?","Compare I-and-I with Ubuntu's person-through-persons. What is shared and what differs?","How should Caribbean states address past persecution of Rastafari communities?"],
+  self:"Where have you taken part in a reasoning, formal or informal, that changed how you think?",
+  th:["community","liberation","culture"], ln:["garvey","rodney","ubuntu"] },
+
+{ id:"beckford", dist:"shore", n:"George Beckford", d:"1934–1990", o:"Jamaica",
+  q:"The plantation still shapes Caribbean poverty.",
+  idea:"Beckford was a Jamaican economist at the University of the West Indies and a member of the New World Group. In Persistent Poverty (1972) he argued that plantation economies across the Global South remain underdeveloped because land, capital and decisions stay concentrated, and because the plantation shaped social relations, not only production.",
+  c:["Persistent poverty","Plantation society","Land and power"],
+  edu:"Beckford's analysis helps explain why rural schools and communities in plantation regions remain under-resourced generations after emancipation.",
+  pol:"His work underpins debates on land reform, agricultural policy and food security across the Caribbean.",
+  qs:["Beckford wrote in 1972. Which parts of his plantation analysis still describe the Caribbean economy?","How does persistent poverty show up in your country's education data?","Compare Beckford and Best: where do their models agree and differ?"],
+  self:"How has land, who owns it and who works it, shaped your family's story?",
+  th:["justice","liberation"], ln:["best","rodney","williams"] }
+];
+
+const NEW_SOURCES = {
+hostos:["Hostos, E. M. de. (1888). _Moral social_. Imprenta de García Hermanos.","Hostos, E. M. de. (1873). La educación científica de la mujer [Lecture series]. Academia de Bellas Letras, Santiago de Chile."],
+firmin:["Firmin, A. (2000). _The equality of the human races_ (A. Charles, Trans.). Garland. (Original work published 1885)","Fluehr-Lobban, C. (2000). Anténor Firmin: Haitian pioneer of anthropology. _American Anthropologist, 102_(3), 449–466."],
+marti:["Martí, J. (2002). _Selected writings_ (E. Allen, Ed. & Trans.). Penguin."],
+pricemars:["Price-Mars, J. (1983). _So spoke the uncle_ (M. W. Shannon, Trans.). Three Continents Press. (Original work published 1928)"],
+marson:["Jarrett-Macauley, D. (1998). _The life of Una Marson, 1905–65_. Manchester University Press.","Marson, U. (1937). _The moth and the star_. Author."],
+claudiajones:["Jones, C. (1949). An end to the neglect of the problems of the Negro woman! _Political Affairs, 28_(6), 51–67.","Boyce Davies, C. (2008). _Left of Karl Marx: The political life of Black communist Claudia Jones_. Duke University Press."],
+goveia:["Goveia, E. V. (1956). _A study on the historiography of the British West Indies to the end of the nineteenth century_. Instituto Panamericano de Geografía e Historia.","Goveia, E. V. (1965). _Slave society in the British Leeward Islands at the end of the eighteenth century_. Yale University Press."],
+rastafari:["Chevannes, B. (1994). _Rastafari: Roots and ideology_. Syracuse University Press.","Barrett, L. E. (1997). _The Rastafarians_ (20th anniversary ed.). Beacon Press."],
+beckford:["Beckford, G. L. (1972). _Persistent poverty: Underdevelopment in plantation economies of the Third World_. Oxford University Press."]
+};
+
+const WIKI = {ptahhotep:"The_Maxims_of_Ptahhotep",amenemope:"Instruction_of_Amenemope",orunmila:"Ifá",ubuntu:"Ubuntu_philosophy",confucius:"Confucius",socrates:"Socrates",plato:"Plato",aristotle:"Aristotle",pyrrho:"Pyrrho",epicurus:"Epicurus",hypatia:"Hypatia",augustine:"Augustine_of_Hippo",ibnrushd:"Averroes",aquinas:"Thomas_Aquinas",ibnkhaldun:"Ibn_Khaldun",ahmadbaba:"Ahmad_Baba_al-Timbukti",bacon:"Francis_Bacon",descartes:"René_Descartes",zerayacob:"Zera_Yacob_(philosopher)",locke:"John_Locke",amo:"Anton_Wilhelm_Amo",hume:"David_Hume",rousseau:"Jean-Jacques_Rousseau",kant:"Immanuel_Kant",wollstonecraft:"Mary_Wollstonecraft",bentham:"Jeremy_Bentham",hegel:"Georg_Wilhelm_Friedrich_Hegel",mill:"John_Stuart_Mill",marx:"Karl_Marx",nietzsche:"Friedrich_Nietzsche",dubois:"W._E._B._Du_Bois",dewey:"John_Dewey",mead:"George_Herbert_Mead",gramsci:"Antonio_Gramsci",arendt:"Hannah_Arendt",freire:"Paulo_Freire",foucault:"Michel_Foucault",rawls:"John_Rawls",sen:"Amartya_Sen",hooks:"Bell_hooks",west:"Cornel_West",butler:"Judith_Butler",nkrumah:"Kwame_Nkrumah",nyerere:"Julius_Nyerere",biko:"Steve_Biko",oruka:"Henry_Odera_Oruka",wiredu:"Kwasi_Wiredu",garvey:"Marcus_Garvey",amyjacques:"Amy_Jacques_Garvey",cesaire:"Aimé_Césaire",clrjames:"C._L._R._James",williams:"Eric_Williams",fanon:"Frantz_Fanon",best:"Lloyd_Best",nettleford:"Rex_Nettleford",brathwaite:"Kamau_Brathwaite",rodney:"Walter_Rodney",wynter:"Sylvia_Wynter",hall:"Stuart_Hall_(cultural_theorist)",glissant:"Édouard_Glissant",henry:"Paget_Henry",mills:"Charles_W._Mills",gordon:"Lewis_Gordon",lighthouse:"Ethics_of_artificial_intelligence",firmin:"Anténor_Firmin",marti:"José_Martí",hostos:"Eugenio_María_de_Hostos",pricemars:"Jean_Price-Mars",goveia:"Elsa_Goveia",claudiajones:"Claudia_Jones",marson:"Una_Marson",rastafari:"Rastafari"};
+
+/* Direct quotations: where each line marked as a quote comes from */
+const QUOTE_SRC = {
+ptahhotep:"The Instruction of Ptahhotep (translation varies)",
+confucius:"Analects 2.15 (translation varies)",
+socrates:"Plato, Apology 38a",
+rousseau:"The Social Contract, Book I, ch. 1 (1762)",
+garvey:"Speech at Menelik Hall, Sydney, Nova Scotia, 1937; printed in The Black Man",
+clrjames:"Beyond a Boundary (1963), preface",
+marti:"From \u201cMaestros ambulantes\u201d (1884): \u201cSer culto es el único modo de ser libre\u201d"
+};
+
+/* Specialist review status. Add an entry when a colleague has checked a house:
+   REVIEWED.freire = {by:"Dr A. Name", date:"2026-12-01"}; */
+const REVIEWED = {};
+
+const CHANGELOG = [
+{date:"2026-11-03", items:["Added nine Caribbean entries: Hostos, Firmin, Martí, Price-Mars, Una Marson, Claudia Jones, Elsa Goveia, Rastafari thought and George Beckford.","Split the Caribbean into two chapters: The Caribbean Awakening and The Caribbean Shore.","Added error reporting, review status, 'Look it up' links, quotation labels, policy case files, read-aloud, lite mode, offline use and portfolio export.","Reference for Bell Hooks now reads 'Hooks, B.' to match the site's spelling.","Paget Henry's birth year added (1946)."]},
+{date:"2026-11-03", items:["Capitalised Bell Hooks throughout the site and added her birth name."]},
+{date:"2026-11-03", items:["Added a note on accuracy to the sources section, footer and each house."]},
+{date:"2026-11-03", items:["Copyedit: softened Locke's role in the Carolina constitutions to 'was involved in drafting'; Eric Williams's thesis now says profits from slavery 'helped finance' industrialisation; replaced two lines for Amy Jacques Garvey and Rex Nettleford that read like quotations but were not; clarified Marx's line as from Capital."]}
+];
+
+const CASES = [
+{id:"language", title:"Which language should children learn in?",
+ context:"Across the Caribbean, many children speak a Creole or another home language but are taught and examined in English, French, Spanish or Dutch. Some territories have piloted bilingual education; others treat the home language as interference to be corrected.",
+ question:"Should Caribbean Creoles be languages of instruction and assessment in the early years?",
+ lenses:["brathwaite","wiredu","freire"],
+ tasks:["Explain how each thinker would frame the problem.","Identify one tension between their positions.","Draft a one-page policy recommendation for a ministry of education."]},
+{id:"exams", title:"The secondary school placement exam",
+ context:"Several Caribbean countries place children in secondary schools using a national exam taken around age eleven or twelve. Supporters see merit; critics see early sorting that mirrors class and geography.",
+ question:"Is a high-stakes placement exam at age eleven fair?",
+ lenses:["plato","rawls","foucault"],
+ tasks:["Apply the veil of ignorance to the exam.","Use Foucault to describe what the exam does to children and schools.","Propose an alternative and defend it against Plato's case for sorting."]},
+{id:"reparations", title:"Reparations for slavery and native genocide",
+ context:"In 2014 the CARICOM Reparations Commission set out a ten-point plan calling on former colonial powers to address the legacies of slavery and native genocide, including education, health and debt.",
+ question:"What is owed, to whom, and in what form?",
+ lenses:["williams","mills","goveia"],
+ tasks:["Summarise the historical argument using Williams and Goveia.","Use Mills to test the objection that 'it was too long ago'.","Recommend which form of repair should come first and why."]},
+{id:"ai", title:"AI in Caribbean classrooms",
+ context:"Generative AI tools are entering schools and universities, mostly built and owned outside the region and trained largely on data from the Global North.",
+ question:"Under what conditions should a Caribbean ministry adopt AI in public education?",
+ lenses:["freire","wynter","nyerere"],
+ tasks:["Name the risks and benefits each thinker would see.","Decide what 'self-reliance' would mean for AI in education.","Write three conditions for adoption."]},
+{id:"land", title:"Beaches, land and tourism",
+ context:"Tourism is central to many Caribbean economies. Residents in several territories have raised concerns about loss of public beach access and land to large resorts and foreign investment.",
+ question:"Who should the coastline belong to?",
+ lenses:["locke","beckford","amenemope"],
+ tasks:["Compare Locke's theory of property with Beckford's plantation analysis.","Use Amenemope's warning about boundary stones to frame a public-interest argument.","Propose a fair access policy."]}
+];
+
+/* merge additions and order the Caribbean chapters */
+(function(){
+  const AW=["hostos","firmin","marti","pricemars","garvey","amyjacques","clrjames","marson","williams","cesaire","claudiajones","fanon","goveia"];
+  const SH=["rastafari","wynter","glissant","brathwaite","hall","nettleford","best","beckford","rodney","henry","mills","gordon"];
+  NEW_THINKERS.forEach(t=>THINKERS.push(t));
+  Object.assign(SOURCES, NEW_SOURCES);
+  const by=Object.fromEntries(THINKERS.map(t=>[t.id,t]));
+  AW.forEach(id=>by[id].dist="awakening");
+  SH.forEach(id=>by[id].dist="shore");
+  const head=THINKERS.filter(t=>!["awakening","shore","light"].includes(t.dist));
+  const tail=THINKERS.filter(t=>t.dist==="light");
+  const ordered=[...head, ...AW.map(id=>by[id]), ...SH.map(id=>by[id]), ...tail];
+  THINKERS.length=0; ordered.forEach(t=>THINKERS.push(t));
+  by.henry.d="b. 1946";
+  const i=DISTRICTS.findIndex(d=>d.id==="shore");
+  DISTRICTS.splice(i,0,{id:"awakening", name:"The Caribbean Awakening", era:"Independence of mind \u00b7 c. 1870\u20131960",
+    place:"Puerto Rico, Haiti, Cuba, Jamaica, Trinidad, Martinique, Guyana",
+    intro:"The road reaches the Caribbean. Across Spanish, French and English-speaking islands, thinkers answer the racial science of Europe, recover their peoples' culture and history, and argue that education is the path to freedom. This chapter runs from the late nineteenth century to the eve of independence.",
+    ask:"Caribbean thought has often been treated as literature, politics or history, rarely as philosophy. What is lost when a region's ideas are not recognised as philosophy, and who gains?",
+    scene:"awakening"});
+  const sh=DISTRICTS.find(d=>d.id==="shore");
+  sh.era="From independence to the world \u00b7 1960\u2013today";
+  sh.place="Jamaica, Trinidad and Tobago, Martinique, Barbados, Guyana, Antigua";
+  sh.intro="After independence, Caribbean thinkers ask what freedom means when the plantation still shapes land, economy, language and mind. Here economists, historians, poets and philosophers answer the questions of every earlier chapter from the Caribbean itself, and reach the world.";
+  sh.ask="Independence changed flags. Which structures from the plantation era still shape Caribbean life, and which thinkers on this shore give you the best tools to change them?";
+  SOURCES.hooks=SOURCES.hooks.map(r=>r.replace("hooks, b. (1994)","Hooks, B. (1994)"));
+})();
 
 </script>
 <script>
@@ -1334,6 +1574,7 @@ function rng(seed){ let s = seed; return () => (s = (s*9301 + 49297) % 233280) /
 
 /* ---------- building icons per district ---------- */
 const ICON = {
+  awakening:`<rect x="12" y="26" width="40" height="24" fill="#f3e3b8"/><path d="M8 28 L32 12 L56 28 Z" fill="#2f7d5b"/><rect x="28" y="4" width="8" height="10" fill="#f3e3b8"/><circle cx="32" cy="9" r="2.5" fill="#c8553d"/><rect x="17" y="32" width="7" height="7" fill="#5c8bb0"/><rect x="40" y="32" width="7" height="7" fill="#5c8bb0"/><rect x="28" y="36" width="8" height="14" fill="#7a4a2a"/>`,
   nile:`<path d="M8 50 L32 14 L56 50 Z" fill="#e2b06a"/><path d="M32 14 L56 50 L40 50 Z" fill="#b9874a"/><rect x="27" y="38" width="10" height="12" fill="#3b2a18"/>`,
   agora:`<path d="M8 22 L32 10 L56 22 Z" fill="#efe7d6"/><rect x="10" y="22" width="44" height="4" fill="#d9cfbb"/><g fill="#efe7d6"><rect x="13" y="27" width="5" height="19"/><rect x="23" y="27" width="5" height="19"/><rect x="36" y="27" width="5" height="19"/><rect x="46" y="27" width="5" height="19"/></g><rect x="8" y="46" width="48" height="5" fill="#d9cfbb"/>`,
   crossroads:`<rect x="12" y="30" width="40" height="20" fill="#c98a55"/><path d="M18 30 Q32 6 46 30 Z" fill="#e0a967"/><rect x="47" y="14" width="6" height="36" fill="#b9774a"/><path d="M47 14 L50 8 L53 14Z" fill="#e0a967"/><g stroke="#7a4a2a" stroke-width="2"><line x1="10" y1="38" x2="14" y2="38"/><line x1="50" y1="24" x2="56" y2="24"/></g><path d="M28 50 V40 Q32 35 36 40 V50Z" fill="#3b2a18"/>`,
@@ -1399,6 +1640,16 @@ const SCENE = {
     <g fill="#3b2a1e"><path d="M120 165 C116 130 112 120 118 110 C130 112 150 112 160 110 C166 120 162 130 158 165Z"/><ellipse cx="139" cy="104" rx="46" ry="16"/></g>
     <g fill="#3b2a1e"><path d="M1050 166 V130" stroke="#3b2a1e" stroke-width="5"/><ellipse cx="1050" cy="126" rx="56" ry="10"/></g>
     <g class="anim-birds" fill="none" stroke="#3b2219" stroke-width="2"><path d="M0 50 q6 -6 12 0 q6 -6 12 0"/><path d="M26 40 q5 -5 10 0 q5 -5 10 0"/></g>`},
+  awakening:{sky:["#fbd57a","#e98a5a"], ground:"#86a85e", svg:`
+    <circle cx="300" cy="150" r="70" fill="#fff0c0" opacity=".9"/>
+    <path d="M0 150 Q160 80 340 120 Q500 70 700 115 Q880 80 1200 130 V220 H0Z" fill="#4f7d4a"/>
+    <path d="M0 175 Q300 140 600 168 T1200 160 V220 H0Z" fill="#6f9853"/>
+    <g fill="#8a6a4e"><rect x="760" y="92" width="80" height="60"/><rect x="820" y="40" width="18" height="60"/><path d="M752 94 L800 66 L848 94Z" fill="#6e523c"/></g>
+    <circle class="anim-smoke" cx="829" cy="34" r="10" fill="#e9dccb"/>
+    <g fill="#f3e3b8"><rect x="520" y="104" width="90" height="56"/><path d="M512 106 L565 74 L618 106Z" fill="#2f7d5b"/><rect x="556" y="58" width="16" height="20"/></g>
+    <g fill="#e8d6a8"><rect x="980" y="110" width="22" height="50"/><path d="M976 112 L991 80 L1006 112Z"/></g>
+    <g class="anim-sway"><path d="M140 175 Q146 140 156 112" fill="none" stroke="#6b4a2a" stroke-width="6"/><g stroke="#2f6b3a" stroke-width="6" fill="none" stroke-linecap="round"><path d="M156 112 q-34 -4 -46 14"/><path d="M156 112 q34 -2 46 16"/><path d="M156 112 q-16 -24 -40 -20"/><path d="M156 112 q18 -24 40 -18"/></g></g>
+    <g class="anim-birds" fill="none" stroke="#3b2a1e" stroke-width="2"><path d="M0 50 q6 -6 12 0 q6 -6 12 0"/><path d="M26 40 q5 -5 10 0 q5 -5 10 0"/></g>`},
   shore:{sky:["#4a5c96","#f0946a"], ground:"#d8c08c", svg:`
     <circle cx="640" cy="150" r="56" fill="#ffc57a"/>
     <path d="M0 140 Q120 70 260 110 Q380 60 520 120 Q600 100 660 130 V150 H0Z" fill="#2f3f6e"/>
@@ -1426,7 +1677,7 @@ function sceneSVG(d){
   return `<svg class="scene" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${s.svg}</svg>`;
 }
 function propSVG(kind, scene){
-  const leaf = {nile:"#3d6b36",agora:"#3e5a2e",crossroads:"#4c6b34",harbour:"#3e5a46",square:"#5a5a3e",quarter:"#3e4a5a",bridge:"#5a5a2a",shore:"#2f6b3a",light:"#22304a"}[scene];
+  const leaf = {awakening:"#2f6b3a",nile:"#3d6b36",agora:"#3e5a2e",crossroads:"#4c6b34",harbour:"#3e5a46",square:"#5a5a3e",quarter:"#3e4a5a",bridge:"#5a5a2a",shore:"#2f6b3a",light:"#22304a"}[scene];
   if(kind==="palm") return `<svg width="70" height="90" viewBox="0 0 70 90" class="anim-sway"><path d="M34 88 Q36 50 40 26" stroke="#6b4a2a" stroke-width="5" fill="none"/><g stroke="${leaf}" stroke-width="5" fill="none" stroke-linecap="round"><path d="M40 26 q-22 -2 -32 12"/><path d="M40 26 q22 -2 30 14"/><path d="M40 26 q-12 -18 -28 -14"/><path d="M40 26 q12 -18 26 -12"/></g></svg>`;
   if(kind==="cypress") return `<svg width="30" height="80" viewBox="0 0 30 80"><path d="M15 78 Q2 50 15 4 Q28 50 15 78Z" fill="${leaf}"/></svg>`;
   if(kind==="tree") return `<svg width="60" height="70" viewBox="0 0 60 70" class="anim-sway"><rect x="27" y="40" width="6" height="30" fill="#6b4a2a"/><circle cx="30" cy="30" r="22" fill="${leaf}"/><circle cx="18" cy="38" r="12" fill="${leaf}"/><circle cx="42" cy="38" r="12" fill="${leaf}"/></svg>`;
@@ -1437,7 +1688,7 @@ function propSVG(kind, scene){
   if(kind==="wave") return `<svg width="60" height="16" viewBox="0 0 60 16" class="anim-wave"><path d="M0 8 q8 -8 15 0 t15 0 t15 0 t15 0" stroke="#e8f6f2" stroke-width="2.5" fill="none" opacity=".75"/></svg>`;
   return "";
 }
-const PROPS = {nile:["palm","reed","palm","reed"],agora:["cypress","tree","cypress"],crossroads:["palm","palm","tree"],harbour:["lamp","tree","lamp"],square:["lamp","tree"],quarter:["lamp","tree","lamp"],bridge:["baobab","tree","baobab"],shore:["palm","palm","wave","palm"],light:["star","star","star","star"]};
+const PROPS = {nile:["palm","reed","palm","reed"],agora:["cypress","tree","cypress"],crossroads:["palm","palm","tree"],harbour:["lamp","tree","lamp"],square:["lamp","tree"],quarter:["lamp","tree","lamp"],bridge:["baobab","tree","baobab"],shore:["palm","palm","wave","palm"],awakening:["palm","tree","palm"],light:["star","star","star","star"]};
 
 /* ---------- build the map ---------- */
 const distEl = $("#districts");
@@ -1482,12 +1733,12 @@ function build(){
           <div class="dmeta">${esc(d.place)}</div>
           <p>${esc(d.intro)}</p>
           <div class="dask"><b>Crossroads question</b>${esc(d.ask)}</div>
-          ${vid ? `<div class="dvid">${mediaBlock(vid,"district:"+d.id,false)}</div>` : ""}
+          ${(vid || MEDIA.audio["district:"+d.id]) ? `<div class="dvid">${mediaBlock(vid,"district:"+d.id,false)}</div>` : ""}
         </div>
         ${sceneSVG(d)}
       </div>
       <div class="ground" style="height:${gh}px">
-        <div class="props">${pr}${["bridge","shore","light"].includes(d.scene) ? Array.from({length:14},(_,k)=>{const rr=rng(di*7+k*13);return `<span class="fly" style="left:${4+rr()*92}%;top:${rr()*(gh-40)}px;animation-delay:-${rr()*9}s;animation-duration:${7+rr()*6}s"></span>`}).join("") : ""}</div>
+        <div class="props">${pr}${["bridge","awakening","shore","light"].includes(d.scene) ? Array.from({length:14},(_,k)=>{const rr=rng(di*7+k*13);return `<span class="fly" style="left:${4+rr()*92}%;top:${rr()*(gh-40)}px;animation-delay:-${rr()*9}s;animation-duration:${7+rr()*6}s"></span>`}).join("") : ""}</div>
         ${st}
       </div>
     </section>`;
@@ -1601,7 +1852,7 @@ function mediaBlock(url, key, withAdd){
 const drawer = $("#drawer"), dbody = $("#dbody"), scrim = $("#scrim");
 function openStation(id, fromHash){
   const t = BY[id]; if(!t) return;
-  openId = id; current = id; store.set("current", id);
+  stopListen(); openId = id; current = id; store.set("current", id);
   const d = DBY[t.dist], i = ORDER.indexOf(id);
   $("#crumb").textContent = `${d.name} · ${i+1} of ${ORDER.length}`;
   const links = t.ln.filter(l => BY[l]).map(l => `<button class="chip link" data-go="${l}">${esc(BY[l].n)}</button>`).join("");
@@ -1613,8 +1864,11 @@ function openStation(id, fromHash){
       <div class="roman">Chapter ${ROMAN[di]} · ${esc(d.name)}</div>
       <h2 style="margin-top:8px">${esc(t.n)}</h2>
       <div class="when">${esc(t.d)} · ${esc(t.o)} · <span title="id for media.js">id: ${t.id}</span></div>
+      ${REVIEWED[t.id] ? `<span class="badge ok">✓ Reviewed by ${esc(REVIEWED[t.id].by)} · ${esc(REVIEWED[t.id].date)}</span>` : `<span class="badge ai">AI-assisted draft · awaiting specialist review</span>`}
     </div>
     <p class="quote">${esc(t.q)}</p>
+    <span class="qlabel">${QUOTE_SRC[t.id] ? `Quotation · <em>${esc(QUOTE_SRC[t.id])}</em>` : "Summary in our words, not a direct quotation"}</span>
+    <button class="listen" id="listenBtn" aria-pressed="false">▶ Listen to this house</button>
     <div class="sec"><h3>The idea</h3><p>${esc(t.idea)}</p></div>
     <div class="sec"><h3>Key concepts</h3><div class="chips">${t.c.map(c=>`<span class="chip">${esc(c)}</span>`).join("")}</div></div>
     <div class="sec"><h3>Two lenses</h3><div class="lens">
@@ -1624,12 +1878,16 @@ function openStation(id, fromHash){
     <div class="sec"><h3>Watch and listen</h3>${mediaBlock(mediaFor(t.id), t.id, true)}</div>
     <div class="sec"><h3>Your connection</h3><p style="margin-bottom:10px">${esc(t.self)}</p>
       <textarea id="note-${t.id}" aria-label="Your reflection" placeholder="Write here. It saves on this device as you type.">${esc(notes[t.id]||"")}</textarea><div class="saved" id="savedMsg"></div></div>
+    <div class="sec"><h3>Look it up</h3><div class="linkrow">${lookups(t)}</div></div>
     <div class="sec"><h3>Sources</h3><ul class="refs">${refs}</ul><p class="verify">Summaries on this page may simplify or contain errors. Check the original works before citing.</p></div>
+    <div class="sec"><h3>Spotted an error?</h3><p style="font-size:14px;color:var(--mute);margin-bottom:10px">Help keep the village accurate. Reports go to the author.</p><div class="linkrow"><a href="${issueUrl(t)}" target="_blank" rel="noopener">Report on GitHub</a><a href="#" id="copyReport">Copy a report to email</a></div></div>
     <div class="sec"><h3>Compare</h3><button class="sbtn" id="cmpThis">Compare ${esc(t.n.split(" (")[0])} with another thinker</button></div>
     <div class="sec"><h3>Walk the threads to</h3><div class="chips">${links}</div>
       <div class="chips" style="margin-top:10px">${t.th.map(x=>`<span class="chip" style="border-style:dashed">${esc(THREADS[x].label)}</span>`).join("")}</div></div>`;
   dbody.scrollTop = 0;
   dbody.querySelectorAll("[data-go]").forEach(b => b.onclick = () => go(b.dataset.go));
+  $("#listenBtn").onclick = () => toggleListen(t);
+  $("#copyReport").onclick = async e => { e.preventDefault(); const txt = `Error report: ${t.n} (${t.id})\nPage: ${location.href.split("#")[0]}#${t.id}\n\nWhat is wrong:\n\nWhat it should say, with a source:\n`; try{ await navigator.clipboard.writeText(txt); toast("Report copied. Paste it into an email."); }catch(_){ toast("Copy failed. Use Report on GitHub instead."); } };
   $("#cmpThis").onclick = () => { cmpA = t.id; if(cmpB === t.id) cmpB = t.ln[0] || ORDER[0]; openPanel("compare"); };
   const ta = $("#note-"+t.id); let timer;
   ta.addEventListener("input", () => { notes[t.id] = ta.value; clearTimeout(timer); timer = setTimeout(() => { store.set("notes", notes); $("#savedMsg").textContent = "Saved on this device"; }, 400); });
@@ -1648,6 +1906,7 @@ function openStation(id, fromHash){
 }
 function go(id){ openStation(id); }
 function closeDrawer(){
+  stopListen();
   drawer.classList.remove("open"); drawer.setAttribute("aria-hidden","true"); scrim.classList.remove("on"); openId = null;
   try{ history.replaceState(null,"",location.pathname + location.search); }catch(e){}
   const el = current && $("#st-"+current); if(el) el.focus({preventScroll:true});
@@ -1682,6 +1941,56 @@ $("#btnThreads").onclick = () => openPanel("threads");
 $("#btnNotes").onclick = () => openPanel("notes");
 $("#btnGuide").onclick = () => openPanel("guide");
 $("#btnCompare").onclick = () => openPanel("compare");
+
+/* ---------- trust: lookups, reports ---------- */
+const REPO = "https://github.com/Rj952/sankofa-thinkers-village";
+function plainName(t){ return t.n.replace(/ \(.*\)$/,""); }
+function lookups(t){
+  const q = encodeURIComponent(plainName(t));
+  const items = [
+    ["Stanford Encyclopedia", `https://plato.stanford.edu/search/searcher.py?query=${q}`],
+    ["Internet Encyclopedia", `https://iep.utm.edu/?s=${q}`]
+  ];
+  if(WIKI[t.id]) items.push(["Wikipedia", `https://en.wikipedia.org/wiki/${encodeURIComponent(WIKI[t.id])}`]);
+  items.push(["Original texts (Internet Archive)", `https://archive.org/search?query=${q}&sin=TXT`]);
+  return items.map(([l,u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(l)} ↗</a>`).join("");
+}
+function issueUrl(t){
+  const title = encodeURIComponent(`Possible error: ${plainName(t)}`);
+  const body = encodeURIComponent(`House: ${t.n} (id: ${t.id})\n\nWhat is wrong:\n\nWhat it should say:\n\nSource for the correction:\n`);
+  return `${REPO}/issues/new?title=${title}&body=${body}`;
+}
+
+/* ---------- narration ---------- */
+function narration(t){
+  const parts = [`${plainName(t)}.`, `${t.d.replace("–"," to ").replace("c. ","around ").replace("b. ","born ")}. ${t.o}.`, t.idea, `What does this mean for learning? ${t.edu}`, `And for public life and policy? ${t.pol}`, `Here is a question to carry with you. ${t.qs[0]}`, `Before you walk on, think about this. ${t.self}`];
+  return parts.join(" ");
+}
+let speaking = null, audioEl = null;
+function stopListen(){ try{ speechSynthesis.cancel(); }catch(_){} if(audioEl){ audioEl.pause(); audioEl = null; } speaking = null; const b = $("#listenBtn"); if(b){ b.setAttribute("aria-pressed","false"); b.textContent = "▶ Listen to this house"; } }
+function toggleListen(t){
+  if(speaking === t.id){ stopListen(); return; }
+  stopListen();
+  const b = $("#listenBtn");
+  if(MEDIA.audio[t.id]){ audioEl = new Audio(MEDIA.audio[t.id]); audioEl.play().catch(()=>toast("Audio could not play")); audioEl.onended = stopListen; }
+  else if("speechSynthesis" in window){ const u = new SpeechSynthesisUtterance(narration(t)); u.rate = .98; u.onend = stopListen; speechSynthesis.speak(u); }
+  else { toast("Read-aloud is not available in this browser"); return; }
+  speaking = t.id; b.setAttribute("aria-pressed","true"); b.textContent = "■ Stop";
+}
+
+/* ---------- case files & change log ---------- */
+$("#caseGrid").innerHTML = CASES.map(c => `<article class="case"><span class="lab">Case file</span><h3>${esc(c.title)}</h3><p>${esc(c.context)}</p><p class="q">${esc(c.question)}</p><span class="lab">Thinkers</span><div class="chips">${c.lenses.filter(id=>BY[id]).map(id=>`<button class="chip link" data-go="${id}">${esc(BY[id].n)}</button>`).join("")}</div><span class="lab">Tasks</span><ol>${c.tasks.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></article>`).join("");
+$("#caseGrid").querySelectorAll("[data-go]").forEach(b => b.onclick = () => go(b.dataset.go));
+$("#changes").innerHTML = `<h3>What's changed</h3>` + CHANGELOG.map(c => `<time>${esc(c.date)}</time><ul>${c.items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`).join("");
+$("#fChapters").textContent = DISTRICTS.length;
+
+/* ---------- lite mode ---------- */
+function setLite(on){ document.body.classList.toggle("lite", on); store.set("lite", on); const b = $("#liteBtn"); if(b){ b.setAttribute("aria-pressed", on); b.textContent = on ? "Turn off lite mode" : "Turn on lite mode"; } }
+setLite(store.get("lite", !!(navigator.connection && navigator.connection.saveData)));
+$("#liteBtn").onclick = () => setLite(!document.body.classList.contains("lite"));
+
+/* ---------- offline (GitHub Pages only) ---------- */
+if("serviceWorker" in navigator && /github\.io$/.test(location.hostname)){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
 
 /* ---------- sources ---------- */
 function fmtRef(r){ return esc(r).replace(/_([^_]+)_/g, "<em>$1</em>"); }
@@ -1725,11 +2034,21 @@ function renderNotes(){
   const ids = ORDER.filter(id => (notes[id]||"").trim());
   $("#notesList").innerHTML = ids.length ? ids.map(id => `<div class="note"><b>${esc(BY[id].n)}</b><p>${esc(notes[id])}</p></div>`).join("") : `<p class="empty">No reflections yet. Open any house and write under “Your connection”.</p>`;
   $("#dlNotes").hidden = !CAN_EMBED;
+  $("#dlPortfolio").hidden = !CAN_EMBED;
 }
 $("#copyNotes").onclick = async () => {
   const txt = notesText() || "No reflections yet.";
   try{ await navigator.clipboard.writeText(txt); toast("Reflections copied"); }
   catch(e){ const ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); toast("Reflections copied"); }catch(_){ toast("Select and copy the text manually"); } ta.remove(); }
+};
+$("#stuName").value = store.get("name","");
+$("#stuName").oninput = e => store.set("name", e.target.value);
+$("#dlPortfolio").onclick = () => {
+  const name = esc($("#stuName").value || "Student");
+  const ids = ORDER.filter(id => (notes[id]||"").trim());
+  const body = ids.map(id => `<h2>${esc(BY[id].n)}</h2><p><i>${esc(DBY[BY[id].dist].name)}</i></p><p><b>Prompt:</b> ${esc(BY[id].self)}</p><p>${esc(notes[id]).replace(/\n/g,"<br>")}</p>`).join("");
+  const html = `<html><head><meta charset="utf-8"><title>Sankofa Thinkers' Village portfolio</title><style>body{font-family:Georgia,serif;line-height:1.5}h1{font-size:22pt}h2{font-size:15pt;margin-top:18pt}</style></head><body><h1>Sankofa Thinkers' Village: reflective portfolio</h1><p>${name} · ${new Date().toLocaleDateString()}</p><p>${ids.length} reflections.</p>${body || "<p>No reflections yet.</p>"}<hr><p style="font-size:9pt">Generated from the Sankofa Thinkers' Village. Summaries in the village may contain errors; verify sources before citing.</p></body></html>`;
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([html],{type:"application/msword"})); a.download = "sankofa-portfolio.doc"; a.click();
 };
 $("#dlNotes").onclick = () => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([notesText()],{type:"text/plain"})); a.download = "sankofa-village-notebook.txt"; a.click(); };
 $("#resetBtn").onclick = () => { $("#resetConfirm").hidden = false; };
