@@ -984,13 +984,13 @@ const THINKERS = [
   self:"What freedom has your education given you that income alone could not?",
   th:["justice","community"], ln:["rawls","nyerere","best"] },
 
-{ id:"hooks", dist:"quarter", n:"bell hooks", d:"1952–2021", o:"Hopkinsville, Kentucky, USA",
+{ id:"hooks", dist:"quarter", n:"Bell Hooks", d:"1952–2021", o:"Hopkinsville, Kentucky, USA",
   q:"The classroom remains the most radical space of possibility.",
-  idea:"bell hooks, who wrote her name in lower case to keep attention on her ideas rather than on herself, extended Freire through Black feminist thought. In Teaching to Transgress (1994) she described engaged pedagogy: teaching that cares for students' whole selves, recognises race, gender and class, and treats education as the practice of freedom.",
+  idea:"Bell Hooks (born Gloria Jean Watkins), who herself styled her pen name in lower case to keep attention on her ideas rather than on herself, extended Freire through Black feminist thought. In Teaching to Transgress (1994) she described engaged pedagogy: teaching that cares for students' whole selves, recognises race, gender and class, and treats education as the practice of freedom.",
   c:["Engaged pedagogy","Education as the practice of freedom","Intersectionality in the classroom"],
-  edu:"hooks asks teachers to bring their full selves into the classroom and to make room for students' experience as knowledge. She also challenged Freire's sexist language while honouring his work.",
-  pol:"hooks connects classroom practice with systems of domination. Policies on inclusion, she suggests, fail if they ignore love, care and power in daily teaching.",
-  qs:["hooks loved Freire and criticised him. How do you honour a thinker while naming their blind spots?","Can engaged pedagogy survive large classes, online delivery and high-stakes assessment?","What is the role of love in a policy document?"],
+  edu:"Hooks asks teachers to bring their full selves into the classroom and to make room for students' experience as knowledge. She also challenged Freire's sexist language while honouring his work.",
+  pol:"Hooks connects classroom practice with systems of domination. Policies on inclusion, she suggests, fail if they ignore love, care and power in daily teaching.",
+  qs:["Hooks loved Freire and criticised him. How do you honour a thinker while naming their blind spots?","Can engaged pedagogy survive large classes, online delivery and high-stakes assessment?","What is the role of love in a policy document?"],
   self:"When did a teacher make you feel your whole self belonged in the room?",
   th:["learning","liberation","culture"], ln:["freire","butler","west"] },
 
@@ -1609,7 +1609,7 @@ function openStation(id, fromHash){
   const refs = (SOURCES[t.id]||[]).map(r => `<li>${fmtRef(r)}</li>`).join("");
   dbody.innerHTML = `
     <div class="dband" style="background:linear-gradient(135deg,${sk[0]} 0%,${sk[1]} 60%,${SCENE[d.scene].ground} 130%)">
-      <div class="big" aria-hidden="true">${esc(t.n.replace(/^(The |bell )/,"").charAt(0).toUpperCase())}</div>
+      <div class="big" aria-hidden="true">${esc(t.n.replace(/^The /,"").charAt(0).toUpperCase())}</div>
       <div class="roman">Chapter ${ROMAN[di]} · ${esc(d.name)}</div>
       <h2 style="margin-top:8px">${esc(t.n)}</h2>
       <div class="when">${esc(t.d)} · ${esc(t.o)} · <span title="id for media.js">id: ${t.id}</span></div>
