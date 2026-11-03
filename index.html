@@ -1880,14 +1880,15 @@ function openStation(id, fromHash){
       <textarea id="note-${t.id}" aria-label="Your reflection" placeholder="Write here. It saves on this device as you type.">${esc(notes[t.id]||"")}</textarea><div class="saved" id="savedMsg"></div></div>
     <div class="sec"><h3>Look it up</h3><div class="linkrow">${lookups(t)}</div></div>
     <div class="sec"><h3>Sources</h3><ul class="refs">${refs}</ul><p class="verify">Summaries on this page may simplify or contain errors. Check the original works before citing.</p></div>
-    <div class="sec"><h3>Spotted an error?</h3><p style="font-size:14px;color:var(--mute);margin-bottom:10px">Help keep the village accurate. Reports go to the author.</p><div class="linkrow"><a href="${issueUrl(t)}" target="_blank" rel="noopener">Report on GitHub</a><a href="#" id="copyReport">Copy a report to email</a></div></div>
+    <div class="sec"><h3>Spotted an error?</h3><p style="font-size:14px;color:var(--mute);margin-bottom:10px">Help keep the village accurate. Your report goes privately to the author.</p><div class="linkrow"><a href="#" id="mailReport">Email the author</a><a href="#" id="copyReport">Copy the report text</a></div></div>
     <div class="sec"><h3>Compare</h3><button class="sbtn" id="cmpThis">Compare ${esc(t.n.split(" (")[0])} with another thinker</button></div>
     <div class="sec"><h3>Walk the threads to</h3><div class="chips">${links}</div>
       <div class="chips" style="margin-top:10px">${t.th.map(x=>`<span class="chip" style="border-style:dashed">${esc(THREADS[x].label)}</span>`).join("")}</div></div>`;
   dbody.scrollTop = 0;
   dbody.querySelectorAll("[data-go]").forEach(b => b.onclick = () => go(b.dataset.go));
   $("#listenBtn").onclick = () => toggleListen(t);
-  $("#copyReport").onclick = async e => { e.preventDefault(); const txt = `Error report: ${t.n} (${t.id})\nPage: ${location.href.split("#")[0]}#${t.id}\n\nWhat is wrong:\n\nWhat it should say, with a source:\n`; try{ await navigator.clipboard.writeText(txt); toast("Report copied. Paste it into an email."); }catch(_){ toast("Copy failed. Use Report on GitHub instead."); } };
+  $("#mailReport").onclick = e => { e.preventDefault(); location.href = mailUrl(t); };
+  $("#copyReport").onclick = async e => { e.preventDefault(); const txt = `Error report: ${t.n} (${t.id})\nPage: ${location.href.split("#")[0]}#${t.id}\n\nWhat is wrong:\n\nWhat it should say, with a source:\n`; try{ await navigator.clipboard.writeText(txt); toast("Report copied. Paste it into an email."); }catch(_){ toast("Copy failed. Use Email the author instead."); } };
   $("#cmpThis").onclick = () => { cmpA = t.id; if(cmpB === t.id) cmpB = t.ln[0] || ORDER[0]; openPanel("compare"); };
   const ta = $("#note-"+t.id); let timer;
   ta.addEventListener("input", () => { notes[t.id] = ta.value; clearTimeout(timer); timer = setTimeout(() => { store.set("notes", notes); $("#savedMsg").textContent = "Saved on this device"; }, 400); });
@@ -1943,7 +1944,6 @@ $("#btnGuide").onclick = () => openPanel("guide");
 $("#btnCompare").onclick = () => openPanel("compare");
 
 /* ---------- trust: lookups, reports ---------- */
-const REPO = "https://github.com/Rj952/sankofa-thinkers-village";
 function plainName(t){ return t.n.replace(/ \(.*\)$/,""); }
 function lookups(t){
   const q = encodeURIComponent(plainName(t));
@@ -1955,10 +1955,12 @@ function lookups(t){
   items.push(["Original texts (Internet Archive)", `https://archive.org/search?query=${q}&sin=TXT`]);
   return items.map(([l,u]) => `<a href="${u}" target="_blank" rel="noopener">${esc(l)} ↗</a>`).join("");
 }
-function issueUrl(t){
-  const title = encodeURIComponent(`Possible error: ${plainName(t)}`);
-  const body = encodeURIComponent(`House: ${t.n} (id: ${t.id})\n\nWhat is wrong:\n\nWhat it should say:\n\nSource for the correction:\n`);
-  return `${REPO}/issues/new?title=${title}&body=${body}`;
+const _mk=[109,111,99,46,108,105,97,109,103,64,104,97,108,108,97,119,111,106,110,97,104,111,114];
+function mailUrl(t){
+  const to = String.fromCharCode(..._mk).split("").reverse().join("");
+  const subject = encodeURIComponent(`Sankofa Village: possible error in ${plainName(t)}`);
+  const body = encodeURIComponent(`House: ${t.n} (id: ${t.id})\nPage: ${location.href.split("#")[0]}#${t.id}\n\nWhat is wrong:\n\nWhat it should say:\n\nSource for the correction:\n`);
+  return `mailto:${to}?subject=${subject}&body=${body}`;
 }
 
 /* ---------- narration ---------- */
