@@ -1,0 +1,1821 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sankofa Thinkers' Village</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="An illustrated journey through philosophy, from ancient Africa and the Greek Agora to the Caribbean shore and the age of the algorithm.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single vertical road winds from dawn on the Nile down through eight districts to a lighthouse at night.
+   Each district = sky band (intro card + horizon scene) above a ground band where the stations sit on the road. */
+:root{
+  --night:#0e1420;      /* page ground, lighthouse night */
+  --ink:#141b29;        /* drawer and panels */
+  --ink-2:#1d2638;      /* raised surfaces inside panels */
+  --line:#33405a;       /* hairlines on dark */
+  --parch:#f2e8d3;      /* primary text on dark */
+  --mute:#b5ad9c;       /* secondary text on dark */
+  --gold:#e9b44c;       /* Sankofa gold: progress, focus, accents */
+  --gold-2:#f5d48c;
+  --clay:#c8553d;       /* questions, warnings of the critical kind */
+  --sea:#2f9e8f;        /* threads, links */
+  --road:#f1dcae;       /* the road surface */
+  --f-display:"Gloock", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --f-body:"Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --gutter-l:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--night);color:var(--parch);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--ink)}
+h1,h2,h3{font-family:var(--f-display);font-weight:400;text-wrap:balance;margin:0;line-height:1.1}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* ---------- top bar ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--ink) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar-in{display:flex;align-items:center;gap:14px;padding-block:10px;padding-left:var(--gutter-l);padding-right:var(--gutter-r);max-width:1400px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--parch);min-width:0}
+.brand svg{flex:none}
+.brand b{font-family:var(--f-display);font-weight:400;font-size:19px;white-space:nowrap}
+.prog{flex:1;min-width:0;display:flex;align-items:center;gap:12px}
+.steps{display:flex;gap:4px;flex:1;min-width:0}
+.step{flex:1;height:8px;border-radius:4px;background:var(--ink-2);border:1px solid var(--line);position:relative;overflow:hidden;cursor:pointer;padding:0}
+.step i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,var(--gold),var(--gold-2));width:0;transition:width .6s}
+.step.here{outline:2px solid var(--gold);outline-offset:1px}
+.count{font-size:13px;color:var(--mute);white-space:nowrap}
+.count b{color:var(--gold)}
+.tools{display:flex;gap:6px}
+.tbtn{background:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer;white-space:nowrap}
+.tbtn:hover{border-color:var(--gold)}
+.tbtn .sm{display:none}
+.tbtn[aria-pressed="true"]{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.where{font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#0d1424 0%,#2a2347 34%,#8a4a5c 62%,#e88d5d 86%,#f6c48b 100%);padding-block:72px 120px;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.hero-in{position:relative;z-index:2;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:40px;align-items:center}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-2)}
+.hero h1{font-size:clamp(44px,7.4vw,96px);margin-top:14px;color:#fff6e6;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.lede{font-size:clamp(17px,1.6vw,20px);max-width:58ch;color:#f7ead2;margin:20px 0 0}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.cta{border:0;border-radius:999px;padding:13px 24px;font-weight:600;font-size:16px;cursor:pointer;background:var(--gold);color:#241a08;box-shadow:0 6px 24px rgba(233,180,76,.35)}
+.cta.ghost{background:rgba(14,20,32,.35);color:#fff3dc;border:1px solid rgba(255,240,210,.5);box-shadow:none}
+.facts{display:flex;flex-wrap:wrap;gap:22px;margin-top:30px;font-size:14px;color:#fde9c6}
+.facts b{font-family:var(--f-display);font-weight:400;font-size:28px;display:block;color:#fff}
+.sankofa{width:100%;max-width:340px;justify-self:center;filter:drop-shadow(0 0 30px rgba(245,212,140,.35))}
+.sankofa path{fill:none;stroke:var(--gold-2);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:0;animation:draw 3.2s ease-out both}
+.sankofa .glow{fill:rgba(245,212,140,.08);stroke:none}
+.sankofa-cap{text-align:center;font-size:13px;color:#fde9c6;margin-top:8px;font-style:italic}
+@keyframes draw{from{stroke-dashoffset:900}to{stroke-dashoffset:0}}
+.hero .stars,.light-stars{position:absolute;inset:0;pointer-events:none}
+.hero .sun{position:absolute;left:50%;bottom:-120px;width:340px;height:340px;margin-left:-170px;border-radius:50%;background:radial-gradient(circle,#ffe2a6 0%,#f7b55e 45%,rgba(247,181,94,0) 70%);animation:rise 7s ease-out both;z-index:1}
+@keyframes rise{from{transform:translateY(120px);opacity:.3}to{transform:none;opacity:1}}
+.howto{background:var(--ink);border-bottom:1px solid var(--line);padding-block:26px;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.howto-in{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.howto h3{font-size:19px;color:var(--gold-2)}
+.howto p{margin:6px 0 0;font-size:14px;color:var(--mute)}
+
+/* ---------- map ---------- */
+#map{position:relative}
+#road{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;overflow:visible}
+#road .edge{fill:none;stroke:rgba(60,40,20,.28);stroke-width:30;stroke-linecap:round}
+#road .base{fill:none;stroke:var(--road);stroke-width:22;stroke-linecap:round}
+#road .dash{fill:none;stroke:rgba(120,90,50,.45);stroke-width:2;stroke-dasharray:10 14}
+#road .walked{fill:none;stroke:var(--gold);stroke-width:8;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(233,180,76,.8));transition:stroke-dashoffset 1.2s ease}
+#traveller{transition:none}
+#traveller .ring{fill:none;stroke:var(--gold);stroke-width:3;animation:pulse 2s infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pulse{0%{transform:scale(.6);opacity:1}100%{transform:scale(2.2);opacity:0}}
+
+.district{position:relative;overflow:hidden}
+.sky{position:relative;padding-top:56px;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+.dcard{position:relative;z-index:5;max-width:620px;margin:0 auto 0 max(0px,calc((100% - 1100px)/2));background:rgba(14,20,32,.78);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:22px 24px}
+.district:nth-child(even) .dcard{margin-left:auto;margin-right:max(0px,calc((100% - 1100px)/2))}
+.dnum{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2)}
+.dcard h2{font-size:clamp(30px,4vw,44px);margin-top:6px}
+.dmeta{font-size:13px;color:var(--mute);margin-top:6px}
+.dcard p{margin:12px 0 0;font-size:15.5px;color:#e9dfca}
+.dask{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px;font-size:15px}
+.dask b{display:block;font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#f08b72;margin-bottom:4px}
+.dvid{margin-top:12px}
+.scene{display:block;width:100%;height:300px;margin-top:-40px;position:relative;z-index:1;will-change:transform}
+.district::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:4;background:radial-gradient(120% 80% at 50% 40%,transparent 55%,rgba(5,8,14,.38) 100%)}
+.district .clouds{will-change:transform}
+.dcard{transition:transform 1.1s cubic-bezier(.2,.8,.2,1),box-shadow 1.1s}
+.district:not(.in) .dcard{transform:translateY(26px) scale(.985)}
+.district.in .dcard{box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.chapter{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.chapter .roman{font-family:var(--f-display);font-size:15px;color:var(--gold);letter-spacing:.3em;text-transform:uppercase}
+.chapter .era{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2);opacity:.85}
+.fly{position:absolute;border-radius:50%;width:4px;height:4px;background:#ffe9a8;box-shadow:0 0 10px 3px rgba(255,220,130,.7);animation:fly 9s ease-in-out infinite;pointer-events:none}
+@keyframes fly{0%,100%{transform:translate(0,0);opacity:.15}25%{opacity:1}50%{transform:translate(30px,-40px);opacity:.4}75%{transform:translate(-20px,-15px);opacity:1}}
+/* grain + letterbox */
+body::after{content:"";position:fixed;inset:-50%;z-index:95;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+.lb{position:absolute;left:0;right:0;height:13vh;background:#000;z-index:4;animation:lb 2.4s cubic-bezier(.7,0,.2,1) .6s both}
+.lb.t{top:0}.lb.b{bottom:0}
+@keyframes lb{from{transform:scaleY(1)}to{transform:scaleY(0)}}
+.lb.t{transform-origin:top}.lb.b{transform-origin:bottom}
+.hero h1 .ln{display:block;animation:rise2 1.4s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 .ln:nth-child(2){animation-delay:.35s}
+.hero .lede,.hero .ctas,.hero .facts{animation:rise2 1.4s cubic-bezier(.2,.8,.2,1) .7s both}
+@keyframes rise2{from{transform:translateY(28px);opacity:.15}to{transform:none;opacity:1}}
+.skyline{position:absolute;left:0;right:0;bottom:0;height:150px;z-index:1;pointer-events:none;will-change:transform}
+.skyline svg{width:100%;height:100%;display:block}
+.timeline{position:absolute;left:0;right:0;bottom:10px;z-index:3;display:flex;justify-content:space-between;padding-left:var(--gutter-l);padding-right:var(--gutter-r);font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,236,200,.75);pointer-events:none}
+.flybar{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:80;display:flex;align-items:center;gap:12px;background:rgba(8,10,16,.88);border:1px solid var(--line);border-radius:999px;padding:8px 8px 8px 18px;max-width:calc(100% - 32px)}
+.flybar span{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dband{position:relative;overflow:hidden;margin:-22px -24px 0;padding:26px 24px 22px;border-bottom:1px solid var(--line)}
+.dband .big{position:absolute;right:-10px;top:-40px;font-family:var(--f-display);font-size:220px;line-height:1;color:rgba(255,255,255,.12);pointer-events:none}
+.dband .roman{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff3dc;opacity:.9}
+.dband h2{position:relative;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.dband .when{color:#fff1d8;opacity:.9}
+.refs{margin:0;padding-left:0;list-style:none;display:grid;gap:8px}
+.refs li{font-size:13.5px;color:#d9cfba;padding-left:22px;text-indent:-22px;line-height:1.5}
+.credits{background:linear-gradient(180deg,#101828,#07090f);padding-block:80px 60px;padding-left:var(--gutter-l);padding-right:var(--gutter-r);position:relative;z-index:5}
+.credits-in{max-width:1100px;margin:0 auto}
+.credits h2{font-size:clamp(36px,5vw,60px);text-align:center}
+.credits .sub{text-align:center;color:var(--mute);max-width:62ch;margin:12px auto 0}
+.cred-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 48px;margin-top:48px}
+.cred-grid section h3{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
+.cred-grid .who{font-weight:600;color:var(--parch);font-size:14px;margin-top:12px}
+.cmp-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.cmp-pick select{width:100%;min-width:0;border-radius:10px;border:1px solid var(--line);background:#0f1522;color:var(--parch);padding:9px 10px;font:inherit;font-size:14px}
+.cmp-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.cmp-cols > div{background:var(--ink-2);border:1px solid var(--line);border-radius:14px;padding:12px;min-width:0}
+.cmp-cols h4{font-family:var(--f-display);font-weight:400;font-size:20px;margin:0}
+.cmp-cols small{font-family:var(--f-mono);font-size:11px;color:var(--mute);display:block;margin:4px 0 8px}
+.cmp-cols p{font-size:13px;margin:8px 0 0;color:#e2d8c3}
+.cmp-cols b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);margin-top:10px}
+
+.ground{position:relative}
+.props{position:absolute;inset:0;pointer-events:none;z-index:1}
+.props svg{position:absolute}
+.clouds{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden}
+.cloud{position:absolute;height:30px;border-radius:30px;background:rgba(255,255,255,.55);filter:blur(1px);animation:drift linear infinite}
+.cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+.cloud::before{width:46%;height:150%;left:16%;top:-60%}
+.cloud::after{width:34%;height:120%;left:50%;top:-40%}
+@keyframes drift{from{transform:translateX(-30vw)}to{transform:translateX(130vw)}}
+
+/* stations */
+.st{position:absolute;z-index:6;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;padding:0;cursor:pointer;width:150px}
+.st .house{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:var(--ink);border:3px solid var(--road);box-shadow:0 6px 16px rgba(0,0,0,.35);transition:transform .25s, border-color .25s}
+.st .house svg{width:40px;height:40px}
+.st:hover .house{transform:translateY(-4px) scale(1.06);border-color:var(--gold)}
+.st .lbl{background:rgba(14,20,32,.86);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:4px 10px;font-size:13.5px;font-weight:600;line-height:1.25;text-align:center;max-width:150px}
+.st .lbl small{display:block;font-family:var(--f-mono);font-weight:400;font-size:10.5px;color:var(--mute)}
+.st.done .house{border-color:var(--gold);background:#2b2412}
+.st.done .house::after{content:"✓";position:absolute;margin:-44px 0 0 46px;background:var(--gold);color:#241a08;width:22px;height:22px;border-radius:50%;font-size:13px;font-weight:700;display:grid;place-items:center}
+.st.current .house{box-shadow:0 0 0 6px rgba(233,180,76,.35),0 6px 16px rgba(0,0,0,.35)}
+.st.dim{opacity:.22;filter:grayscale(.8)}
+.st.lit .house{border-color:var(--sea);box-shadow:0 0 0 6px rgba(47,158,143,.35)}
+
+/* ---------- drawer ---------- */
+#drawer{position:fixed;z-index:70;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--ink);border-left:1px solid var(--line);transform:translateX(105%);transition:transform .45s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+#drawer.open{transform:none;box-shadow:-30px 0 60px rgba(0,0,0,.5)}
+.dhead{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.dhead .crumb{flex:1;min-width:0;font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.1em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ibtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--ink-2);cursor:pointer;display:grid;place-items:center;font-size:18px;flex:none}
+.ibtn:hover{border-color:var(--gold)}
+.dbody{overflow-y:auto;padding:22px 24px 40px;flex:1;min-width:0}
+.dbody h2{font-size:clamp(30px,5vw,40px);color:#fff6e6}
+.when{font-family:var(--f-mono);font-size:12.5px;color:var(--mute);margin-top:8px}
+.quote{font-family:var(--f-display);font-size:21px;line-height:1.3;color:var(--gold-2);margin:18px 0 0;padding-left:16px;border-left:3px solid var(--gold)}
+.sec{margin-top:24px}
+.sec h3{font-family:var(--f-mono);font-size:11.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin-bottom:8px}
+.sec p{margin:0;color:#e9dfca}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--ink-2);border-radius:999px;padding:5px 12px;font-size:13.5px}
+.chip.link{cursor:pointer;border-color:rgba(47,158,143,.6);color:#bfeee6}
+.chip.link:hover{background:rgba(47,158,143,.2)}
+.lens{display:grid;gap:12px}
+.lens div{background:var(--ink-2);border-radius:14px;padding:14px 16px;border:1px solid var(--line)}
+.lens b{display:block;font-size:13px;color:var(--gold-2);margin-bottom:4px}
+.qs{list-style:none;margin:0;padding:0;display:grid;gap:10px;counter-reset:q}
+.qs li{counter-increment:q;position:relative;padding:12px 14px 12px 46px;background:rgba(200,85,61,.1);border:1px solid rgba(200,85,61,.35);border-radius:12px}
+.qs li::before{content:counter(q);position:absolute;left:12px;top:11px;width:24px;height:24px;border-radius:50%;background:var(--clay);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center}
+textarea{width:100%;min-height:110px;resize:vertical;border-radius:12px;border:1px solid var(--line);background:#0f1522;color:var(--parch);padding:12px;font:inherit;font-size:15px}
+textarea:focus{outline:2px solid var(--gold);border-color:transparent}
+.saved{font-size:12px;color:var(--mute);margin-top:6px;min-height:1em}
+.media{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#0b111c}
+.media iframe{display:block;width:100%;aspect-ratio:16/9;border:0;max-width:100%}
+.media .ph{padding:16px;display:flex;gap:12px;align-items:center;font-size:14px;color:var(--mute)}
+.media .ph svg{flex:none}
+.media a.watch{display:inline-flex;align-items:center;gap:8px;margin:14px;padding:10px 16px;border-radius:999px;background:var(--gold);color:#241a08;text-decoration:none;font-weight:600}
+.addv{margin-top:8px;font-size:13px}
+.addv summary{cursor:pointer;color:var(--mute)}
+.addv .row{display:flex;gap:8px;margin-top:8px}
+.addv input{flex:1;min-width:0;border-radius:10px;border:1px solid var(--line);background:#0f1522;color:var(--parch);padding:8px 10px;font:inherit;font-size:14px}
+.sbtn{border-radius:10px;border:1px solid var(--line);background:var(--ink-2);padding:8px 14px;cursor:pointer;font-size:14px}
+.sbtn:hover{border-color:var(--gold)}
+.dfoot{display:flex;gap:10px;padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap}
+.dfoot .cta{flex:1;min-width:180px}
+.dfoot .sbtn{flex:none}
+
+/* ---------- side panels ---------- */
+.panel{position:fixed;z-index:65;left:0;top:0;bottom:0;width:min(460px,100%);background:var(--ink);border-right:1px solid var(--line);transform:translateX(-105%);transition:transform .4s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:env(safe-area-inset-left,0px)}
+.panel.open{transform:none;box-shadow:30px 0 60px rgba(0,0,0,.5)}
+.panel .dbody h2{font-size:30px}
+#pCompare{width:min(640px,100%)}
+.thread-list{display:grid;gap:8px;margin-top:14px}
+.tchoice{display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--ink-2);cursor:pointer}
+.tchoice b{font-size:15px}
+.tchoice span{font-size:13px;color:var(--mute)}
+.tchoice[aria-pressed="true"]{border-color:var(--sea);background:rgba(47,158,143,.16)}
+.trail{margin-top:18px;display:grid;gap:6px}
+.trail button{display:flex;gap:10px;align-items:baseline;text-align:left;background:none;border:0;border-bottom:1px dashed var(--line);padding:8px 2px;cursor:pointer}
+.trail button:hover b{color:var(--gold-2)}
+.trail small{font-family:var(--f-mono);color:var(--mute);font-size:11px;min-width:92px}
+.note{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px}
+.note b{display:block;font-size:14px;color:var(--gold-2)}
+.note p{margin:6px 0 0;font-size:14px;white-space:pre-wrap}
+.empty{color:var(--mute);font-size:14px;margin-top:12px}
+.guide p,.guide li{font-size:14.5px;color:#e2d8c3}
+.guide code{font-family:var(--f-mono);font-size:12.5px;background:#0b111c;padding:2px 6px;border-radius:6px;color:var(--gold-2)}
+.guide pre{background:#0b111c;border:1px solid var(--line);border-radius:10px;padding:12px;overflow-x:auto;font-size:12.5px;font-family:var(--f-mono);color:#cfe7df}
+.scrim{position:fixed;inset:0;z-index:64;background:rgba(5,8,14,.5);opacity:0;pointer-events:none;transition:opacity .3s}
+.scrim.on{opacity:1;pointer-events:auto}
+
+footer{background:var(--night);border-top:1px solid var(--line);padding-block:40px;padding-left:var(--gutter-l);padding-right:var(--gutter-r);text-align:center;color:var(--mute);font-size:14px}
+footer b{color:var(--parch);font-weight:600}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,40px);opacity:0;z-index:90;background:var(--gold);color:#241a08;font-weight:600;padding:10px 18px;border-radius:999px;transition:.35s;pointer-events:none}
+.toast.on{transform:translate(-50%,0);opacity:1}
+
+/* scene animations */
+.anim-shimmer{animation:shimmer 3s ease-in-out infinite}
+@keyframes shimmer{0%,100%{opacity:.35}50%{opacity:.85}}
+.anim-bob{animation:bob 4s ease-in-out infinite;transform-box:fill-box;transform-origin:center bottom}
+@keyframes bob{0%,100%{transform:rotate(-2deg) translateY(0)}50%{transform:rotate(2deg) translateY(-3px)}}
+.anim-sail{animation:sail 40s linear infinite}
+@keyframes sail{from{transform:translateX(-200px)}to{transform:translateX(1400px)}}
+.anim-smoke{animation:smoke 5s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes smoke{0%{transform:translateY(0) scale(.6);opacity:.7}100%{transform:translateY(-60px) scale(1.8);opacity:0}}
+.anim-twinkle{animation:twinkle 3s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
+.anim-beam{animation:beam 8s linear infinite;transform-origin:600px 70px}
+@keyframes beam{0%{transform:rotate(-70deg)}50%{transform:rotate(70deg)}100%{transform:rotate(-70deg)}}
+.anim-birds{animation:birds 26s linear infinite}
+@keyframes birds{from{transform:translate(-120px,20px)}to{transform:translate(1300px,-30px)}}
+.anim-wave{animation:wave 6s ease-in-out infinite}
+@keyframes wave{0%,100%{transform:translateX(0)}50%{transform:translateX(-24px)}}
+.anim-window{animation:win 5s steps(2) infinite}
+@keyframes win{0%,60%{opacity:1}61%,100%{opacity:.25}}
+.anim-sway{animation:sway 5s ease-in-out infinite;transform-box:fill-box;transform-origin:center bottom}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+@media (max-width:860px){
+  .hero-in{grid-template-columns:1fr}
+  .sankofa{max-width:200px;order:-1}
+  .howto-in{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .where{display:none}
+}
+@media (max-width:620px){
+  .brand b{display:none}
+  .count .stw{display:none}
+  .tbtn{padding:7px 11px;font-size:13px}
+  .tbtn .lg{display:none}
+  .tbtn .sm{display:inline}
+  .bar-in{gap:8px}
+  .prog{gap:6px}
+  .steps{gap:2px}
+  .tools{gap:4px}
+  .st{width:126px}
+  .st .lbl{max-width:126px;font-size:12.5px}
+  .st .house{width:54px;height:54px}
+  .st .house svg{width:34px;height:34px}
+  .dbody{padding:18px 18px 34px}
+  .howto-in{grid-template-columns:1fr}
+  .scene{height:200px}
+  .cred-grid{grid-template-columns:1fr}
+  .timeline span:nth-child(even){display:none}
+  .dband .big{font-size:160px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+<script src="media.js"></script>
+</head>
+<body>
+
+
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#top" aria-label="Back to the start">
+      <svg width="30" height="30" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 172 C50 132 22 98 38 64 C52 36 88 38 100 66 C112 38 148 36 162 64 C178 98 150 132 100 172 Z M56 70 C44 90 70 100 76 84 C80 74 70 68 64 76 M144 70 C156 90 130 100 124 84 C120 74 130 68 136 76 M100 172 C86 186 70 182 76 170 M100 172 C114 186 130 182 124 170" fill="none" stroke="#e9b44c" stroke-width="10" stroke-linecap="round"/></svg>
+      <b>Sankofa Thinkers' Village</b>
+    </a>
+    <div class="prog">
+      <div class="steps" id="steps" aria-label="Districts"></div>
+      <div class="count mono"><b id="doneCount">0</b>/<span id="totalCount"></span> <span class="stw">stops</span></div>
+    </div>
+    <div class="where" id="where">The Nile Dawn</div>
+    <div class="tools">
+      <button class="tbtn" id="btnThreads" aria-pressed="false">Threads</button>
+      <button class="tbtn" id="btnCompare"><span class="lg">Compare</span><span class="sm">Vs</span></button>
+      <button class="tbtn" id="btnNotes"><span class="lg">Notebook</span><span class="sm">Notes</span></button>
+      <button class="tbtn" id="btnGuide" aria-label="Guide"><span class="lg">Guide</span><span class="sm">?</span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <canvas class="stars" id="heroStars" aria-hidden="true"></canvas>
+  <div class="lb t" aria-hidden="true"></div><div class="lb b" aria-hidden="true"></div>
+  <div class="sun" aria-hidden="true"></div>
+  <div class="skyline" id="skyline" aria-hidden="true"><svg viewBox="0 0 1600 150" preserveAspectRatio="xMidYMax slice"><g fill="#1a1222" opacity=".92">
+    <path d="M40 150 L120 70 L200 150Z"/><path d="M170 150 L225 100 L280 150Z"/>
+    <g transform="translate(330 78)"><path d="M0 18 L60 0 L120 18Z"/><rect x="4" y="18" width="112" height="6"/><rect x="10" y="24" width="7" height="40"/><rect x="30" y="24" width="7" height="40"/><rect x="52" y="24" width="7" height="40"/><rect x="74" y="24" width="7" height="40"/><rect x="96" y="24" width="7" height="40"/><rect x="0" y="64" width="120" height="8"/></g>
+    <path d="M520 150 V96 L536 80 H572 L588 96 V150Z"/><rect x="546" y="58" width="14" height="24"/>
+    <path d="M640 150 V112 Q676 74 712 112 V150Z"/><rect x="722" y="70" width="12" height="80"/>
+    <g><path d="M790 140 h120 l-16 10 h-88z"/><rect x="830" y="70" width="3" height="70"/><rect x="866" y="80" width="3" height="60"/><path d="M834 76 h28 v26 h-28z M834 106 h30 v26 h-30z"/></g>
+    <rect x="960" y="88" width="90" height="62"/><rect x="976" y="44" width="14" height="46"/><rect x="1020" y="56" width="14" height="34"/>
+    <rect x="1090" y="60" width="40" height="90"/><rect x="1136" y="84" width="30" height="66"/>
+    <path d="M1210 150 C1206 118 1204 108 1210 100 H1240 C1246 108 1244 118 1240 150Z"/><ellipse cx="1225" cy="96" rx="36" ry="12"/>
+    <rect x="1290" y="112" width="60" height="38"/><path d="M1284 114 L1320 92 L1356 114Z"/>
+    <path d="M1400 150 Q1404 116 1414 96" stroke="#1a1222" stroke-width="6" fill="none"/><path d="M1414 96 q-30 -4 -40 14 M1414 96 q30 -2 40 16 M1414 96 q-14 -22 -36 -18 M1414 96 q16 -22 36 -16" stroke="#1a1222" stroke-width="6" fill="none"/>
+    <path d="M1500 150 L1506 72 L1522 72 L1528 150Z"/><rect x="1500" y="58" width="28" height="14"/><path d="M1496 58 L1514 44 L1532 58Z"/>
+  </g></svg></div>
+  <div class="timeline" aria-hidden="true"><span>2400 BCE</span><span>400 BCE</span><span>1400</span><span>1700</span><span>1850</span><span>1950</span><span>1970</span><span>Today</span></div>
+  <div class="hero-in">
+    <div>
+      <div class="eyebrow">A walking journey through ideas</div>
+      <h1><span class="ln">Go back and fetch it.</span><span class="ln"><em>Then walk on.</em></span></h1>
+      <p class="lede">Follow one road from the wisdom teachings of ancient Kemet, through the Agora and the scholars of Timbuktu, past the harbours of the Enlightenment and the factories of the modern world, to the Caribbean shore and the age of the algorithm. At every house, a thinker waits with ideas to test and questions you cannot answer quickly.</p>
+      <div class="ctas">
+        <button class="cta" id="startBtn">Begin at the Nile</button>
+        <button class="cta ghost" id="resumeBtn" hidden>Continue the journey</button>
+        <button class="cta ghost" id="flyBtn">▶ Play the fly-through</button>
+      </div>
+      <div class="facts">
+        <div><b id="fStops">64</b>houses on the road</div>
+        <div><b>9</b>districts, 4,400 years</div>
+        <div><b>6</b>threads to follow</div>
+      </div>
+    </div>
+    <figure style="margin:0">
+      <svg class="sankofa" viewBox="0 0 200 200" role="img" aria-label="The Sankofa symbol">
+        <circle class="glow" cx="100" cy="100" r="96"/>
+        <path d="M100 172 C50 132 22 98 38 64 C52 36 88 38 100 66 C112 38 148 36 162 64 C178 98 150 132 100 172 Z"/>
+        <path d="M56 70 C44 90 70 100 76 84 C80 74 70 68 64 76"/>
+        <path d="M144 70 C156 90 130 100 124 84 C120 74 130 68 136 76"/>
+        <path d="M100 172 C86 186 70 182 76 170 M100 172 C114 186 130 182 124 170"/>
+      </svg>
+      <figcaption class="sankofa-cap">Sankofa (Akan): it is not wrong to go back for what you have left behind.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="howto" aria-label="How to use the village">
+  <div class="howto-in">
+    <div><h3>Walk the road</h3><p>Open each house in order, or jump to any district from the bar above. Your progress is kept on this device.</p></div>
+    <div><h3>Read across lenses</h3><p>Every thinker is read three ways: the idea, its life in learning, and its life in policy and public life.</p></div>
+    <div><h3>Question hard</h3><p>Each house ends with critical questions written for doctoral-level seminars and debates.</p></div>
+    <div><h3>Write yourself in</h3><p>Answer the personal prompt. Your notebook gathers every reflection for you to copy or download.</p></div>
+  </div>
+</section>
+
+<main id="map" aria-label="The village map">
+  <svg id="road" aria-hidden="true">
+    <path class="edge" id="roadEdge"/>
+    <path class="base" id="roadBase"/>
+    <path class="dash" id="roadDash"/>
+    <path class="walked" id="roadWalked"/>
+    <g id="traveller"><circle class="ring" r="12"/><circle r="9" fill="#e9b44c" stroke="#241a08" stroke-width="3"/></g>
+  </svg>
+  <div id="districts"></div>
+</main>
+
+<section class="credits" id="sources" aria-labelledby="srcH">
+  <div class="credits-in">
+    <div class="eyebrow" style="text-align:center">End credits</div>
+    <h2 id="srcH">Sources and further reading</h2>
+    <p class="sub">Primary works by each thinker, with selected studies, listed in APA 7th edition style. Dates in brackets give the original publication or composition date.</p>
+    <div class="cred-grid" id="credGrid"></div>
+  </div>
+</section>
+<div class="flybar" id="flybar" hidden><span id="flyCap">Fly-through</span><button class="sbtn" id="flyStop">Stop</button></div>
+
+<footer>
+  <p><b>Sankofa Thinkers' Village</b> · Designed by Dr. Rohan Jowallah, Ed.D., FHEA</p>
+  <p>For learners and leaders across the Caribbean and the Global South. Creative rights reserved by the author.</p>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+
+<aside id="drawer" aria-label="Thinker details" aria-hidden="true">
+  <div class="dhead">
+    <button class="ibtn" id="prevBtn" aria-label="Previous house">←</button>
+    <div class="crumb" id="crumb"></div>
+    <button class="ibtn" id="nextBtnTop" aria-label="Next house">→</button>
+    <button class="ibtn" id="closeDrawer" aria-label="Close">✕</button>
+  </div>
+  <div class="dbody" id="dbody"></div>
+  <div class="dfoot">
+    <button class="cta" id="doneBtn">Mark complete and walk on</button>
+  </div>
+</aside>
+
+<aside class="panel" id="pThreads" aria-label="Threads" aria-hidden="true">
+  <div class="dhead"><div class="crumb">Follow a thread</div><button class="ibtn" data-close aria-label="Close">✕</button></div>
+  <div class="dbody">
+    <h2>Threads through the village</h2>
+    <p style="color:var(--mute);font-size:14.5px;margin-top:8px">Choose a thread to light up every house that speaks to it. The trail below lists them in the order you meet them on the road, so you can trace how one question changes across 4,400 years.</p>
+    <div class="thread-list" id="threadList"></div>
+    <div class="trail" id="trail"></div>
+  </div>
+</aside>
+
+<aside class="panel" id="pCompare" aria-label="Compare two thinkers" aria-hidden="true">
+  <div class="dhead"><div class="crumb">Compare and debate</div><button class="ibtn" data-close aria-label="Close">✕</button></div>
+  <div class="dbody">
+    <h2>Put two thinkers in a room</h2>
+    <p style="color:var(--mute);font-size:14.5px;margin-top:8px">Choose any two houses. Read them side by side, then use the debate prompts for a seminar, a paired presentation or a written dialogue.</p>
+    <div class="cmp-pick"><label><span style="font-size:12px;color:var(--mute)">First thinker</span><select id="cmpA"></select></label><label><span style="font-size:12px;color:var(--mute)">Second thinker</span><select id="cmpB"></select></label></div>
+    <div id="cmpOut"></div>
+  </div>
+</aside>
+
+<aside class="panel" id="pNotes" aria-label="Notebook" aria-hidden="true">
+  <div class="dhead"><div class="crumb">Your notebook</div><button class="ibtn" data-close aria-label="Close">✕</button></div>
+  <div class="dbody">
+    <h2>Your notebook</h2>
+    <p style="color:var(--mute);font-size:14.5px;margin-top:8px">Reflections stay in this browser only. Nothing is sent anywhere. Copy them into your journal or assignment.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <button class="sbtn" id="copyNotes">Copy all reflections</button>
+      <button class="sbtn" id="dlNotes" hidden>Download as text</button>
+      <button class="sbtn" id="resetBtn">Reset progress…</button>
+    </div>
+    <div id="resetConfirm" hidden class="note" style="border-color:var(--clay)">
+      <b>Clear progress and reflections on this device?</b>
+      <div style="display:flex;gap:8px;margin-top:10px"><button class="sbtn" id="resetYes" style="border-color:var(--clay)">Yes, clear everything</button><button class="sbtn" id="resetNo">Keep them</button></div>
+    </div>
+    <div id="notesList"></div>
+  </div>
+</aside>
+
+<aside class="panel guide" id="pGuide" aria-label="Guide" aria-hidden="true">
+  <div class="dhead"><div class="crumb">For facilitators</div><button class="ibtn" data-close aria-label="Close">✕</button></div>
+  <div class="dbody">
+    <h2>Using the village</h2>
+    <p>The village works as a self-paced journey, a seminar launch pad, or a debate map. Suggested uses:</p>
+    <ul>
+      <li><b>Before a seminar:</b> assign a district; each participant brings one critical question answered in writing.</li>
+      <li><b>Thread debates:</b> pick a thread, assign two thinkers from different districts, and stage a dialogue between them.</li>
+      <li><b>Policy clinic:</b> use the policy lens of three thinkers to critique a live national or regional policy.</li>
+      <li><b>Paired debates:</b> open Compare, choose two thinkers from different chapters and use the generated debate prompts.</li>
+      <li><b>Presenting live:</b> “Play the fly-through” moves the camera slowly through every chapter, pausing on each title card.</li>
+      <li><b>Capstone:</b> the Algorithm Lighthouse asks learners to build their own framework from at least three districts.</li>
+    </ul>
+    <h3 style="font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-top:22px">Adding your videos</h3>
+    <p>Edit <code>media.js</code> in the repository. Use a thinker's id (shown below each house title) or <code>district:</code> plus a district id:</p>
+<pre>window.VILLAGE_MEDIA = {
+  videos: {
+    "freire": "https://youtu.be/YOUR_ID",
+    "district:shore": "https://youtu.be/YOUR_ID"
+  },
+  audio: {
+    "garvey": "audio/garvey.mp3"
+  }
+};</pre>
+    <p>YouTube links play inside the page on GitHub Pages. Other links open in a new tab. You can also test a link on one device using “Add a video link” inside any house.</p>
+    <p style="color:var(--mute);font-size:13px">District ids: <span id="dids"></span></p>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   SANKOFA THINKERS' VILLAGE — CONTENT
+   Districts run in rough chronological order along the road.
+   Each thinker:  n name · d dates · o origin · q one-line epithet
+   idea · c key concepts · edu (into educational thought)
+   pol (into policy & public life) · qs (critical questions)
+   self (personal connection prompt) · th (threads) · ln (links)
+   ============================================================ */
+
+const THREADS = {
+  knowledge: { label: "Knowledge & truth", hint: "How do we know? Who decides what counts as knowledge?" },
+  learning:  { label: "Learning & the self", hint: "How does a person become a person through learning?" },
+  justice:   { label: "Justice, power & the state", hint: "Who rules, by what right, and for whose good?" },
+  community: { label: "Community & the human", hint: "What do we owe one another? Who counts as human?" },
+  liberation:{ label: "Colonialism & liberation", hint: "How do people free minds, lands and economies?" },
+  culture:   { label: "Language, culture & identity", hint: "How do words, stories and culture shape who we are?" }
+};
+
+const DISTRICTS = [
+  {
+    id: "nile", name: "The Nile Dawn", era: "Ancient Africa · c. 2400 BCE onward",
+    place: "Kemet (Egypt), Yorubaland, Southern Africa",
+    intro: "The road begins where some of the oldest written teachings on wisdom were set down: instructions from elders to the young along the Nile. Here philosophy appears as moral education, spoken and written, long before Athens.",
+    ask: "If some of the oldest recorded philosophy takes the form of instructions written for the young, why do so many histories of philosophy begin in Greece? What does that starting point do to how we see African and Caribbean thought today?",
+    scene: "nile"
+  },
+  {
+    id: "agora", name: "The Agora", era: "The Axial Age · c. 551–270 BCE",
+    place: "Lu (China), Athens, Elis, Samos",
+    intro: "In the marketplace and the garden, thinkers question everything: what a good life is, what justice means, whether we can know anything at all. The question-and-answer method born here still shapes seminars across the world.",
+    ask: "The Agora was open to free male citizens, not to women or the enslaved. Can a method of inquiry be liberating when the space where it was born was exclusive? What would an open Agora look like now?",
+    scene: "agora"
+  },
+  {
+    id: "crossroads", name: "Scholars' Crossroads", era: "Late antiquity to early modern · c. 350–1630",
+    place: "Alexandria, Hippo, Córdoba, Tunis, Timbuktu",
+    intro: "Greek ideas did not travel in a straight line to Europe. They passed through African and Islamic centres of learning, where scholars kept, translated and argued with them. Libraries in Alexandria, Córdoba and Timbuktu were the hard drives of their age.",
+    ask: "Much of what Europe later called its classical heritage was preserved and extended in Africa and the Islamic world. How should that change the way universities, including Caribbean ones, tell the story of their own intellectual inheritance?",
+    scene: "crossroads"
+  },
+  {
+    id: "harbour", name: "Enlightenment Harbour", era: "The age of reason and empire · 1600–1800",
+    place: "London, Paris, Edinburgh, Königsberg, Halle, Gondar",
+    intro: "Reason, rights and the free individual arrive at the harbour. So do the slave ships. The same century that wrote about liberty built the plantation Caribbean. This district asks you to hold both truths at once.",
+    ask: "Many Enlightenment thinkers wrote about universal rights while excluding Africans, women and colonised peoples. Are their ideas usable once we know this, or are the exclusions built into the ideas themselves?",
+    scene: "harbour"
+  },
+  {
+    id: "square", name: "The Industrial Square", era: "Revolution, industry and the colour line · 1800–1930",
+    place: "Berlin, London, Atlanta, Chicago",
+    intro: "Factories, cities and mass schooling change daily life. Thinkers ask how history moves, who owns labour, what freedom means in a crowd, and how the colour line divides the modern world.",
+    ask: "Mass schooling grew up alongside the factory. How much of the school timetable, bell and examination still carries the logic of industrial production, and what should replace it?",
+    scene: "square"
+  },
+  {
+    id: "quarter", name: "The Critical Quarter", era: "Power, voice and justice · 1920–today",
+    place: "Turin, Recife, Paris, Cambridge, Kentucky",
+    intro: "After war, dictatorship and decolonisation, philosophers turn to power itself: how it hides in common sense, in schools, in language, in policy. Paulo Freire's house stands at the centre of this quarter.",
+    ask: "Critical theory is often taught in elite institutions to people who will hold power. Can a critique of power be learned without changing how the classroom itself distributes power?",
+    scene: "quarter"
+  },
+  {
+    id: "bridge", name: "The Pan-African Bridge", era: "Independence and conceptual decolonisation · 1950–today",
+    place: "Accra, Dar es Salaam, Nairobi, King William's Town",
+    intro: "The bridge links the continent and the diaspora. Here independence leaders and philosophers ask how a newly free nation should educate, govern, and think in its own concepts.",
+    ask: "Independence changed flags and anthems quickly. Why have curricula, examination systems and the language of instruction often changed far more slowly?",
+    scene: "bridge"
+  },
+  {
+    id: "shore", name: "The Caribbean Shore", era: "From the plantation to the world · 1900–today",
+    place: "Jamaica, Trinidad and Tobago, Martinique, Barbados, Guyana, Antigua",
+    intro: "The road reaches the Caribbean, where people forcibly brought together from many worlds made new languages, new religions and new philosophies. These thinkers answer the questions asked in every earlier district from the standpoint of the plantation and its afterlife.",
+    ask: "Caribbean thought has often been treated as literature, politics or history, rarely as philosophy. What is lost when a region's ideas are not recognised as philosophy, and who gains?",
+    scene: "shore"
+  },
+  {
+    id: "light", name: "The Algorithm Lighthouse", era: "Now · from the word to the algorithm",
+    place: "Everywhere the network reaches",
+    intro: "The journey ends at a lighthouse that sweeps its beam back over every district. The old questions return in a new form: who writes the instructions, who is watched, whose knowledge trains the machine, and who counts as human in the data.",
+    ask: "Every district you walked through had its own instruction-givers. Today many instructions are written as code. What would it take for the Caribbean and the Global South to read, question and write those instructions rather than simply receive them?",
+    scene: "light"
+  }
+];
+
+const THINKERS = [
+/* ---------------- THE NILE DAWN ---------------- */
+{ id:"ptahhotep", dist:"nile", n:"Ptahhotep", d:"c. 2400 BCE", o:"Memphis, Kemet (Egypt)",
+  q:"“No one is born wise.”",
+  idea:"A vizier of Egypt's Fifth Dynasty, Ptahhotep is credited with one of the oldest surviving works of moral philosophy: an instruction from an elder to his successor. It teaches that wisdom is learned, that good speech can be found even among the women at the grindstones, and that listening is the beginning of understanding. Behind it stands Ma’at, the principle of truth, balance and right order.",
+  c:["Ma’at (truth, balance, order)","Teachability","Wisdom found in the humble"],
+  edu:"The Instruction is an early theory of learning: wisdom is not inherited by rank but acquired by listening and practice. Its claim that good speech may come from the poorest worker challenges any school that equates intelligence with status.",
+  pol:"Ma’at was a public duty as much as a personal virtue: rulers were judged by whether they kept balance and justice. It offers a standard for policy that asks whether a decision restores order and fairness, not only whether it is efficient.",
+  qs:["Ptahhotep places wisdom among the women at the grindstones. Where, in your own society, is wisdom routinely overlooked because of who holds it?","Is Ma’at, a cosmic and political order, compatible with modern rights-based ideas of justice, or does it ask something different of citizens and leaders?","What would a curriculum look like if it began with this text rather than with Plato?"],
+  self:"Recall the first person outside school who taught you something you still live by. What made them a teacher?",
+  th:["learning","community","knowledge"], ln:["amenemope","socrates","garvey"] },
+
+{ id:"amenemope", dist:"nile", n:"Amenemope", d:"c. 1300–1075 BCE", o:"Akhmim, Kemet (Egypt)",
+  q:"The silent one versus the heated one.",
+  idea:"The Instruction of Amenemope, thirty chapters from New Kingdom Egypt, contrasts the self-controlled “silent” person with the “heated” one ruled by anger. It warns against moving boundary stones, cheating the widow, or mocking people with disabilities. Several passages closely parallel the Book of Proverbs, showing how African wisdom literature travelled.",
+  c:["Self-mastery","Protection of the vulnerable","Wisdom traditions in conversation"],
+  edu:"Amenemope treats character formation as the heart of education. The aim is a person who can govern their temper and treat the weak with care, which anticipates later virtue ethics and today's social-emotional learning.",
+  pol:"The ban on moving boundary stones is an ancient land-rights rule. It speaks directly to land tenure, title and dispossession, questions still unresolved in many Caribbean communities.",
+  qs:["The parallels with Proverbs suggest African thought shaped scriptures read across the Caribbean. Why is this connection so rarely taught in churches or schools?","Does an ethic of self-restraint serve justice, or can it be used to silence people who have good reason to be “heated”?","Which of today's “boundary stones” (land, data, cultural property) are being quietly moved, and by whom?"],
+  self:"When has staying calm helped you, and when did silence cost you something you should have defended?",
+  th:["community","justice","learning"], ln:["ptahhotep","aristotle","nettleford"] },
+
+{ id:"orunmila", dist:"nile", n:"Ọ̀rúnmìlà and the Ifá corpus", d:"Ancient, oral tradition", o:"Ilé-Ifẹ̀, Yorubaland (Nigeria)",
+  q:"Ìwà l’ẹ̀sìn: character is the true religion.",
+  idea:"Ọ̀rúnmìlà is the sage of wisdom in Yoruba thought, linked to Ifá, a vast oral body of verses (odù) memorised and interpreted by trained diviners. Its concepts include orí, the inner head or chosen destiny, and ìwà, character. The Nigerian philosopher Sophie Olúwọlé compared Ọ̀rúnmìlà with Socrates as a founding figure of philosophy who taught orally.",
+  c:["Orí (inner head, destiny)","Ìwà pẹ̀lẹ́ (gentle character)","Oral knowledge systems"],
+  edu:"Ifá training is a long apprenticeship in memory, interpretation and judgement. It shows that rigorous knowledge can be oral, and it questions systems that assess learning only through writing.",
+  pol:"Yoruba traditions travelled with enslaved people to Cuba, Brazil, Trinidad and beyond. Policies on heritage, religion and cultural rights still decide whether these knowledge systems are protected or criminalised.",
+  qs:["If philosophy can be oral, what does that mean for how universities define “a text” and “a source”?","Orí suggests a chosen destiny. How does this sit with ideas of free will and personal responsibility you meet elsewhere on the road?","Caribbean laws once banned African-derived religious practices. What should repair look like for knowledge systems that were criminalised?"],
+  self:"What wisdom in your family was passed on by voice rather than by page? Has school ever treated it as knowledge?",
+  th:["knowledge","culture","learning"], ln:["socrates","oruka","brathwaite"] },
+
+{ id:"ubuntu", dist:"nile", n:"Ubuntu", d:"Ancient to present", o:"Nguni-Bantu peoples, Southern Africa",
+  q:"Umuntu ngumuntu ngabantu: a person is a person through other persons.",
+  idea:"Ubuntu is a Southern African understanding of personhood: we become fully human through our relationships with others. It is less an individual's theory than a living ethic. Philosophers such as Mogobe Ramose have written it into academic philosophy, and Desmond Tutu drew on it in South Africa's Truth and Reconciliation Commission.",
+  c:["Relational personhood","Interdependence","Restorative justice"],
+  edu:"Ubuntu supports learning as a shared achievement. It questions systems built on individual ranking and competition and points toward cooperative and community-based pedagogy.",
+  pol:"Ubuntu shaped restorative approaches to justice after apartheid. It can be used to ask whether a policy strengthens or weakens the relationships that make a community human.",
+  qs:["Ubuntu has been used both to call for reconciliation and to pressure victims to forgive. How do we prevent a relational ethic from silencing injustice?","Compare Ubuntu's person-through-others with Descartes's “I think, therefore I am.” What follows for how we design schools and laws?","Can a national examination system be built on Ubuntu principles? What would it measure?"],
+  self:"Name three people without whom you would not be the scholar you are. What do you owe them?",
+  th:["community","justice","learning"], ln:["descartes","wiredu","nyerere"] },
+
+/* ---------------- THE AGORA ---------------- */
+{ id:"confucius", dist:"agora", n:"Confucius (Kongzi)", d:"551–479 BCE", o:"State of Lu, China",
+  q:"“Learning without thought is labour lost; thought without learning is perilous.”",
+  idea:"Confucius taught that a good society rests on cultivated people. The ideal is the junzi, the exemplary person, marked by ren (humaneness) and li (proper conduct in relationships). He accepted students of every class, which made teaching itself a moral and political act.",
+  c:["Ren (humaneness)","Li (ritual propriety)","Junzi (exemplary person)"],
+  edu:"Confucius saw education as lifelong self-cultivation and opened it beyond the aristocracy. His thought still shapes examination cultures and teacher respect across East Asia.",
+  pol:"Confucian ideas underpinned the Chinese imperial examination system for centuries, an early form of merit-based public service. This raises the question of whether exams open opportunity or reproduce privilege.",
+  qs:["Confucius taught students of all classes, yet his tradition later produced rigid examination hierarchies. How do inclusive ideas become exclusive institutions?","Does an ethic built on proper roles in relationships help or hinder people seeking to change those roles?","Compare the Confucian examination state with Caribbean secondary entrance exams. What does each assume about merit?"],
+  self:"Which rituals in your workplace or classroom carry real moral meaning, and which have become empty form?",
+  th:["learning","community","justice"], ln:["socrates","aristotle","nyerere"] },
+
+{ id:"socrates", dist:"agora", n:"Socrates", d:"c. 470–399 BCE", o:"Athens, Greece",
+  q:"“The unexamined life is not worth living.”",
+  idea:"Socrates wrote nothing. Through relentless questioning in the streets of Athens he exposed what people believed they knew. He called himself a midwife who helps others give birth to ideas. Athens sentenced him to death for impiety and for corrupting the young, and he chose to die rather than stop questioning.",
+  c:["Elenchus (questioning to expose contradiction)","Maieutics (the teacher as midwife)","Knowing that you do not know"],
+  edu:"The Socratic method sits behind seminars, case teaching and inquiry-based learning. The teacher does not deposit answers but helps learners test their own beliefs, an idea Freire would later sharpen.",
+  pol:"Socrates was executed by a democracy. His case still frames debates on academic freedom, dissent and whether a state may punish those who question its values.",
+  qs:["Socratic questioning can liberate, but it can also humiliate. When does questioning become an exercise of the teacher's power?","Socrates was condemned for “corrupting the youth.” Which ideas are treated as corrupting in Caribbean schools today, and who decides?","Compare Socrates with Ọ̀rúnmìlà: both taught orally and are known through others. What does this do to our trust in the sources?"],
+  self:"What belief that you once held confidently did you abandon after being questioned? Who asked the question?",
+  th:["knowledge","learning","justice"], ln:["plato","orunmila","freire"] },
+
+{ id:"plato", dist:"agora", n:"Plato", d:"c. 428–348 BCE", o:"Athens, Greece",
+  q:"Education is turning the soul toward the light.",
+  idea:"Plato, Socrates's student, founded the Academy in Athens. In the Republic's allegory of the cave, prisoners mistake shadows for reality until one is turned around and led into the sun. True knowledge, for Plato, is of unchanging Forms. He proposed a just city ruled by educated philosopher-guardians.",
+  c:["The Forms","Allegory of the cave","Philosopher-rulers"],
+  edu:"For Plato, education is not putting sight into blind eyes but turning the whole person toward truth. His Republic is also the first fully designed state education system, with learners sorted by ability for different roles.",
+  pol:"Plato distrusted democracy and argued that experts should rule. Every modern debate on technocracy, from central banks to AI governance boards, echoes his question: should those who know, rule?",
+  qs:["Plato sorted citizens into fixed classes by aptitude. Where do Caribbean streaming and selective schools echo the Republic?","Who are the prisoners in today's cave, and who, or what, is casting the shadows on the wall?","If experts should rule, who certifies the experts? Apply this to how AI policy is being written for small states."],
+  self:"Describe a moment when you were “turned around” intellectually. Was it painful, as Plato says leaving the cave would be?",
+  th:["knowledge","justice","learning"], ln:["socrates","aristotle","foucault"] },
+
+{ id:"aristotle", dist:"agora", n:"Aristotle", d:"384–322 BCE", o:"Stagira, Macedonia; taught in Athens",
+  q:"We become just by doing just acts.",
+  idea:"Plato's student and Alexander the Great's tutor, Aristotle founded the Lyceum and wrote on almost everything: logic, biology, ethics, politics, poetry. The goal of life is eudaimonia, human flourishing, reached by practising virtues until they become habits. Practical wisdom (phronesis) helps us find the mean between extremes. He also defended “natural slavery.”",
+  c:["Eudaimonia (flourishing)","Virtue as habit","Phronesis (practical wisdom)"],
+  edu:"Aristotle argued that education should be a public concern and that character is formed through practice, not lectures. His idea of phronesis supports professional education that develops judgement in real situations.",
+  pol:"Aristotle's Politics treats the state as existing for the good life of citizens, yet his account of natural slaves was later used to justify the Atlantic slave trade. His work shows how a philosophy of flourishing can define some people out of it.",
+  qs:["Spanish theologians cited Aristotle's natural slavery to debate the conquest of the Americas. Can his ethics be separated from his account of who deserves to flourish?","If virtue is formed by habit, what habits do Caribbean institutions train into students and staff without ever naming them?","What is the “golden mean” in AI policy for a small state, between rejecting the technology and handing it over?"],
+  self:"Which professional virtue have you built through repetition rather than instruction?",
+  th:["community","justice","learning"], ln:["plato","aquinas","ibnrushd"] },
+
+{ id:"pyrrho", dist:"agora", n:"Pyrrho of Elis", d:"c. 360–270 BCE", o:"Elis, Greece",
+  q:"Suspend judgement, and find peace.",
+  idea:"Pyrrho travelled with Alexander's army as far as India and returned teaching that we cannot know the true nature of things. The wise response is epochē, suspending judgement, which brings ataraxia, freedom from disturbance. He wrote nothing; we know him through his student Timon and much later writers.",
+  c:["Scepticism","Epochē (suspension of judgement)","Ataraxia (tranquillity)"],
+  edu:"Scepticism is the root of critical thinking: hold claims open until they are tested. It also warns against teaching any framework, including critical ones, as settled truth.",
+  pol:"In an age of misinformation, Pyrrho is relevant again. Yet total suspension of judgement can become paralysis. Policy must act under uncertainty, so how much doubt can a government afford?",
+  qs:["Is scepticism a tool for the powerful (“we need more evidence before we act on climate”) or for the powerless (“we doubt your official story”)?","Pyrrho's ideas may have been shaped by contact with Indian thinkers. How does that complicate the idea of a purely “Western” philosophy?","How should doctoral researchers balance sceptical rigour with the duty to take a position?"],
+  self:"Where in your research are you suspending judgement wisely, and where are you avoiding a conclusion you fear?",
+  th:["knowledge"], ln:["hume","descartes","epicurus"] },
+
+{ id:"epicurus", dist:"agora", n:"Epicurus", d:"341–270 BCE", o:"Samos; taught in Athens",
+  q:"Pleasure is the absence of pain in the body and trouble in the soul.",
+  idea:"Epicurus opened the Garden in Athens, a community that admitted women and enslaved people. He taught that the good life is a simple, tranquil one: modest pleasures, friendship, and freedom from the fear of death and of the gods. His four-part cure: do not fear the gods, do not fear death, the good is easy to get, the terrible is easy to endure.",
+  c:["Ataraxia (tranquillity)","Friendship as the highest good","The fourfold remedy"],
+  edu:"The Garden was a learning community defined by friendship rather than status. It is an early model of inclusive, wellbeing-centred education.",
+  pol:"Epicurus advised withdrawal from politics. This raises a hard question for any era of crisis: is choosing a quiet life wisdom or abdication?",
+  qs:["Epicurus admitted women and enslaved people to the Garden but did not campaign to end slavery. Is an inclusive enclave enough?","How might Epicurean ideas of “enough” challenge growth-based development policy in the Caribbean?","Wellbeing is now a policy goal in education. Is it being used to help students flourish or to make them tolerate poor conditions?"],
+  self:"What simple pleasures sustain your scholarly life? What fears does your work ask you to face?",
+  th:["community","learning"], ln:["pyrrho","bentham","mill"] },
+
+/* ---------------- SCHOLARS' CROSSROADS ---------------- */
+{ id:"hypatia", dist:"crossroads", n:"Hypatia of Alexandria", d:"c. 355–415 CE", o:"Alexandria, Egypt",
+  q:"A teacher whose classroom was the city.",
+  idea:"Hypatia was a mathematician, astronomer and Neoplatonist philosopher who led a celebrated school in Alexandria, one of the great centres of learning in Africa. Students of different faiths studied with her. She was murdered by a Christian mob during a political struggle in the city.",
+  c:["Women in philosophy","Mathematics as philosophy","Learning across faiths"],
+  edu:"Hypatia is a reminder that women taught philosophy in the ancient world and that African cities were hubs of global scholarship. Her erasure from many curricula is itself a lesson in whose history gets told.",
+  pol:"Her killing came amid conflict between church and civic authorities. It raises enduring questions about the safety of scholars and the vulnerability of public intellectuals in polarised times.",
+  qs:["Why is Alexandria so often presented as “Greek” rather than African? What is at stake in that labelling?","Hypatia's school welcomed pagans and Christians. What conditions allow diverse learners to share one classroom?","How do attacks on scholars today, online and offline, shape what research gets done?"],
+  self:"Who are the women in your field whose names are missing from your reading list?",
+  th:["knowledge","learning"], ln:["plato","augustine","wynter"] },
+
+{ id:"augustine", dist:"crossroads", n:"Augustine of Hippo", d:"354–430", o:"Thagaste (Souk Ahras, Algeria)",
+  q:"Words do not teach; they prompt us to look within.",
+  idea:"Augustine, a bishop from Roman North Africa, joined Christian faith with Platonic philosophy. His Confessions is the first great autobiography of the inner life. In The Teacher (De Magistro) he argued that words alone cannot transfer knowledge; the learner must see the truth for themselves, lit by an inner teacher.",
+  c:["The inner teacher","Memory and the self","Two cities: earthly and divine"],
+  edu:"Augustine's insight that teaching words do not automatically produce understanding anticipates constructivism. Learning happens when the learner recognises truth from within.",
+  pol:"The City of God separates earthly power from divine order. It has been used both to legitimise church authority and to argue that no state deserves total loyalty.",
+  qs:["Augustine is one of Africa's most influential philosophers, yet he is rarely taught as African. Why?","If words cannot transfer understanding, what does that mean for lecture-based teaching and for AI-generated explanations?","How does a theology of original sin shape attitudes toward discipline in Caribbean schools?"],
+  self:"Write one honest paragraph, in the spirit of the Confessions, about why you chose your research topic.",
+  th:["learning","knowledge"], ln:["plato","aquinas","hypatia"] },
+
+{ id:"ibnrushd", dist:"crossroads", n:"Ibn Rushd (Averroes)", d:"1126–1198", o:"Córdoba, al-Andalus (Spain)",
+  q:"Truth does not contradict truth.",
+  idea:"Ibn Rushd, a judge and physician in Muslim Spain, wrote such thorough commentaries on Aristotle that medieval Europeans simply called him “the Commentator.” In the Decisive Treatise he argued that philosophy and revelation, rightly understood, cannot conflict, and that those able to reason have a duty to do so.",
+  c:["Harmony of reason and faith","Commentary as philosophy","Duty to reason"],
+  edu:"Ibn Rushd shows that interpretation and commentary are creative scholarship. His work travelled to Paris and shaped European universities, a reminder that knowledge moves through translation.",
+  pol:"He argued for different modes of public speech for different audiences. This raises questions for science communication and public policy: should complex truths be simplified for citizens, and who decides?",
+  qs:["Europe's universities were shaped by an Andalusian Muslim scholar. How should that change debates about “Western civilisation” in curricula?","Is writing a commentary a lesser form of thought than writing a treatise? Consider your own literature review.","Ibn Rushd's books were burned near the end of his life. What forces today push scholars to self-censor?"],
+  self:"Which scholar's work do you “comment on” most? Where do you go beyond them?",
+  th:["knowledge","learning"], ln:["aristotle","aquinas","ibnkhaldun"] },
+
+{ id:"aquinas", dist:"crossroads", n:"Thomas Aquinas", d:"1225–1274", o:"Roccasecca, Italy; taught in Paris",
+  q:"The teacher helps nature, as a physician helps the body heal.",
+  idea:"Aquinas built on Aristotle, often through Ibn Rushd and other Islamic and Jewish commentators, to produce the Summa Theologiae. He developed natural law: moral principles knowable by reason. In his own De Magistro he described the teacher as one who assists the learner's natural power to reason.",
+  c:["Natural law","Faith and reason","Teacher as assistant to nature"],
+  edu:"Aquinas's teacher assists a natural process. This image still guides Catholic education, which runs many Caribbean schools.",
+  pol:"Natural law underpins modern human rights language and debates on just war. It was also used by Spanish thinkers such as Las Casas to argue for the humanity of Indigenous Americans.",
+  qs:["Natural law was used both to defend and to oppose colonial conquest. What does that tell us about the power of universal moral claims?","Church schools shape much Caribbean education. How do their founding philosophies still influence policy?","Aquinas relied on Muslim and Jewish commentators. How visible is that debt in how he is taught?"],
+  self:"Is your teaching more like a physician assisting healing or a builder constructing from plans?",
+  th:["justice","knowledge","learning"], ln:["aristotle","ibnrushd","augustine"] },
+
+{ id:"ibnkhaldun", dist:"crossroads", n:"Ibn Khaldun", d:"1332–1406", o:"Tunis (Tunisia)",
+  q:"Harsh teaching makes learners lose their spirit.",
+  idea:"In the Muqaddimah (1377), the Tunisian scholar Ibn Khaldun developed a science of society centuries before sociology had a name. He explained the rise and fall of states through asabiyyah, group solidarity. On education he warned that severity breeds deceit and laziness, and that learning should proceed gradually until it becomes a skill (malaka).",
+  c:["Asabiyyah (social cohesion)","Cycles of civilisation","Gradual learning as habit"],
+  edu:"Ibn Khaldun's warning against harsh treatment of students is one of the earliest arguments against corporal punishment. His idea of learning as a formed skill anticipates modern work on expertise.",
+  pol:"His theory of solidarity and decline speaks to state fragility, corruption and the loss of public trust. He also analysed taxation, warning that overtaxing kills production.",
+  qs:["Ibn Khaldun argued against harsh discipline in 1377. Why did corporal punishment persist in Caribbean schools into the twenty-first century?","Is asabiyyah a useful lens on Caribbean regional integration and CARICOM's struggles?","How does an African founder of social science challenge the usual story of sociology beginning in nineteenth-century Europe?"],
+  self:"What sustains solidarity in the groups you belong to, and what is wearing it down?",
+  th:["community","justice","learning"], ln:["ibnrushd","williams","best"] },
+
+{ id:"ahmadbaba", dist:"crossroads", n:"Ahmad Baba al-Timbukti", d:"1556–1627", o:"Araouane and Timbuktu (Mali)",
+  q:"Blackness is no reason for bondage.",
+  idea:"Ahmad Baba was a leading jurist of Timbuktu, a city of mosques, scholars and private libraries. After the Moroccan invasion he was taken to Marrakesh, where his learning won wide respect. In Mi‘raj al-Su‘ud (1615) he argued that free Muslims could not be enslaved and rejected the claim that dark skin or the so-called curse of Ham justified slavery.",
+  c:["Timbuktu's manuscript culture","Jurisprudence on slavery","Rejecting colour as a basis for bondage"],
+  edu:"Timbuktu's libraries hold hundreds of thousands of manuscripts. They contradict the myth of Africa as a place without written scholarship.",
+  pol:"Ahmad Baba rejected race-based slavery while still accepting some forms of bondage. His case shows how legal reasoning can partly resist and partly reproduce injustice, a pattern visible in many modern policies.",
+  qs:["Ahmad Baba rejected the curse-of-Ham argument that European enslavers later relied on. Why is his voice absent from Atlantic slavery curricula?","How do we read a thinker who resists one injustice while accepting another?","Timbuktu's manuscripts were saved by families during the 2012 conflict. Who protects archives in your society?"],
+  self:"Which archive, formal or family, holds the evidence of your community's intellectual life?",
+  th:["liberation","justice","knowledge"], ln:["ibnkhaldun","williams","rodney"] },
+
+/* ---------------- ENLIGHTENMENT HARBOUR ---------------- */
+{ id:"bacon", dist:"harbour", n:"Francis Bacon", d:"1561–1626", o:"London, England",
+  q:"Knowledge is power.",
+  idea:"Bacon called for a new method of science built on careful observation and induction. In the Novum Organum (1620) he named four “idols” that distort the mind: of the tribe (human nature), the cave (personal bias), the marketplace (language) and the theatre (received systems of thought).",
+  c:["Inductive method","The four idols of the mind","Science for human power"],
+  edu:"Bacon's idols are an early theory of cognitive bias and a strong tool for teaching research students to examine their assumptions.",
+  pol:"Bacon linked knowledge to control over nature, and his era linked it to colonial expansion. His vision raises the question of who benefits when knowledge becomes power.",
+  qs:["Bacon's “idols of the marketplace” are distortions caused by language. Which words in education policy (“standards”, “readiness”, “learning loss”) carry hidden assumptions?","If knowledge is power, how does the Global South's dependence on research produced elsewhere affect its power?","Is scientific control over nature compatible with Indigenous and Caribbean relationships with land?"],
+  self:"Which of Bacon's four idols most affects your own research? Give one concrete example.",
+  th:["knowledge"], ln:["descartes","hume","foucault"] },
+
+{ id:"descartes", dist:"harbour", n:"René Descartes", d:"1596–1650", o:"La Haye, France; worked in the Netherlands",
+  q:"“I think, therefore I am.”",
+  idea:"Descartes doubted everything he could until one certainty remained: in the act of doubting, he exists as a thinking thing. From this cogito he rebuilt knowledge on reason. He divided reality into mind and matter, a dualism that shaped modern science and the image of the solitary knower.",
+  c:["Methodical doubt","The cogito","Mind–body dualism"],
+  edu:"Descartes's ideal is the individual mind reasoning alone. It still shapes assessment that treats learning as something inside one person's head, separate from body, culture and community.",
+  pol:"Thinkers such as Enrique Dussel argue that “I conquer” came before “I think”: the confident European self was built on colonial conquest. This critique informs decolonial policy work.",
+  qs:["Contrast “I think, therefore I am” with Ubuntu's “I am because we are.” Which model sits behind your institution's assessment policy?","Can a mind–body split explain why physical and practical learning often have lower status than academic study?","Zera Yacob also withdrew to reason alone at almost the same time. Why is one called the father of modern philosophy and the other rarely mentioned?"],
+  self:"What are you most certain of in your field? Try doubting it in writing.",
+  th:["knowledge","learning"], ln:["zerayacob","ubuntu","bacon"] },
+
+{ id:"zerayacob", dist:"harbour", n:"Zera Yacob", d:"1599–1692", o:"Axum, Ethiopia",
+  q:"Reason is the light God gave to every person.",
+  idea:"Fleeing religious persecution, the Ethiopian scholar Zera Yacob lived for two years in a cave, reasoning about what can be known of God and ethics. His Hatata (1667) argues that all people are equal, that men and women are equal in marriage, and that religious laws must be tested by reason. Some scholars once doubted its authorship; most now accept it.",
+  c:["Rational inquiry against dogma","Human equality","Equality of women and men"],
+  edu:"Zera Yacob shows independent rational inquiry emerging in Africa in the same decades as Descartes. His work is a strong case for decolonising the philosophy curriculum.",
+  pol:"He tested every law by whether it fitted reason and human equality. That standard can be applied to any policy that treats people unequally because of religion, gender or origin.",
+  qs:["The authorship of the Hatata was questioned for decades. Would a European text have faced the same scepticism?","Zera Yacob and Descartes both retreated to reason alone. Compare what each concluded about human equality.","How would a philosophy syllabus change if it presented the 1600s as a global, not European, century of reason?"],
+  self:"Have you ever had to reason your way out of a belief your community held? What did it cost?",
+  th:["knowledge","justice","liberation"], ln:["descartes","amo","wiredu"] },
+
+{ id:"locke", dist:"harbour", n:"John Locke", d:"1632–1704", o:"Wrington, England",
+  q:"The mind begins as a blank slate.",
+  idea:"Locke argued that we are born without innate ideas and that all knowledge comes from experience. He defended government by consent and natural rights to life, liberty and property. Yet he invested in the Royal African Company and was involved in drafting the Fundamental Constitutions of Carolina, which gave enslavers absolute power.",
+  c:["Tabula rasa","Government by consent","Natural rights and property"],
+  edu:"Some Thoughts Concerning Education (1693) made upbringing and habit central to forming the person. Locke's blank slate gave environment and schooling enormous importance.",
+  pol:"Locke's theory of property, which justified taking “unused” land, was used to dispossess Indigenous peoples. Modern constitutions still rest on his rights language.",
+  qs:["Locke wrote about liberty while profiting from slavery. Is this hypocrisy, or does his theory of property itself make colonial seizure possible?","If minds are blank slates, who holds the chalk? Consider curriculum, media and algorithms.","Which Caribbean constitutional principles are Lockean, and do they fit Caribbean realities?"],
+  self:"Which experiences wrote most heavily on your own “slate” before you reached university?",
+  th:["justice","learning","knowledge"], ln:["hume","mills","rousseau"] },
+
+{ id:"amo", dist:"harbour", n:"Anton Wilhelm Amo", d:"c. 1703–c. 1759", o:"Near Axim, Gold Coast (Ghana); taught in Germany",
+  q:"An African professor in Enlightenment Europe.",
+  idea:"Taken from the Gold Coast as a child and given to a German duke, Amo studied at Halle and Wittenberg and taught philosophy at Halle and Jena. His 1729 disputation on the rights of Africans in Europe is lost. His 1734 dissertation argued that the mind itself does not feel sensations; the body does. Facing growing racism, he returned to the Gold Coast.",
+  c:["Mind and body","Rights of Africans in Europe","The African scholar in exile"],
+  edu:"Amo reached the top of the European academy and was then pushed out by prejudice. His life speaks to anyone who has had to prove belonging in an institution.",
+  pol:"His lost work on the legal status of Africans in Europe would have been a direct intervention in the politics of slavery. Its loss is part of the story.",
+  qs:["Amo's work on African rights is lost while his metaphysics survives. What decides which writings institutions preserve?","Amo was celebrated, then marginalised. What does his story say about inclusion without structural change?","How might Amo's philosophy of mind enter current debates on whether machines can “sense” or “feel”?"],
+  self:"Where in your academic life have you had to prove you belong? What did you learn from it?",
+  th:["knowledge","liberation"], ln:["descartes","zerayacob","gordon"] },
+
+{ id:"hume", dist:"harbour", n:"David Hume", d:"1711–1776", o:"Edinburgh, Scotland",
+  q:"Reason is the slave of the passions.",
+  idea:"Hume pushed empiricism to its limits. We never observe causation, only one event following another, so induction rests on habit rather than proof. Reason serves our feelings rather than ruling them. Yet in a notorious footnote he declared Africans naturally inferior and dismissed a learned Jamaican, the poet Francis Williams, as admired “like a parrot.”",
+  c:["Problem of induction","Reason and the passions","Empiricism"],
+  edu:"Hume's account of habit-based belief helps explain why learners hold on to misconceptions. His scepticism is a model of rigorous doubt.",
+  pol:"Hume's footnote was used by later defenders of slavery. It is a sharp case of how a great sceptic failed to doubt his own prejudices.",
+  qs:["Hume doubted causation itself but not the racial hierarchy of his day. What does this tell us about the limits of critical thinking?","The Jamaican Francis Williams wrote Latin poetry and was dismissed by Hume. How should Caribbean scholars respond to canonical figures who dismissed them?","If reason serves the passions, what passions drive education policy in your country?"],
+  self:"Which of your own beliefs rests mainly on habit rather than evidence?",
+  th:["knowledge"], ln:["pyrrho","kant","mills"] },
+
+{ id:"rousseau", dist:"harbour", n:"Jean-Jacques Rousseau", d:"1712–1778", o:"Geneva",
+  q:"“Man is born free, and everywhere he is in chains.”",
+  idea:"Rousseau argued that society, not nature, corrupts people. The Social Contract grounds legitimate power in the general will of citizens. Émile describes an education that follows the child's nature, learning through experience rather than books. But Émile's companion Sophie is educated only to please and serve him.",
+  c:["The general will","Natural education","Society as corrupting"],
+  edu:"Émile launched child-centred education, influencing Pestalozzi, Froebel, Montessori and Dewey. Its treatment of Sophie also shows how gender exclusion was written into progressive education.",
+  pol:"The general will inspired the French Revolution and, through it, the Haitian Revolution's demands for liberty. It also raises worries about majorities silencing minorities.",
+  qs:["Rousseau's “chains” were metaphorical; in Saint-Domingue they were literal. How did the enslaved read Enlightenment liberty more radically than its authors?","Is child-centred education a universal good or a cultural preference of particular classes?","Compare Émile and Sophie. Where do gendered expectations still shape subject choice in Caribbean schools?"],
+  self:"What did your own society teach you that you later had to unlearn to be free?",
+  th:["justice","learning","community"], ln:["wollstonecraft","dewey","clrjames"] },
+
+{ id:"kant", dist:"harbour", n:"Immanuel Kant", d:"1724–1804", o:"Königsberg, Prussia",
+  q:"Sapere aude: dare to use your own understanding.",
+  idea:"Kant defined Enlightenment as leaving self-imposed immaturity. His moral philosophy holds that we must treat persons always as ends, never merely as means, and act only on principles we could will as universal law. He also lectured on pedagogy, saying that a human being can become human only through education. His writings on race ranked peoples in a hierarchy.",
+  c:["Autonomy","Categorical imperative","Persons as ends"],
+  edu:"Kant's ideal of the autonomous learner who thinks for themselves runs through modern education policy. His Lectures on Pedagogy connect discipline, culture and moral formation.",
+  pol:"Kant's idea of human dignity underlies human rights law and his “perpetual peace” anticipates the United Nations. Scholars debate whether his racial writings undermine his universalism or show where it was always limited.",
+  qs:["Kant says treat persons as ends, yet he ranked races. Can the principle be used against its author?","Does the autonomous learner ideal fit collective and communal cultures?","Apply the categorical imperative to a data policy: could we will that every student's data be used this way?"],
+  self:"When did you last “dare to know” against the views of an authority you respected?",
+  th:["justice","learning","knowledge"], ln:["hume","hegel","mills"] },
+
+{ id:"wollstonecraft", dist:"harbour", n:"Mary Wollstonecraft", d:"1759–1797", o:"London, England",
+  q:"Women are not born weaker; they are educated into it.",
+  idea:"In A Vindication of the Rights of Woman (1792) Wollstonecraft answered Rousseau directly. She argued that women appear less rational because they are denied education and trained to please. She called for national co-educational day schools, where girls and boys would learn together.",
+  c:["Rights of women","Education creates the gender gap","Co-education"],
+  edu:"Wollstonecraft made the case that unequal outcomes come from unequal schooling, not nature. It is the founding argument of gender equity in education.",
+  pol:"Her call for public, co-educational schooling became policy in many countries. Today's debates on boys' underachievement in the Caribbean invite us to revisit her argument from a new angle.",
+  qs:["Caribbean girls now outperform boys at many levels. Does Wollstonecraft's argument help explain male underachievement too?","Wollstonecraft spoke for women's rights but said little about enslaved women. What does intersectional analysis add?","Which “natural” differences in your field turn out to be produced by policy?"],
+  self:"Where did your schooling shape your sense of what someone like you could become?",
+  th:["justice","learning"], ln:["rousseau","mill","butler"] },
+
+{ id:"bentham", dist:"harbour", n:"Jeremy Bentham", d:"1748–1832", o:"London, England",
+  q:"The greatest happiness of the greatest number.",
+  idea:"Bentham judged actions and laws by their consequences: do they increase total happiness and reduce pain? He designed the Panopticon, a building where one guard could watch every prisoner without being seen, and proposed it for schools, factories and hospitals too.",
+  c:["Principle of utility","The Panopticon","Law reform"],
+  edu:"Bentham proposed a utilitarian school, the Chrestomathia, focused on useful knowledge. His Panopticon became Foucault's symbol for surveillance in schools and workplaces.",
+  pol:"Cost-benefit analysis in modern policy is Benthamite. So is any policy that treats people as units of aggregate welfare, which can justify sacrificing minorities.",
+  qs:["Learning analytics and proctoring software make students permanently visible. Is the digital classroom a Panopticon?","Who gets counted, and who is left out, when policy calculates the “greatest number”?","Can happiness be measured, and should education be judged by it?"],
+  self:"In what parts of your working life do you feel watched? How does it change what you do?",
+  th:["justice","knowledge"], ln:["mill","foucault","epicurus"] },
+
+/* ---------------- THE INDUSTRIAL SQUARE ---------------- */
+{ id:"hegel", dist:"square", n:"G. W. F. Hegel", d:"1770–1831", o:"Stuttgart; taught in Berlin",
+  q:"Self-consciousness exists only in being recognised.",
+  idea:"Hegel saw history as the unfolding of freedom through conflict. In the lord–bondsman dialectic, the master depends on the servant's recognition, while the servant, through work, comes to self-awareness. Scholars have argued the Haitian Revolution may have shaped this idea. Hegel also declared Africa outside history.",
+  c:["Dialectic","Recognition","Bildung (self-formation)"],
+  edu:"Hegel's Bildung, formation through encountering what is strange to us, shapes the German and wider European idea of liberal education.",
+  pol:"His dialectic of recognition underpins modern politics of identity and recognition. His exclusion of Africa from history is a prime example of why Caribbean thinkers had to rewrite world history.",
+  qs:["Hegel may have drawn on Haiti while declaring Africa outside history. What does this reveal about the borrowing and erasure of Black thought?","Is recognition something the marginalised should seek from the powerful, or something they should build among themselves?","How does Bildung compare with the formation that happens in Caribbean community life?"],
+  self:"Whose recognition have you sought in your career? Whose recognition do you now give?",
+  th:["community","liberation","learning"], ln:["marx","fanon","clrjames"] },
+
+{ id:"mill", dist:"square", n:"John Stuart Mill", d:"1806–1873", o:"London, England",
+  q:"Over himself, over his own body and mind, the individual is sovereign.",
+  idea:"Mill's On Liberty sets out the harm principle: power may be used against a person only to prevent harm to others. He defended free speech and the equality of women. He chaired the Jamaica Committee, which sought to prosecute Governor Eyre for the brutal suppression of the 1865 Morant Bay uprising, yet he also defended colonial rule over peoples he considered unready for self-government.",
+  c:["Harm principle","Freedom of expression","Higher and lower pleasures"],
+  edu:"Mill argued the state should require education but not run all schools, to prevent uniform thinking. This argument still shapes debates on school choice and private provision.",
+  pol:"The harm principle is the starting point for policy on speech, public health and personal freedom. Mill's role in the Eyre controversy links liberal theory directly to Jamaican history.",
+  qs:["Mill sought justice for Morant Bay yet defended colonialism. How do we read a liberal who was both ally and imperialist?","Apply the harm principle to online speech and misinformation in small island states.","Should the state compel education while leaving its content free? Who protects the minority's curriculum?"],
+  self:"Where do you draw the line between your freedom and the harm it might cause others?",
+  th:["justice","community"], ln:["bentham","wollstonecraft","nettleford"] },
+
+{ id:"marx", dist:"square", n:"Karl Marx", d:"1818–1883", o:"Trier, Germany; worked in London",
+  q:"Philosophers have only interpreted the world; the point is to change it.",
+  idea:"Marx analysed capitalism as a system in which owners of the means of production profit from workers' labour. History, he argued, is driven by class struggle and material conditions. Workers become alienated from their work, products and one another. In Capital he wrote that labour in a white skin cannot emancipate itself where labour in a black skin is branded.",
+  c:["Historical materialism","Alienation","Class struggle"],
+  edu:"Marxist analysis shows schools reproducing class structure, a line taken up by Gramsci, Freire and Bowles and Gintis. It asks who schooling serves.",
+  pol:"Marx influenced independence movements, trade unions and Caribbean thinkers including Rodney and James. His analysis of capital speaks to tourism, debt and the platform economy today.",
+  qs:["Is the plantation the first modern factory? How does Caribbean history challenge a Europe-centred account of capitalism?","Are students alienated from their own learning when it is reduced to grades and credentials?","Who owns the means of production in the AI economy, and what does that mean for Caribbean labour?"],
+  self:"Is there a gap between the work you do and the work you believe in? What would close it?",
+  th:["justice","liberation"], ln:["hegel","gramsci","rodney"] },
+
+{ id:"nietzsche", dist:"square", n:"Friedrich Nietzsche", d:"1844–1900", o:"Röcken, Prussia",
+  q:"Become who you are.",
+  idea:"Nietzsche asked where our moral values come from and argued that many grew from resentment rather than truth. Through genealogy he traced how ideas of good and evil were invented. He celebrated creative self-overcoming and warned that the “death of God” left modern people facing a crisis of meaning.",
+  c:["Genealogy of morals","Perspectivism","Self-overcoming"],
+  edu:"Nietzsche attacked the education institutions of his time for producing obedient functionaries. His genealogy method inspired Foucault's analyses of schools and prisons.",
+  pol:"His thought has been claimed by liberators and by fascists. Studying how it was misused is a lesson in how philosophy enters politics.",
+  qs:["Use genealogy on one “obvious” value in your education system. When and why did it become obvious?","Nietzsche was misused by the Nazis. What responsibility do philosophers bear for how their ideas are used?","Can “become who you are” work in societies where the self is understood relationally?"],
+  self:"Which inherited value have you questioned and then chosen again for your own reasons?",
+  th:["knowledge","learning"], ln:["foucault","butler","hegel"] },
+
+{ id:"dubois", dist:"square", n:"W. E. B. Du Bois", d:"1868–1963", o:"Great Barrington, USA; died in Accra, Ghana",
+  q:"The problem of the twentieth century is the problem of the colour line.",
+  idea:"In The Souls of Black Folk (1903) Du Bois described double consciousness: seeing oneself through the eyes of a world that holds you in contempt. He argued for higher education for Black Americans against Booker T. Washington's focus on industrial training, organised Pan-African congresses, and spent his last years in Ghana.",
+  c:["Double consciousness","The veil","The colour line"],
+  edu:"The Du Bois–Washington debate over academic versus vocational education is still alive in Caribbean policy on technical and vocational training.",
+  pol:"Du Bois linked race in America to colonialism worldwide. His Pan-African work connects directly to Garvey, Nkrumah and Caribbean independence.",
+  qs:["Is the vocational versus academic debate in Caribbean education a version of Du Bois versus Washington?","Do Caribbean students experience double consciousness when assessed by foreign standards and examinations?","Du Bois and Garvey were bitter rivals. What did each see that the other missed?"],
+  self:"When have you seen yourself through someone else's contemptuous eyes? How did you answer?",
+  th:["liberation","culture","learning"], ln:["garvey","fanon","nkrumah"] },
+
+{ id:"dewey", dist:"square", n:"John Dewey", d:"1859–1952", o:"Burlington, Vermont, USA",
+  q:"Education is not preparation for life; education is life itself.",
+  idea:"Dewey, a pragmatist, judged ideas by their consequences in experience. He founded the Laboratory School in Chicago, and in Democracy and Education (1916) argued that schools should be small democratic communities where children learn by doing and solving real problems.",
+  c:["Learning through experience","Democracy as a way of life","Inquiry"],
+  edu:"Dewey is the foundation of progressive, project-based and experiential education. His influence reached Caribbean teacher education through North American training.",
+  pol:"For Dewey democracy is not just voting but shared problem-solving. This view supports participatory policy-making and community consultation.",
+  qs:["Dewey's experiential schooling often needs small classes and rich resources. How does it travel to under-resourced Caribbean schools?","Is Dewey's democracy possible inside an exam-driven system?","How does Dewey's “learning by doing” compare with apprenticeship traditions in Africa and the Caribbean?"],
+  self:"Describe a learning experience that was “life itself” rather than preparation for life.",
+  th:["learning","community"], ln:["rousseau","mead","freire"] },
+
+{ id:"mead", dist:"square", n:"George Herbert Mead", d:"1863–1931", o:"South Hadley, Massachusetts, USA",
+  q:"The self arises in social experience.",
+  idea:"Mead argued that the self is not given at birth but emerges through communication. We learn to see ourselves by taking the attitudes of others, first particular people and then the “generalised other” of the community. He distinguished the “I”, the spontaneous self, from the “me”, the self shaped by social expectations.",
+  c:["The social self","The I and the me","The generalised other"],
+  edu:"Mead explains how classroom interaction, labels and expectations shape learners' identities. He is a foundation for symbolic interactionism in educational research.",
+  pol:"If selves are formed socially, then media, schooling and public messaging are not neutral. Policy shapes who people believe they are.",
+  qs:["Who is the “generalised other” for Caribbean youth today: the community, social media, or a foreign audience?","How do labels such as “slow learner” or “remedial” become part of the “me”?","Compare Mead's social self with Ubuntu. What is similar and what differs?"],
+  self:"What part of your “me” came from a teacher's expectation of you?",
+  th:["learning","community","culture"], ln:["dewey","ubuntu","hall"] },
+
+/* ---------------- THE CRITICAL QUARTER ---------------- */
+{ id:"gramsci", dist:"quarter", n:"Antonio Gramsci", d:"1891–1937", o:"Sardinia; imprisoned in Italy",
+  q:"All people are intellectuals, but not all have the function of intellectuals.",
+  idea:"Written in a fascist prison, Gramsci's notebooks explain how the ruling class rules not only by force but by hegemony: winning consent until its view of the world feels like common sense. Change needs organic intellectuals who rise from and stay connected to working people.",
+  c:["Hegemony","Common sense","Organic intellectuals"],
+  edu:"Gramsci sees schools as key sites where hegemony is produced and contested. Teachers can reproduce common sense or help students examine it.",
+  pol:"Hegemony explains how unfair policies win public support. It is used to analyse media, development discourse and the global spread of policy fashions.",
+  qs:["Which ideas in Caribbean education policy have become “common sense” without ever being debated?","Rodney's groundings with Rastafari are an example of organic intellectual work. Can universities produce organic intellectuals?","Is AI being presented as inevitable common sense? Whose hegemony does that serve?"],
+  self:"Are you an organic intellectual? To which community are you accountable?",
+  th:["justice","liberation","culture"], ln:["marx","freire","rodney"] },
+
+{ id:"arendt", dist:"quarter", n:"Hannah Arendt", d:"1906–1975", o:"Hanover, Germany; worked in New York",
+  q:"Education is where we decide whether we love the world enough.",
+  idea:"Arendt studied how totalitarianism destroys people's ability to think and act together. Reporting on Eichmann's trial she described the banality of evil: harm done by ordinary people who do not think. In “The Crisis in Education” she argued that each child brings something new into the world (natality) and that adults must take responsibility for the world they introduce children to.",
+  c:["Natality","Banality of evil","Action and plurality"],
+  edu:"For Arendt, educators must protect both the child from the world and the world from the child, introducing the young to a shared world they will one day renew.",
+  pol:"Her idea that evil can be thoughtless and bureaucratic speaks to administrative cruelty, from immigration systems to automated decisions.",
+  qs:["Can an algorithm commit the banality of evil? Who thinks when no one has to?","Arendt defended authority in education. Does this conflict with Freire's dialogue?","What does natality, the arrival of the new, mean for curricula that only transmit the past?"],
+  self:"Where in your institution do people follow procedures without thinking about their effects?",
+  th:["justice","learning","community"], ln:["freire","foucault","wynter"] },
+
+{ id:"freire", dist:"quarter", n:"Paulo Freire", d:"1921–1997", o:"Recife, Brazil",
+  q:"Reading the word is reading the world.",
+  idea:"Freire rejected banking education, in which teachers deposit knowledge into passive students. He proposed problem-posing education built on dialogue, in which learners name their reality and act to change it. In 1963 his literacy circles taught hundreds of rural workers to read in weeks. After the 1964 coup he was jailed and exiled, and he later worked in Guinea-Bissau and as São Paulo's secretary of education.",
+  c:["Banking vs problem-posing education","Conscientização (critical consciousness)","Praxis: reflection and action"],
+  edu:"Freire is the foundation of critical pedagogy. For him, literacy is political: to read is to understand who holds power and why. His influence runs through adult education, community work and teacher training across the Caribbean and Africa.",
+  pol:"Freire treated policy as something communities must help write. He brought participatory budgeting and popular education into city government, showing critical pedagogy can shape a state.",
+  qs:["Freire warned that the oppressed can become oppressors. Where have liberation movements in the Caribbean reproduced the hierarchies they fought?","Is an online course with fixed content and automated quizzes banking education by design?","How would Freire read AI literacy? Is learning to use a tool the same as learning to read the machine and the world behind it?"],
+  self:"Think of a time you were taught in banking mode and a time you learned through dialogue. What changed in you?",
+  th:["learning","liberation","culture","justice"], ln:["socrates","hooks","rodney","nyerere","lighthouse"] },
+
+{ id:"foucault", dist:"quarter", n:"Michel Foucault", d:"1926–1984", o:"Poitiers, France",
+  q:"Power produces knowledge, and knowledge produces power.",
+  idea:"Foucault traced how modern institutions such as prisons, hospitals, schools and the army shape people through surveillance, examination and normalisation. Drawing on Bentham's Panopticon, he showed how people learn to watch and discipline themselves. Power is not only held by rulers; it flows through everyday practices and categories.",
+  c:["Power/knowledge","Discipline and surveillance","Normalisation"],
+  edu:"Foucault shows how timetables, seating, grades and examinations produce “normal” and “abnormal” learners. The exam is both a test and a technique of power.",
+  pol:"His idea of governmentality, government through statistics, populations and self-management, is central to analysing data-driven policy.",
+  qs:["What categories does your education system use to sort learners, and when were they invented?","Is the learning management system a disciplinary technology? What does it make visible and invisible?","Foucault was criticised for describing power without a clear path to resistance. Do Caribbean thinkers offer what he lacks?"],
+  self:"Which measures of your own performance have you internalised so deeply you watch yourself by them?",
+  th:["justice","knowledge"], ln:["bentham","nietzsche","wynter"] },
+
+{ id:"rawls", dist:"quarter", n:"John Rawls", d:"1921–2002", o:"Baltimore, USA",
+  q:"Justice is the first virtue of social institutions.",
+  idea:"In A Theory of Justice (1971) Rawls asked what principles people would choose behind a veil of ignorance, not knowing their race, class, talents or gender. He argued they would choose equal basic liberties and allow inequalities only if they benefit the least advantaged (the difference principle).",
+  c:["Veil of ignorance","Justice as fairness","Difference principle"],
+  edu:"Rawls supports policies that direct resources to the least advantaged learners. His framework is used to argue for equity-based school funding.",
+  pol:"Rawls is the standard reference for fairness in public policy. Charles Mills, raised in Jamaica, argued that Rawls's ideal theory ignores the actual history of racial injustice.",
+  qs:["Behind the veil of ignorance, would you accept your country's school placement system?","Mills argued ideal theory hides real injustice. Is Rawls useful for societies built on slavery?","How would the difference principle judge tourism-led development in the Caribbean?"],
+  self:"Design one policy in your area from behind the veil of ignorance. What changes?",
+  th:["justice"], ln:["mills","sen","kant"] },
+
+{ id:"sen", dist:"quarter", n:"Amartya Sen", d:"b. 1933", o:"Santiniketan, India",
+  q:"Development is the expansion of freedoms people have reason to value.",
+  idea:"Sen, an economist and philosopher, developed the capability approach: we should judge well-being and development by what people are actually able to be and do, not only by income. His study of famines showed they are caused by failures of access and democracy, not simply lack of food.",
+  c:["Capability approach","Development as freedom","Public reasoning"],
+  edu:"Education is both a capability in itself and a means to others. The approach, extended by Martha Nussbaum, shapes the UN Human Development Index.",
+  pol:"Sen shifted development policy from GDP toward human freedoms. It offers small states a way to measure success that is not set by foreign markets.",
+  qs:["What capabilities should Caribbean education expand that current measures ignore?","Is the capability approach truly universal, or does it carry liberal assumptions about the individual?","How might capabilities thinking judge AI adoption in schools?"],
+  self:"What freedom has your education given you that income alone could not?",
+  th:["justice","community"], ln:["rawls","nyerere","best"] },
+
+{ id:"hooks", dist:"quarter", n:"bell hooks", d:"1952–2021", o:"Hopkinsville, Kentucky, USA",
+  q:"The classroom remains the most radical space of possibility.",
+  idea:"bell hooks, who wrote her name in lower case to keep attention on her ideas rather than on herself, extended Freire through Black feminist thought. In Teaching to Transgress (1994) she described engaged pedagogy: teaching that cares for students' whole selves, recognises race, gender and class, and treats education as the practice of freedom.",
+  c:["Engaged pedagogy","Education as the practice of freedom","Intersectionality in the classroom"],
+  edu:"hooks asks teachers to bring their full selves into the classroom and to make room for students' experience as knowledge. She also challenged Freire's sexist language while honouring his work.",
+  pol:"hooks connects classroom practice with systems of domination. Policies on inclusion, she suggests, fail if they ignore love, care and power in daily teaching.",
+  qs:["hooks loved Freire and criticised him. How do you honour a thinker while naming their blind spots?","Can engaged pedagogy survive large classes, online delivery and high-stakes assessment?","What is the role of love in a policy document?"],
+  self:"When did a teacher make you feel your whole self belonged in the room?",
+  th:["learning","liberation","culture"], ln:["freire","butler","west"] },
+
+{ id:"west", dist:"quarter", n:"Cornel West", d:"b. 1953", o:"Tulsa, Oklahoma, USA",
+  q:"Justice is what love looks like in public.",
+  idea:"West developed prophetic pragmatism, joining Dewey's pragmatism to the Black church's prophetic tradition of speaking against injustice. Race Matters (1993) addressed nihilism and market culture in Black American life. He insists philosophy must serve the struggle for a more just world.",
+  c:["Prophetic pragmatism","Love and justice","Critique of market culture"],
+  edu:"West sees education as Paideia, the deep formation of character and critical citizenship, against schooling reduced to market skills.",
+  pol:"He challenges policies that treat citizens only as consumers and calls for public life shaped by moral courage.",
+  qs:["Can a prophetic voice, rooted in faith, guide policy in plural societies?","West combines pragmatism and the Black church. What would a Caribbean prophetic pragmatism draw on?","How does market culture shape what Caribbean universities offer and research?"],
+  self:"What does justice as public love require of you in your institution this year?",
+  th:["justice","community"], ln:["dewey","hooks","garvey"] },
+
+{ id:"butler", dist:"quarter", n:"Judith Butler", d:"b. 1956", o:"Cleveland, Ohio, USA",
+  q:"Identity is performed, again and again.",
+  idea:"In Gender Trouble (1990) Butler argued that gender is performative: it is produced through repeated acts and norms rather than expressing a fixed inner essence. Later work asks whose lives are treated as grievable and who is made precarious by social and political norms.",
+  c:["Performativity","Norms and recognition","Precarity and grievability"],
+  edu:"Butler helps educators see how schools reproduce norms through dress codes, language and expectations, and how learners can resist them.",
+  pol:"The question of whose lives are grievable applies to migration, policing, disaster response and war: policy decides which losses count.",
+  qs:["Which identities are made “normal” in your school's daily routines, and which are made invisible?","Whose deaths and losses are treated as grievable in Caribbean public life?","How does performativity relate to Stuart Hall's account of identity as becoming?"],
+  self:"Which professional identity do you perform daily? What would happen if you stopped?",
+  th:["culture","justice"], ln:["hall","foucault","hooks"] },
+
+/* ---------------- THE PAN-AFRICAN BRIDGE ---------------- */
+{ id:"nkrumah", dist:"bridge", n:"Kwame Nkrumah", d:"1909–1972", o:"Nkroful, Gold Coast (Ghana)",
+  q:"Seek ye first the political kingdom.",
+  idea:"Nkrumah led Ghana to independence in 1957, the first sub-Saharan African colony to free itself. Shaped by Garvey and Du Bois, he called for African unity. In Consciencism (1964) he sought a philosophy combining African tradition, Islamic and Euro-Christian influences, and in Neo-Colonialism (1965) he warned that political independence without economic control is not freedom.",
+  c:["Pan-African unity","Consciencism","Neo-colonialism"],
+  edu:"Nkrumah expanded free education and founded institutions to train an African professional class, while debating how far schooling should remain British in form.",
+  pol:"His warning about neo-colonialism, control through debt, aid and markets, is central to Caribbean debates on IMF programmes and foreign investment.",
+  qs:["Nkrumah said seek the political kingdom first. Was he right that politics must precede economic and educational change?","Is dependence on foreign technology platforms a new neo-colonialism?","How did Garvey's ideas travel from Jamaica to Ghana's independence?"],
+  self:"Where in your field are you politically free but economically or intellectually dependent?",
+  th:["liberation","justice"], ln:["garvey","dubois","nyerere"] },
+
+{ id:"nyerere", dist:"bridge", n:"Julius Nyerere", d:"1922–1999", o:"Butiama, Tanganyika (Tanzania)",
+  q:"Education for self-reliance.",
+  idea:"Called Mwalimu, the teacher, Nyerere led Tanzania to independence. His Ujamaa (familyhood) socialism drew on African communal values. In Education for Self-Reliance (1967) he criticised colonial schooling for producing an elite cut off from rural life and called for schools that serve the community and teach practical and cooperative skills.",
+  c:["Ujamaa (familyhood)","Education for self-reliance","Adult and Kiswahili education"],
+  edu:"Nyerere is one of the few heads of state who wrote a full philosophy of education. He linked schooling directly to national development and community needs.",
+  pol:"Ujamaa villagisation had serious failures, including forced resettlement. Studying Nyerere means weighing a powerful vision against its implementation.",
+  qs:["Nyerere's educational vision was admired but his villagisation policy failed. What lessons does this hold for top-down reform?","What would education for self-reliance mean for a Caribbean small island state facing AI?","Nyerere promoted Kiswahili as a national language. What would it mean to take Caribbean Creoles seriously in schooling?"],
+  self:"What does self-reliance mean in your own scholarly life, and what interdependence must you keep?",
+  th:["learning","liberation","community"], ln:["freire","ubuntu","nkrumah"] },
+
+{ id:"biko", dist:"bridge", n:"Steve Biko", d:"1946–1977", o:"King William's Town, South Africa",
+  q:"The most potent weapon of the oppressor is the mind of the oppressed.",
+  idea:"Biko founded the Black Consciousness Movement in apartheid South Africa. He argued that Black people must first free themselves from internalised inferiority and build their own organisations and self-respect. Influenced by Fanon and Césaire, he wrote under the title I Write What I Like. He died in police custody in 1977.",
+  c:["Black Consciousness","Psychological liberation","Self-definition"],
+  edu:"Biko's ideas inspired the 1976 Soweto student uprising against compulsory Afrikaans instruction, one of the most important student movements in history.",
+  pol:"Biko shows that policy on language of instruction can become a flashpoint for liberation. It also reminds us that states kill thinkers.",
+  qs:["Biko's words echo Garvey's call to emancipate ourselves from mental slavery. Trace the line from Jamaica to Soweto.","Can consciousness change without material change? Debate Biko with Marx.","Students led Soweto. What role should students play in shaping education policy today?"],
+  self:"What belief about yourself did you have to unlearn before you could lead?",
+  th:["liberation","culture"], ln:["garvey","fanon","cesaire"] },
+
+{ id:"oruka", dist:"bridge", n:"Henry Odera Oruka", d:"1944–1995", o:"Kenya",
+  q:"Philosophy lives among the sages, not only in books.",
+  idea:"Oruka interviewed respected elders across Kenya to show that critical, reasoned philosophy exists in African oral cultures. His sage philosophy distinguishes folk sages, who express shared wisdom, from philosophic sages, who critically examine that wisdom. He mapped the main trends of African philosophy.",
+  c:["Sage philosophy","Folk vs philosophic sagacity","Trends in African philosophy"],
+  edu:"Oruka's fieldwork is a research method: philosophy through interviews. It legitimises community elders as sources of knowledge in academic work.",
+  pol:"His work supports including traditional knowledge holders in policy consultation, from environment to justice.",
+  qs:["Who are the philosophic sages of your community? Could they appear in your literature review?","Does recording sages in academic terms honour them or extract from them?","How would sage philosophy change the way policy consultations are run?"],
+  self:"Identify one elder whose reasoning, not only whose wisdom, you respect.",
+  th:["knowledge","culture"], ln:["orunmila","wiredu","nettleford"] },
+
+{ id:"wiredu", dist:"bridge", n:"Kwasi Wiredu", d:"1931–2022", o:"Kumasi, Gold Coast (Ghana)",
+  q:"Decolonise concepts, not only countries.",
+  idea:"Wiredu argued for conceptual decolonisation: African philosophers should examine whether concepts like “truth”, “mind” or “person” fit the languages they think in, such as Akan, before adopting them. He also proposed consensus-based, non-party democracy drawn from Akan political traditions.",
+  c:["Conceptual decolonisation","Consensus democracy","Thinking in one's own language"],
+  edu:"Wiredu asks learners to test imported concepts in their own languages. For Caribbean classrooms, this raises the place of Creole in thinking and learning.",
+  pol:"His non-party, consensus model challenges adversarial Westminster politics inherited across the Caribbean.",
+  qs:["Try Wiredu's test: translate a key concept from your research into Jamaican or another Creole. What survives and what changes?","Could consensus democracy work in polarised two-party Caribbean systems?","Is conceptual decolonisation possible inside universities that publish in English for global rankings?"],
+  self:"Which of your key research concepts did you inherit without testing?",
+  th:["knowledge","culture","liberation"], ln:["zerayacob","brathwaite","wynter"] },
+
+/* ---------------- THE CARIBBEAN SHORE ---------------- */
+{ id:"garvey", dist:"shore", n:"Marcus Garvey", d:"1887–1940", o:"St Ann's Bay, Jamaica",
+  q:"“Emancipate yourselves from mental slavery; none but ourselves can free our minds.”",
+  idea:"Garvey founded the Universal Negro Improvement Association in Kingston in 1914 and built it into the largest mass movement of African-descended people in history, with branches across the Americas, Africa and Europe. He preached race pride, self-reliance, economic independence and the redemption of Africa. In 1937 he taught a School of African Philosophy in Toronto to train leaders. Jamaica named him its first National Hero.",
+  c:["Race pride and self-reliance","Mental emancipation","Africa for the Africans, at home and abroad"],
+  edu:"Garvey believed education had to restore a people's knowledge of their own history and culture. His idea of mental emancipation runs through Rastafari, Biko and Caribbean decolonial education.",
+  pol:"Garvey built businesses, a shipping line and newspapers, and he pursued policy across borders. His economic nationalism still informs debates on Black ownership and Caribbean economic sovereignty.",
+  qs:["Garvey's words reached the world through Bob Marley's “Redemption Song.” How does popular culture carry philosophy where universities do not?","Garvey and Du Bois disagreed sharply. Was Garvey's mass movement more philosophically radical than elite intellectual work?","What would mental emancipation mean in the age of AI? Who are the new authors of the stories told about us?"],
+  self:"What part of your mind are you still freeing, and what helps you do it?",
+  th:["liberation","culture","learning"], ln:["dubois","nkrumah","biko","amyjacques"] },
+
+{ id:"amyjacques", dist:"shore", n:"Amy Jacques Garvey", d:"1895–1973", o:"Kingston, Jamaica",
+  q:"The editor who kept a movement's words alive.",
+  idea:"Amy Jacques Garvey was a journalist, editor and organiser. She compiled The Philosophy and Opinions of Marcus Garvey, without which much of his thought would not have survived, and edited the women's page of the Negro World. She argued for women's leadership within Pan-Africanism and kept the movement alive after Garvey's deportation and death.",
+  c:["Community feminism","Editing as intellectual labour","Women in Pan-Africanism"],
+  edu:"Her career shows how women's intellectual work is often hidden behind famous men. Teaching her work is an exercise in recovering erased knowledge.",
+  pol:"She wrote on colonial rule, independence and women's rights, linking the Caribbean to African liberation politics into the 1960s.",
+  qs:["Garvey's philosophy reached us through Amy Jacques's editing. Whose labour sits invisibly behind the thinkers you cite?","Was her approach a form of feminism that worked within a race movement rather than outside it?","Who keeps movements alive between their famous moments?"],
+  self:"Whose unseen work has made your own scholarship possible?",
+  th:["liberation","culture"], ln:["garvey","wynter","hooks"] },
+
+{ id:"cesaire", dist:"shore", n:"Aimé Césaire", d:"1913–2008", o:"Basse-Pointe, Martinique",
+  q:"Colonisation = thingification.",
+  idea:"Poet and politician Césaire co-founded the Négritude movement with Léopold Senghor and Léon Damas, reclaiming Blackness as a source of value. His Notebook of a Return to My Native Land (1939) and Discourse on Colonialism (1950) argued that colonialism dehumanises the coloniser as well as the colonised and that Nazism was colonial violence turned back on Europe. He taught Frantz Fanon.",
+  c:["Négritude","Thingification","Boomerang of colonial violence"],
+  edu:"As a teacher at the Lycée Schoelcher, Césaire shaped a generation, including Fanon. He shows the classroom as a place where a decolonial imagination begins.",
+  pol:"Césaire chose departmentalisation for Martinique in 1946, making it part of France. That choice is still debated as a question of sovereignty versus security.",
+  qs:["Césaire wrote revolutionary poetry yet chose integration with France. How do we read the gap between thought and policy?","Is “thingification” a useful lens on how data systems treat people?","Fanon later criticised Négritude. What did the student see that the teacher did not?"],
+  self:"What in your heritage did you once see as a weakness and now see as a source?",
+  th:["liberation","culture"], ln:["fanon","glissant","biko"] },
+
+{ id:"clrjames", dist:"shore", n:"C. L. R. James", d:"1901–1989", o:"Tunapuna, Trinidad",
+  q:"“What do they know of cricket who only cricket know?”",
+  idea:"James was a historian, cricket writer, Marxist and teacher. The Black Jacobins (1938) told the Haitian Revolution as a central event of modern history, with enslaved people as its thinkers and actors. Beyond a Boundary (1963) read cricket as Caribbean politics and culture. In “Every Cook Can Govern” (1956) he argued that ordinary people are capable of self-government.",
+  c:["Self-emancipation of the masses","Haiti at the centre of modernity","Culture as politics"],
+  edu:"James taught that history should be told from below and that popular culture is serious knowledge. Beyond a Boundary is a model for reading everyday life philosophically.",
+  pol:"“Every cook can govern” is a direct challenge to rule by experts and an argument for participatory democracy.",
+  qs:["James placed Haiti at the heart of world history. How does that rewrite the Enlightenment district behind you?","Can cricket, dancehall or carnival be studied as philosophy? What do they teach about the Caribbean?","Compare “every cook can govern” with Plato's philosopher-kings."],
+  self:"Which everyday Caribbean practice holds a philosophy you could write about?",
+  th:["liberation","culture","justice"], ln:["hegel","rousseau","williams"] },
+
+{ id:"williams", dist:"shore", n:"Eric Williams", d:"1911–1981", o:"Port of Spain, Trinidad",
+  q:"The future of the nation is in the schoolbags of its children.",
+  idea:"Historian Eric Williams argued in Capitalism and Slavery (1944) that profits from slavery helped finance British industrialisation and that abolition followed economic decline rather than moral awakening alone. As the first Prime Minister of Trinidad and Tobago he expanded free secondary education and told citizens, in his speech “Massa Day Done” (1961), that colonial deference was over.",
+  c:["The Williams thesis","Education as nation-building","Massa Day Done"],
+  edu:"Williams turned history into a tool of national consciousness and made mass secondary education a pillar of independence.",
+  pol:"His thesis grounds Caribbean reparations claims. His government shows the strengths and limits of a scholar-politician.",
+  qs:["Williams argued that slavery helped build British capital. How does this inform CARICOM's reparations claim?","Can a historian govern as a philosopher-king? What did Williams's career show?","Does expanding access to school mean decolonising what is taught?"],
+  self:"What is in today's schoolbags, and who chose it?",
+  th:["liberation","justice","learning"], ln:["rodney","clrjames","marx"] },
+
+{ id:"fanon", dist:"shore", n:"Frantz Fanon", d:"1925–1961", o:"Fort-de-France, Martinique",
+  q:"Each generation must discover its mission, fulfil it, or betray it.",
+  idea:"Psychiatrist and revolutionary Fanon studied with Césaire, fought for Free France, then worked in Algeria and joined its liberation struggle. Black Skin, White Masks (1952) analyses how colonialism produces a sense of inferiority in the colonised; he named this sociogeny, the social origin of psychological suffering. The Wretched of the Earth (1961) warns that a national middle class may simply replace the colonisers.",
+  c:["Sociogeny","Colonial alienation","The pitfalls of national consciousness"],
+  edu:"Fanon shows that colonised schooling can teach people to despise themselves. His work underpins decolonial and anti-racist pedagogy.",
+  pol:"His warning about post-independence elites who imitate colonial rulers remains one of the sharpest lenses on Caribbean and African governance.",
+  qs:["Has Fanon's warning about the national middle class come true in the Caribbean? Give evidence.","Fanon was a psychiatrist. What does his work say about student mental health in post-colonial societies?","What is your generation's mission, and what would betrayal look like?"],
+  self:"Where have you worn a mask to be accepted in an institution?",
+  th:["liberation","culture","justice"], ln:["cesaire","hegel","wynter","biko"] },
+
+{ id:"best", dist:"shore", n:"Lloyd Best", d:"1934–2007", o:"Tunapuna, Trinidad",
+  q:"Independent thought and Caribbean freedom.",
+  idea:"Economist Lloyd Best co-founded the New World Group of Caribbean thinkers. With Kari Levitt he developed the plantation economy model, showing how Caribbean economies remained structured by the plantation: exporting raw goods, importing finished ones, and taking decisions made elsewhere. His essay “Independent Thought and Caribbean Freedom” (1967) argued that the region must think its own way out.",
+  c:["Plantation economy","Intellectual independence","New World Group"],
+  edu:"Best saw thinking from the Caribbean as an economic necessity. Imported models of schooling, like imported models of growth, reproduce dependence.",
+  pol:"The plantation model still explains tourism enclaves, extractive industries and dependence on imports, and it can be applied to data and digital platforms.",
+  qs:["Is the Caribbean now a “data plantation”, exporting raw data and importing finished AI products?","What would independent thought look like in Caribbean education research?","Why have Caribbean economic models been so hard to apply in policy?"],
+  self:"Which ideas in your work are imported finished goods, and which are home-grown?",
+  th:["liberation","justice","knowledge"], ln:["rodney","williams","ibnkhaldun"] },
+
+{ id:"nettleford", dist:"shore", n:"Rex Nettleford", d:"1933–2010", o:"Falmouth, Jamaica",
+  q:"Dancer, scholar, Vice-Chancellor: culture as knowledge.",
+  idea:"Scholar, dancer and choreographer, Nettleford co-founded Jamaica's National Dance Theatre Company and served as Vice-Chancellor of the University of the West Indies. In works such as Mirror Mirror (1970) and Inward Stretch, Outward Reach (1993) he argued that cultural action is the foundation of Caribbean development and that the creative arts are a form of knowledge.",
+  c:["Cultural action","Inward stretch, outward reach","Arts as knowledge"],
+  edu:"Nettleford put the creative arts at the centre of education and argued that a people's culture is the base of its intellectual life.",
+  pol:"He linked cultural policy to development, identity and regional integration, and he challenged the idea that culture is a luxury for small states.",
+  qs:["Nettleford said the arts are knowledge. Why do education budgets still treat them as extras?","What does “inward stretch, outward reach” mean for Caribbean participation in global AI?","Can a university's leadership embody a philosophy of culture? What did his tenure show?"],
+  self:"Which creative practice has taught you something no lecture could?",
+  th:["culture","learning","liberation"], ln:["brathwaite","hall","garvey"] },
+
+{ id:"brathwaite", dist:"shore", n:"Kamau Brathwaite", d:"1930–2020", o:"Bridgetown, Barbados",
+  q:"The hurricane does not roar in pentameters.",
+  idea:"Poet and historian Brathwaite coined “nation language” for the Caribbean languages that grew from African and European roots, arguing they have their own rhythms and should not be judged as broken English. His history of creole society in Jamaica showed creolisation as a creative process, and his idea of tidalectics replaced linear progress with the movement of the sea.",
+  c:["Nation language","Creolisation","Tidalectics"],
+  edu:"Brathwaite's nation language is foundational for literacy work that values Caribbean Creoles in the classroom rather than treating them as errors.",
+  pol:"Language-in-education policy across the Caribbean still wrestles with his argument: should Creole be a language of instruction and assessment?",
+  qs:["Should Jamaican or other Creoles be languages of examination? Argue both sides.","Tidalectics rejects linear progress. What would a non-linear curriculum look like?","How do AI language models treat Caribbean nation language? Who decides what is “correct”?"],
+  self:"In which language do you think most freely? Is it the language you write your research in?",
+  th:["culture","learning","knowledge"], ln:["nettleford","glissant","wiredu"] },
+
+{ id:"rodney", dist:"shore", n:"Walter Rodney", d:"1942–1980", o:"Georgetown, British Guiana (Guyana)",
+  q:"Grounding with my brothers.",
+  idea:"Historian and activist Rodney argued in How Europe Underdeveloped Africa (1972) that Europe's wealth was built by draining Africa through the slave trade and colonialism. Lecturing at UWI Mona, he took his teaching out of the campus to “ground” with Rastafari and working people in Kingston. In 1968 the Jamaican government banned him, sparking the Rodney protests. He was assassinated in Guyana in 1980.",
+  c:["Underdevelopment as a process","Grounding","The guerrilla intellectual"],
+  edu:"Rodney's groundings are a model of education as dialogue between the university and the people, close to Freire's culture circles and Gramsci's organic intellectual.",
+  pol:"His analysis of underdevelopment shapes debates on aid, debt and trade. His banning raises lasting questions about academic freedom in the Caribbean.",
+  qs:["Rodney was banned for teaching outside the campus. What are the limits of academic freedom in Caribbean universities today?","Is the platform economy underdeveloping the Global South in ways Rodney would recognise?","Design a “grounding” for your own research. Who would you sit with, and what would you learn?"],
+  self:"Where, beyond the university, does your knowledge need to be tested and grounded?",
+  th:["liberation","justice","learning"], ln:["freire","gramsci","best","marx"] },
+
+{ id:"wynter", dist:"shore", n:"Sylvia Wynter", d:"b. 1928", o:"Raised in Jamaica",
+  q:"Unsettling the coloniality of being.",
+  idea:"Novelist, dramatist and philosopher, Wynter argues that Western modernity has presented one culturally specific idea of “Man” as if it were the universal human. This overrepresentation of Man defines others, the colonised, the poor, the jobless, as less human. Building on Fanon's sociogeny, she calls for new genres of being human.",
+  c:["Overrepresentation of Man","Genres of the human","Sociogenic principle"],
+  edu:"Wynter asks what the disciplines themselves assume about the human. She calls for knowledge that unsettles, rather than reproduces, colonial categories.",
+  pol:"Her 1994 open letter “No Humans Involved” examined how a bureaucratic label dehumanised young Black men. It speaks directly to how classification systems and algorithms define people.",
+  qs:["Which idea of the human sits inside your discipline's core theories?","If AI is trained on data that overrepresents one version of Man, what kind of human does it learn?","How does Wynter extend Fanon, and how does she challenge Foucault?"],
+  self:"Which label applied to people in your field needs unsettling?",
+  th:["community","liberation","knowledge","culture"], ln:["fanon","foucault","lighthouse"] },
+
+{ id:"hall", dist:"shore", n:"Stuart Hall", d:"1932–2014", o:"Kingston, Jamaica",
+  q:"Identity is a matter of becoming as well as being.",
+  idea:"Hall left Jamaica for Oxford as a Rhodes Scholar and became a founder of cultural studies at Birmingham. His encoding/decoding model showed that audiences can read media messages in dominant, negotiated or oppositional ways. In “Cultural Identity and Diaspora” (1990) he argued that Caribbean identity is formed through history, difference and constant transformation.",
+  c:["Encoding / decoding","Identity as becoming","Representation"],
+  edu:"Hall's encoding/decoding model is a basis for media and critical literacy, and it extends naturally to reading AI outputs.",
+  pol:"His analysis of how media constructs crises and moral panics informs critical study of policy communication.",
+  qs:["Apply encoding/decoding to an AI chatbot answer. Who encodes, and can users decode oppositionally?","Hall's Caribbean identity is plural and changing. How does that challenge national curricula built on one heritage?","How are Caribbean societies represented in global media, and who profits from those images?"],
+  self:"How has your identity shifted between places you have lived and worked?",
+  th:["culture","knowledge"], ln:["mead","butler","nettleford"] },
+
+{ id:"glissant", dist:"shore", n:"Édouard Glissant", d:"1928–2011", o:"Sainte-Marie, Martinique",
+  q:"We claim the right to opacity.",
+  idea:"In Poetics of Relation (1990) Glissant described identity not as a single root but as a rhizome, spreading through relation with others. Creolisation produces outcomes no one can predict. He defended the right to opacity: people do not have to become fully transparent and understandable to others to deserve respect.",
+  c:["Poetics of relation","Right to opacity","Archipelagic thought"],
+  edu:"Glissant challenges teaching that demands everything be made transparent and measurable. Some knowledge is relational and cannot be reduced.",
+  pol:"The right to opacity is a powerful principle for data protection, privacy and resistance to surveillance.",
+  qs:["Is the right to opacity a basis for data rights in the Caribbean?","Archipelagic thought treats islands as connected, not isolated. What would an archipelagic regional policy look like?","Does learning analytics deny students their opacity?"],
+  self:"What part of yourself do you keep opaque at work, and why does it matter?",
+  th:["culture","community","liberation"], ln:["cesaire","brathwaite","lighthouse"] },
+
+{ id:"henry", dist:"shore", n:"Paget Henry", d:"Contemporary", o:"Antigua",
+  q:"Caliban has a philosophy.",
+  idea:"In Caliban's Reason (2000) Henry set out a history of Afro-Caribbean philosophy, showing that it has long existed within literature, religion and politics. He identifies poeticist thinkers, who emphasise culture and imagination (such as Wynter and Brathwaite), and historicist thinkers, who emphasise economy and history (such as James and Rodney).",
+  c:["Afro-Caribbean philosophy","Poeticist and historicist traditions","Caliban as thinker"],
+  edu:"Henry gives teachers a map of Caribbean philosophy and a case for teaching it as philosophy, not only as literature or politics.",
+  pol:"His work supports building Caribbean intellectual traditions into policy thinking rather than importing frameworks wholesale.",
+  qs:["Using Henry's map, are you more poeticist or historicist in your approach? Why?","Shakespeare's Caliban is a colonised figure. What does it mean to reclaim him as a philosopher?","Where should Caribbean philosophy sit in a regional university curriculum?"],
+  self:"Where would you place yourself on the map of Caribbean thought?",
+  th:["knowledge","culture","liberation"], ln:["wynter","clrjames","gordon"] },
+
+{ id:"mills", dist:"shore", n:"Charles W. Mills", d:"1951–2021", o:"Raised in Kingston, Jamaica",
+  q:"The social contract was a racial contract.",
+  idea:"Raised in Jamaica, Mills argued in The Racial Contract (1997) that modern Western political theory rests on an unwritten agreement among white people to treat non-white people as less than full persons. He criticised ideal theory, including Rawls, for ignoring real histories of racial injustice, and named “white ignorance” as a structured way of not knowing.",
+  c:["The racial contract","White ignorance","Non-ideal theory"],
+  edu:"Mills explains how curricula can produce structured ignorance, teaching some histories while leaving others out.",
+  pol:"His non-ideal theory insists that policy must begin from actual injustice, a direct support for reparations and corrective justice.",
+  qs:["Return to Locke, Hume and Kant with Mills's lens. What changes?","Is ignorance something produced by policy? Give an example from your country's curriculum.","Can liberal theory be repaired, as Mills hoped, or must it be replaced?"],
+  self:"What did your schooling leave you ignorant about, and how did you find out?",
+  th:["justice","liberation","knowledge"], ln:["rawls","locke","kant"] },
+
+{ id:"gordon", dist:"shore", n:"Lewis R. Gordon", d:"b. 1962", o:"Born in Jamaica",
+  q:"Shifting the geography of reason.",
+  idea:"Jamaican-born Gordon is a leading voice in Africana existential philosophy, asking what freedom and meaning are for people whose humanity has been denied. He warns against “disciplinary decadence”, when a field treats its own methods as reality. He was founding president of the Caribbean Philosophical Association, whose motto is shifting the geography of reason.",
+  c:["Africana existentialism","Disciplinary decadence","Shifting the geography of reason"],
+  edu:"Gordon asks doctoral students to think beyond the walls of their disciplines and to treat the Global South as a centre of reason, not a site for data collection.",
+  pol:"Shifting the geography of reason means policy built from Caribbean and African thought, not borrowed and adapted from the North.",
+  qs:["Is your discipline showing signs of disciplinary decadence? How would you know?","What would it mean in practice to shift the geography of reason in your university?","Compare Gordon's existentialism with Fanon's. What does Gordon add?"],
+  self:"Where is the centre of reason in your own intellectual map?",
+  th:["knowledge","liberation"], ln:["fanon","amo","henry"] },
+
+/* ---------------- THE ALGORITHM LIGHTHOUSE ---------------- */
+{ id:"lighthouse", dist:"light", n:"From the Word to the Algorithm", d:"Now", o:"The Caribbean and the Global South",
+  q:"Read the word. Read the world. Read the machine.",
+  idea:"The lighthouse gathers the whole road. Ptahhotep's instructions to the young now arrive as code. Bentham's Panopticon becomes the data dashboard. Freire's call to read the word and the world becomes a call to read the machine. Wynter asks who counts as human in the training data; Glissant defends the right to remain opaque; Best and Rodney warn of a data plantation; Nyerere and Garvey call for self-reliance and mental emancipation. Here you write your own philosophy.",
+  c:["Critical AI literacy","Data sovereignty","Writing our own instructions"],
+  edu:"Education must teach people not only to use AI but to question it: whose knowledge trained it, what it leaves out, and who profits. This is literacy in Freire's full sense.",
+  pol:"Small states can either receive AI policy written elsewhere or build governance from their own philosophical traditions. Every district on this road offers resources for that work.",
+  qs:["Choose three thinkers from three different districts. Build a framework for AI governance in a Caribbean state from their ideas.","Which thinker on this road would most strongly oppose current AI adoption in schools, and which would support it? Stage the debate.","What instruction would you write for the next generation, as Ptahhotep did for his?"],
+  self:"Write your own one-sentence philosophy of education and society, drawing on at least two districts.",
+  th:["knowledge","justice","liberation","learning","culture","community"], ln:["ptahhotep","freire","wynter","glissant","best","bentham"] }
+];
+
+/* SOURCES — APA 7th edition style. _text_ renders in italics.
+   Primary works first, then selected secondary studies. */
+const SOURCES = {
+ptahhotep:["Lichtheim, M. (1973). _Ancient Egyptian literature: Vol. 1. The Old and Middle Kingdoms_. University of California Press."],
+amenemope:["Lichtheim, M. (1976). _Ancient Egyptian literature: Vol. 2. The New Kingdom_. University of California Press."],
+orunmila:["Abimbola, W. (1976). _Ifá: An exposition of Ifá literary corpus_. Oxford University Press Nigeria.","Olúwọlé, S. B. (2014). _Socrates and Ọ̀rúnmìlà: Two patron saints of classical philosophy_. Ark Publications."],
+ubuntu:["Ramose, M. B. (1999). _African philosophy through ubuntu_. Mond Books.","Tutu, D. (1999). _No future without forgiveness_. Doubleday."],
+confucius:["Confucius. (1979). _The analects_ (D. C. Lau, Trans.). Penguin. (Original work compiled c. 5th–3rd century BCE)"],
+socrates:["Plato. (1997). Apology. In J. M. Cooper (Ed.), _Plato: Complete works_ (G. M. A. Grube, Trans.; pp. 17–36). Hackett. (Original work written c. 399–390 BCE)"],
+plato:["Plato. (1997). Republic. In J. M. Cooper (Ed.), _Plato: Complete works_ (G. M. A. Grube & C. D. C. Reeve, Trans.; pp. 971–1223). Hackett. (Original work written c. 375 BCE)","Plato. (1997). Meno. In J. M. Cooper (Ed.), _Plato: Complete works_ (G. M. A. Grube, Trans.; pp. 870–897). Hackett."],
+aristotle:["Aristotle. (2009). _The Nicomachean ethics_ (D. Ross, Trans.; L. Brown, Ed.). Oxford University Press. (Original work written c. 340 BCE)","Aristotle. (1998). _Politics_ (C. D. C. Reeve, Trans.). Hackett. (Original work written c. 350 BCE)"],
+pyrrho:["Sextus Empiricus. (2000). _Outlines of scepticism_ (J. Annas & J. Barnes, Trans.). Cambridge University Press. (Original work written c. 200 CE)","Bett, R. (2000). _Pyrrho, his antecedents, and his legacy_. Oxford University Press."],
+epicurus:["Epicurus. (1994). Letter to Menoeceus. In B. Inwood & L. P. Gerson (Eds. & Trans.), _The Epicurus reader_ (pp. 28–31). Hackett. (Original work written c. 300 BCE)"],
+hypatia:["Dzielska, M. (1995). _Hypatia of Alexandria_ (F. Lyra, Trans.). Harvard University Press."],
+augustine:["Augustine. (1991). _Confessions_ (H. Chadwick, Trans.). Oxford University Press. (Original work written 397–400)","Augustine. (1995). _Against the Academicians and The teacher_ (P. King, Trans.). Hackett. (Original work written 386–389)"],
+ibnrushd:["Averroës. (2001). _The book of the decisive treatise determining the connection between the law and wisdom_ (C. E. Butterworth, Trans.). Brigham Young University Press. (Original work written c. 1180)"],
+aquinas:["Aquinas, T. (1952–1954). _Truth_ (Questions 10–20, J. V. McGlynn, Trans.). Henry Regnery. (Original work written 1256–1259) [Question 11: The teacher]","Aquinas, T. (1947). _Summa theologica_ (Fathers of the English Dominican Province, Trans.). Benziger Bros. (Original work written 1265–1274)"],
+ibnkhaldun:["Ibn Khaldun. (1967). _The Muqaddimah: An introduction to history_ (F. Rosenthal, Trans.; N. J. Dawood, Ed.). Princeton University Press. (Original work written 1377)"],
+ahmadbaba:["Hunwick, J., & Harrak, F. (2000). _Mi‘rāj al-ṣu‘ūd: Ahmad Bābā's replies on slavery_. Institute of African Studies, Mohammed V University.","Jeppie, S., & Diagne, S. B. (Eds.). (2008). _The meanings of Timbuktu_. HSRC Press."],
+bacon:["Bacon, F. (2000). _The new organon_ (L. Jardine & M. Silverthorne, Eds.). Cambridge University Press. (Original work published 1620)"],
+descartes:["Descartes, R. (1996). _Meditations on first philosophy_ (J. Cottingham, Trans.). Cambridge University Press. (Original work published 1641)","Dussel, E. (1995). _The invention of the Americas: Eclipse of “the other” and the myth of modernity_ (M. D. Barber, Trans.). Continuum."],
+zerayacob:["Sumner, C. (1976). _Ethiopian philosophy: Vol. 2. The treatise of Zär'a Yaʿəqob and of Wäldä Ḥəywat: Text and authorship_. Commercial Printing Press.","Sumner, C. (1999). The significance of Zera Yacob's philosophy. _Ultimate Reality and Meaning, 22_(3), 172–188."],
+locke:["Locke, J. (1975). _An essay concerning human understanding_ (P. H. Nidditch, Ed.). Oxford University Press. (Original work published 1689)","Locke, J. (1989). _Some thoughts concerning education_ (J. W. Yolton & J. S. Yolton, Eds.). Oxford University Press. (Original work published 1693)","Locke, J. (1988). _Two treatises of government_ (P. Laslett, Ed.). Cambridge University Press. (Original work published 1689)"],
+amo:["Amo, A. W. (2020). _Anton Wilhelm Amo's philosophical dissertations on mind and body_ (S. Menn & J. E. H. Smith, Eds. & Trans.). Oxford University Press. (Original works published 1734–1738)"],
+hume:["Hume, D. (1987). Of national characters. In E. F. Miller (Ed.), _Essays, moral, political, and literary_ (pp. 197–215). Liberty Fund. (Original work published 1748)","Hume, D. (2000). _A treatise of human nature_ (D. F. Norton & M. J. Norton, Eds.). Oxford University Press. (Original work published 1739–1740)"],
+rousseau:["Rousseau, J.-J. (1979). _Emile, or on education_ (A. Bloom, Trans.). Basic Books. (Original work published 1762)","Rousseau, J.-J. (1997). _The social contract and other later political writings_ (V. Gourevitch, Ed. & Trans.). Cambridge University Press. (Original work published 1762)"],
+kant:["Kant, I. (1996). An answer to the question: What is enlightenment? In M. J. Gregor (Ed. & Trans.), _Practical philosophy_ (pp. 11–22). Cambridge University Press. (Original work published 1784)","Kant, I. (2007). Lectures on pedagogy. In G. Zöller & R. B. Louden (Eds.), _Anthropology, history, and education_ (pp. 434–485). Cambridge University Press. (Original work published 1803)"],
+wollstonecraft:["Wollstonecraft, M. (1792). _A vindication of the rights of woman_. J. Johnson."],
+bentham:["Bentham, J. (1995). _The panopticon writings_ (M. Božovič, Ed.). Verso. (Original work published 1791)","Bentham, J. (1996). _An introduction to the principles of morals and legislation_ (J. H. Burns & H. L. A. Hart, Eds.). Clarendon Press. (Original work published 1789)"],
+hegel:["Hegel, G. W. F. (1977). _Phenomenology of spirit_ (A. V. Miller, Trans.). Oxford University Press. (Original work published 1807)","Buck-Morss, S. (2009). _Hegel, Haiti, and universal history_. University of Pittsburgh Press."],
+mill:["Mill, J. S. (1859). _On liberty_. John W. Parker and Son.","Mill, J. S. (1869). _The subjection of women_. Longmans, Green, Reader, and Dyer.","Kostal, R. W. (2005). _A jurisprudence of power: Victorian empire and the rule of law_. Oxford University Press."],
+marx:["Marx, K., & Engels, F. (2002). _The communist manifesto_ (S. Moore, Trans.). Penguin. (Original work published 1848)","Marx, K. (1976). _Capital: A critique of political economy_ (Vol. 1; B. Fowkes, Trans.). Penguin. (Original work published 1867)"],
+nietzsche:["Nietzsche, F. (2007). _On the genealogy of morality_ (K. Ansell-Pearson, Ed.; C. Diethe, Trans.). Cambridge University Press. (Original work published 1887)"],
+dubois:["Du Bois, W. E. B. (1903). _The souls of Black folk_. A. C. McClurg."],
+dewey:["Dewey, J. (1897). My pedagogic creed. _The School Journal, 54_(3), 77–80.","Dewey, J. (1916). _Democracy and education_. Macmillan.","Dewey, J. (1938). _Experience and education_. Kappa Delta Pi."],
+mead:["Mead, G. H. (1934). _Mind, self, and society_ (C. W. Morris, Ed.). University of Chicago Press."],
+gramsci:["Gramsci, A. (1971). _Selections from the prison notebooks_ (Q. Hoare & G. N. Smith, Eds. & Trans.). International Publishers."],
+arendt:["Arendt, H. (1961). The crisis in education. In _Between past and future_ (pp. 173–196). Viking.","Arendt, H. (1963). _Eichmann in Jerusalem: A report on the banality of evil_. Viking."],
+freire:["Freire, P. (1970). _Pedagogy of the oppressed_ (M. B. Ramos, Trans.). Herder and Herder.","Freire, P., & Macedo, D. (1987). _Literacy: Reading the word and the world_. Bergin & Garvey."],
+foucault:["Foucault, M. (1977). _Discipline and punish: The birth of the prison_ (A. Sheridan, Trans.). Pantheon. (Original work published 1975)"],
+rawls:["Rawls, J. (1971). _A theory of justice_. Harvard University Press."],
+sen:["Sen, A. (1999). _Development as freedom_. Oxford University Press.","Nussbaum, M. C. (2011). _Creating capabilities: The human development approach_. Harvard University Press."],
+hooks:["hooks, b. (1994). _Teaching to transgress: Education as the practice of freedom_. Routledge."],
+west:["West, C. (1989). _The American evasion of philosophy: A genealogy of pragmatism_. University of Wisconsin Press.","West, C. (1993). _Race matters_. Beacon Press."],
+butler:["Butler, J. (1990). _Gender trouble: Feminism and the subversion of identity_. Routledge.","Butler, J. (2004). _Precarious life: The powers of mourning and violence_. Verso."],
+nkrumah:["Nkrumah, K. (1964). _Consciencism: Philosophy and ideology for decolonisation_. Heinemann.","Nkrumah, K. (1965). _Neo-colonialism: The last stage of imperialism_. Thomas Nelson & Sons."],
+nyerere:["Nyerere, J. K. (1967). _Education for self-reliance_. Government Printer.","Nyerere, J. K. (1968). _Ujamaa: Essays on socialism_. Oxford University Press."],
+biko:["Biko, S. (1978). _I write what I like_ (A. Stubbs, Ed.). Bowerdean Press."],
+oruka:["Oruka, H. O. (Ed.). (1990). _Sage philosophy: Indigenous thinkers and modern debate on African philosophy_. E. J. Brill."],
+wiredu:["Wiredu, K. (1980). _Philosophy and an African culture_. Cambridge University Press.","Wiredu, K. (1996). _Cultural universals and particulars: An African perspective_. Indiana University Press."],
+garvey:["Garvey, M. (1923–1925). _Philosophy and opinions of Marcus Garvey_ (A. Jacques Garvey, Ed.; Vols. 1–2). Universal Publishing House.","Hill, R. A. (Ed.). (1983–2011). _The Marcus Garvey and Universal Negro Improvement Association papers_ (Vols. 1–13). University of California Press; Duke University Press."],
+amyjacques:["Jacques Garvey, A. (1963). _Garvey and Garveyism_. Author.","Taylor, U. Y. (2002). _The veiled Garvey: The life and times of Amy Jacques Garvey_. University of North Carolina Press."],
+cesaire:["Césaire, A. (1972). _Discourse on colonialism_ (J. Pinkham, Trans.). Monthly Review Press. (Original work published 1950)","Césaire, A. (1995). _Notebook of a return to my native land_ (M. Rosello & A. Pritchard, Trans.). Bloodaxe Books. (Original work published 1939)"],
+clrjames:["James, C. L. R. (1938). _The Black Jacobins: Toussaint L'Ouverture and the San Domingo revolution_. Secker & Warburg.","James, C. L. R. (1963). _Beyond a boundary_. Hutchinson.","James, C. L. R. (1956). Every cook can govern: A study of democracy in ancient Greece. _Correspondence_."],
+williams:["Williams, E. (1944). _Capitalism and slavery_. University of North Carolina Press.","Williams, E. (1961). _Massa day done_ [Public lecture]. PNM Publishing."],
+fanon:["Fanon, F. (1967). _Black skin, white masks_ (C. L. Markmann, Trans.). Grove Press. (Original work published 1952)","Fanon, F. (1963). _The wretched of the earth_ (C. Farrington, Trans.). Grove Press. (Original work published 1961)"],
+best:["Best, L. (1967). Independent thought and Caribbean freedom. _New World Quarterly, 3_(4), 13–34.","Best, L., & Levitt, K. P. (2009). _Essays on the theory of plantation economy_. University of the West Indies Press."],
+nettleford:["Nettleford, R. (1970). _Mirror, mirror: Identity, race and protest in Jamaica_. William Collins and Sangster.","Nettleford, R. (1993). _Inward stretch, outward reach: A voice from the Caribbean_. Macmillan Caribbean."],
+brathwaite:["Brathwaite, E. K. (1971). _The development of Creole society in Jamaica, 1770–1820_. Clarendon Press.","Brathwaite, E. K. (1984). _History of the voice: The development of nation language in Anglophone Caribbean poetry_. New Beacon Books."],
+rodney:["Rodney, W. (1969). _The groundings with my brothers_. Bogle-L'Ouverture Publications.","Rodney, W. (1972). _How Europe underdeveloped Africa_. Bogle-L'Ouverture Publications."],
+wynter:["Wynter, S. (1994). No humans involved: An open letter to my colleagues. _Forum N.H.I.: Knowledge for the 21st Century, 1_(1), 42–73.","Wynter, S. (2003). Unsettling the coloniality of being/power/truth/freedom: Towards the human, after man, its overrepresentation—An argument. _CR: The New Centennial Review, 3_(3), 257–337."],
+hall:["Hall, S. (1973). _Encoding and decoding in the television discourse_ [Stencilled occasional paper no. 7]. Centre for Contemporary Cultural Studies, University of Birmingham.","Hall, S. (1990). Cultural identity and diaspora. In J. Rutherford (Ed.), _Identity: Community, culture, difference_ (pp. 222–237). Lawrence & Wishart."],
+glissant:["Glissant, É. (1997). _Poetics of relation_ (B. Wing, Trans.). University of Michigan Press. (Original work published 1990)","Glissant, É. (1989). _Caribbean discourse: Selected essays_ (J. M. Dash, Trans.). University Press of Virginia."],
+henry:["Henry, P. (2000). _Caliban's reason: Introducing Afro-Caribbean philosophy_. Routledge."],
+mills:["Mills, C. W. (1997). _The racial contract_. Cornell University Press.","Mills, C. W. (2007). White ignorance. In S. Sullivan & N. Tuana (Eds.), _Race and epistemologies of ignorance_ (pp. 13–38). State University of New York Press."],
+gordon:["Gordon, L. R. (1995). _Bad faith and antiblack racism_. Humanities Press.","Gordon, L. R. (2006). _Disciplinary decadence: Living thought in trying times_. Paradigm."],
+lighthouse:["Benjamin, R. (2019). _Race after technology: Abolitionist tools for the new Jim Code_. Polity.","Couldry, N., & Mejias, U. A. (2019). _The costs of connection: How data is colonizing human life and appropriating it for capitalism_. Stanford University Press.","Noble, S. U. (2018). _Algorithms of oppression: How search engines reinforce racism_. NYU Press."]
+};
+
+</script>
+<script>
+(function(){
+"use strict";
+const MEDIA = Object.assign({videos:{},audio:{}}, window.VILLAGE_MEDIA || {});
+MEDIA.videos = MEDIA.videos || {}; MEDIA.audio = MEDIA.audio || {};
+const CAN_EMBED = location.protocol === "file:" || /(github\.io|localhost|127\.0\.0\.1|vercel\.app|netlify\.app|pages\.dev)$/.test(location.hostname);
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem("stv:"+k); return v==null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem("stv:"+k, JSON.stringify(v)); }catch(e){} }
+};
+const ORDER = THINKERS.map(t => t.id);
+const BY = Object.fromEntries(THINKERS.map(t => [t.id, t]));
+const DBY = Object.fromEntries(DISTRICTS.map(d => [d.id, d]));
+let done = new Set(store.get("done", []).filter(id => BY[id]));
+let current = store.get("current", null);
+let notes = store.get("notes", {});
+let localVids = store.get("vids", {});
+let openId = null, thread = null;
+
+/* seeded random for stable scenery */
+function rng(seed){ let s = seed; return () => (s = (s*9301 + 49297) % 233280) / 233280; }
+
+/* ---------- building icons per district ---------- */
+const ICON = {
+  nile:`<path d="M8 50 L32 14 L56 50 Z" fill="#e2b06a"/><path d="M32 14 L56 50 L40 50 Z" fill="#b9874a"/><rect x="27" y="38" width="10" height="12" fill="#3b2a18"/>`,
+  agora:`<path d="M8 22 L32 10 L56 22 Z" fill="#efe7d6"/><rect x="10" y="22" width="44" height="4" fill="#d9cfbb"/><g fill="#efe7d6"><rect x="13" y="27" width="5" height="19"/><rect x="23" y="27" width="5" height="19"/><rect x="36" y="27" width="5" height="19"/><rect x="46" y="27" width="5" height="19"/></g><rect x="8" y="46" width="48" height="5" fill="#d9cfbb"/>`,
+  crossroads:`<rect x="12" y="30" width="40" height="20" fill="#c98a55"/><path d="M18 30 Q32 6 46 30 Z" fill="#e0a967"/><rect x="47" y="14" width="6" height="36" fill="#b9774a"/><path d="M47 14 L50 8 L53 14Z" fill="#e0a967"/><g stroke="#7a4a2a" stroke-width="2"><line x1="10" y1="38" x2="14" y2="38"/><line x1="50" y1="24" x2="56" y2="24"/></g><path d="M28 50 V40 Q32 35 36 40 V50Z" fill="#3b2a18"/>`,
+  harbour:`<path d="M10 30 L32 12 L54 30 Z" fill="#a9463a"/><rect x="14" y="30" width="36" height="20" fill="#e8dcc4"/><rect x="20" y="35" width="7" height="7" fill="#5c8bb0"/><rect x="37" y="35" width="7" height="7" fill="#5c8bb0"/><rect x="29" y="40" width="7" height="10" fill="#4a3220"/>`,
+  square:`<rect x="12" y="22" width="40" height="28" fill="#9b4f3c"/><rect x="40" y="8" width="7" height="16" fill="#7a3a2c"/><g fill="#f3d27a"><rect x="17" y="28" width="6" height="6"/><rect x="29" y="28" width="6" height="6"/><rect x="41" y="28" width="6" height="6"/><rect x="17" y="39" width="6" height="6"/><rect x="41" y="39" width="6" height="6"/></g><rect x="29" y="39" width="6" height="11" fill="#3b2219"/>`,
+  quarter:`<rect x="14" y="12" width="22" height="38" fill="#6c6a8f"/><rect x="36" y="24" width="16" height="26" fill="#8a7fa8"/><g fill="#ffd98a"><rect x="18" y="17" width="5" height="5"/><rect x="27" y="17" width="5" height="5"/><rect x="18" y="27" width="5" height="5"/><rect x="27" y="37" width="5" height="5"/><rect x="40" y="29" width="4" height="4"/><rect x="40" y="38" width="4" height="4"/></g>`,
+  bridge:`<path d="M10 32 Q32 8 54 32 Z" fill="#c9a25a"/><path d="M10 32 Q32 14 54 32" fill="none" stroke="#8e6a2e" stroke-width="2"/><rect x="14" y="32" width="36" height="18" rx="3" fill="#b5653f"/><path d="M27 50 V40 Q32 35 37 40 V50Z" fill="#3b2219"/><g stroke="#e8d3a0" stroke-width="2"><line x1="16" y1="44" x2="24" y2="44"/><line x1="40" y1="44" x2="48" y2="44"/></g>`,
+  shore:`<rect x="12" y="24" width="40" height="22" fill="#4cb6a8"/><path d="M8 26 L32 10 L56 26 Z" fill="#e8574a"/><g stroke="#fff4dc" stroke-width="2"><line x1="12" y1="27" x2="52" y2="27" stroke-dasharray="3 3"/></g><rect x="18" y="31" width="7" height="7" fill="#fff4dc"/><rect x="39" y="31" width="7" height="7" fill="#fff4dc"/><rect x="28" y="33" width="8" height="13" fill="#f2c14e"/><g stroke="#6b4a2a" stroke-width="3"><line x1="16" y1="46" x2="16" y2="52"/><line x1="48" y1="46" x2="48" y2="52"/></g>`,
+  light:`<path d="M26 50 L28 16 L36 16 L38 50Z" fill="#f2e8d3"/><g fill="#c8553d"><path d="M27.2 30 L36.8 30 L37.3 38 L26.7 38Z"/></g><rect x="25" y="10" width="14" height="7" fill="#e9b44c"/><path d="M24 10 L32 4 L40 10Z" fill="#c8553d"/><path d="M39 13 L58 6 L58 20Z" fill="#f5d48c" opacity=".7"/>`
+};
+
+/* ---------- horizon scenes ---------- */
+const SCENE = {
+  nile:{sky:["#f9d9a4","#f2a46a"], ground:"#d9a95f", svg:`
+    <circle cx="880" cy="120" r="70" fill="#ffe6a8" opacity=".9"/>
+    <path d="M0 160 Q300 140 600 150 T1200 150 V220 H0Z" fill="#e6b876"/>
+    <path d="M420 160 L520 60 L620 160Z" fill="#cf9c56"/><path d="M520 60 L620 160 L570 160Z" fill="#a8783e"/>
+    <path d="M600 160 L680 85 L760 160Z" fill="#c8954f"/><path d="M680 85 L760 160 L720 160Z" fill="#9f713a"/>
+    <path d="M300 160 L350 112 L400 160Z" fill="#d4a25d"/>
+    <path d="M0 178 Q300 165 600 180 T1200 176 V200 Q900 192 600 204 T0 196Z" fill="#3a8fa6"/>
+    <path class="anim-shimmer" d="M60 186 h80 M260 192 h60 M520 190 h90 M800 186 h70 M1000 192 h80" stroke="#d6f1f5" stroke-width="2"/>
+    <g class="anim-sail"><path d="M100 184 h40 l-6 6 h-28z" fill="#5a3a1c"/><path d="M120 184 V150 L142 180Z" fill="#fff3dc"/></g>
+    <g class="anim-sway" fill="#3d6b36"><path d="M150 170 V130" stroke="#6b4a2a" stroke-width="4"/><path d="M150 130 q-24 -6 -34 8 M150 130 q24 -6 34 8 M150 130 q-14 -18 -30 -14 M150 130 q14 -18 30 -14" stroke="#3d6b36" stroke-width="6" fill="none"/></g>
+    <g class="anim-birds" fill="none" stroke="#5b3a2a" stroke-width="2"><path d="M0 60 q6 -6 12 0 q6 -6 12 0"/><path d="M30 46 q5 -5 10 0 q5 -5 10 0"/></g>`},
+  agora:{sky:["#bfe0ec","#eef3e9"], ground:"#9aab68", svg:`
+    <path d="M0 150 Q200 70 420 120 T800 100 T1200 130 V220 H0Z" fill="#8b9a5c"/>
+    <path d="M0 175 Q300 140 600 165 T1200 160 V220 H0Z" fill="#76884b"/>
+    <g transform="translate(540 52)"><path d="M0 26 L80 4 L160 26Z" fill="#f4eee2"/><rect x="4" y="26" width="152" height="6" fill="#e3dac7"/><g fill="#f4eee2"><rect x="12" y="32" width="8" height="42"/><rect x="34" y="32" width="8" height="42"/><rect x="56" y="32" width="8" height="42"/><rect x="78" y="32" width="8" height="42"/><rect x="100" y="32" width="8" height="42"/><rect x="122" y="32" width="8" height="42"/><rect x="142" y="32" width="8" height="42"/></g><rect x="0" y="74" width="160" height="8" fill="#e3dac7"/></g>
+    <g fill="#3e5a2e"><path d="M200 175 q8 -60 16 0z"/><path d="M226 178 q7 -46 14 0z"/><path d="M960 168 q9 -64 18 0z"/></g>
+    <g class="anim-birds" fill="none" stroke="#33415a" stroke-width="2"><path d="M0 50 q6 -6 12 0 q6 -6 12 0"/><path d="M28 64 q5 -5 10 0 q5 -5 10 0"/><path d="M52 44 q5 -5 10 0 q5 -5 10 0"/></g>`},
+  crossroads:{sky:["#f6deaa","#f0c98a"], ground:"#c99a62", svg:`
+    <path d="M0 170 Q600 150 1200 170 V220 H0Z" fill="#d7aa6e"/>
+    <g fill="#b9774a"><path d="M360 170 V100 L380 80 L420 80 L440 100 V170Z"/><rect x="392" y="60" width="16" height="22"/><path d="M392 60 L400 48 L408 60Z"/></g>
+    <g stroke="#7a4a2a" stroke-width="3"><line x1="352" y1="110" x2="368" y2="110"/><line x1="432" y1="110" x2="448" y2="110"/><line x1="352" y1="135" x2="368" y2="135"/><line x1="432" y1="135" x2="448" y2="135"/><line x1="386" y1="70" x2="414" y2="70"/></g>
+    <g fill="#e8c38b"><path d="M620 170 V120 H760 V170Z"/><path d="M640 120 Q690 60 740 120Z"/><rect x="780" y="66" width="18" height="104"/><path d="M776 66 Q789 40 802 66Z"/></g>
+    <g fill="#d8b37a"><path d="M900 170 V130 H990 V170Z"/><path d="M910 130 Q945 95 980 130Z"/></g>
+    <g class="anim-sway" fill="none" stroke="#4c6b34" stroke-width="6"><path d="M200 170 V110" stroke="#6b4a2a" stroke-width="5"/><path d="M200 110 q-28 -4 -38 12 M200 110 q28 -4 38 12 M200 110 q-16 -20 -34 -14 M200 110 q16 -20 34 -14"/></g>
+    <g class="anim-birds" fill="none" stroke="#5b3a2a" stroke-width="2"><path d="M0 50 q6 -6 12 0 q6 -6 12 0"/></g>`},
+  harbour:{sky:["#cfdde8","#e8e2d6"], ground:"#8fa1a8", svg:`
+    <path d="M0 150 H1200 V220 H0Z" fill="#4f7d9c"/>
+    <path class="anim-wave" d="M0 160 q30 -6 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0" fill="none" stroke="#a9c8da" stroke-width="2"/>
+    <g fill="#6f6a66"><rect x="40" y="96" width="90" height="54"/><path d="M40 96 L85 70 L130 96Z" fill="#5a5552"/><rect x="140" y="110" width="70" height="40"/><path d="M140 110 L175 88 L210 110Z" fill="#5a5552"/></g>
+    <g class="anim-bob"><path d="M620 150 h150 l-20 22 h-110z" fill="#4a3220"/><g stroke="#3b2a18" stroke-width="3"><line x1="660" y1="150" x2="660" y2="60"/><line x1="720" y1="150" x2="720" y2="70"/></g><path d="M664 66 h40 v34 h-40z M664 104 h46 v32 h-46z" fill="#f4eee2"/><path d="M724 74 h32 v28 h-32z M724 106 h36 v30 h-36z" fill="#efe7d6"/></g>
+    <g class="anim-bob" style="animation-delay:-2s"><path d="M920 156 h90 l-14 14 h-64z" fill="#5a3a24"/><line x1="960" y1="156" x2="960" y2="100" stroke="#3b2a18" stroke-width="3"/><path d="M964 104 h30 v40 h-30z" fill="#f4eee2"/></g>
+    <g class="anim-birds" fill="none" stroke="#33415a" stroke-width="2"><path d="M0 50 q6 -6 12 0 q6 -6 12 0"/><path d="M26 38 q5 -5 10 0 q5 -5 10 0"/></g>`},
+  square:{sky:["#e5bf96","#b88e7d"], ground:"#7f6f62", svg:`
+    <path d="M0 160 H1200 V220 H0Z" fill="#6e5e52"/>
+    <g fill="#8d4b3b"><rect x="80" y="90" width="160" height="70"/><rect x="110" y="40" width="18" height="52"/><rect x="180" y="54" width="18" height="38"/><rect x="760" y="100" width="200" height="60"/><rect x="800" y="50" width="20" height="52"/><rect x="900" y="62" width="20" height="40"/></g>
+    <g fill="#bba"><circle class="anim-smoke" cx="119" cy="34" r="12" fill="#c9bfb6"/><circle class="anim-smoke" style="animation-delay:-2s" cx="189" cy="48" r="10" fill="#c9bfb6"/><circle class="anim-smoke" style="animation-delay:-1s" cx="810" cy="44" r="12" fill="#c9bfb6"/><circle class="anim-smoke" style="animation-delay:-3s" cx="910" cy="56" r="10" fill="#c9bfb6"/></g>
+    <g><rect x="520" y="40" width="50" height="120" fill="#7a6656"/><path d="M516 40 L545 12 L574 40Z" fill="#5d4c40"/><circle cx="545" cy="70" r="16" fill="#f3e6c8"/><path d="M545 70 V60 M545 70 h8" stroke="#3b2a1e" stroke-width="2.5"/></g>
+    <g fill="#f3d27a" class="anim-window"><rect x="96" y="104" width="12" height="12"/><rect x="140" y="104" width="12" height="12"/><rect x="784" y="114" width="12" height="12"/><rect x="860" y="114" width="12" height="12"/></g>`},
+  quarter:{sky:["#d2848a","#6b5b8a"], ground:"#4f4a63", svg:`
+    <path d="M0 165 H1200 V220 H0Z" fill="#3f3a52"/>
+    <g fill="#4a4566"><rect x="40" y="80" width="60" height="85"/><rect x="110" y="50" width="50" height="115"/><rect x="170" y="96" width="70" height="69"/><rect x="820" y="70" width="60" height="95"/><rect x="890" y="40" width="44" height="125"/><rect x="944" y="88" width="80" height="77"/><rect x="1040" y="110" width="60" height="55"/></g>
+    <g fill="#5c5680"><rect x="520" y="30" width="60" height="135"/><path d="M516 30 L550 4 L584 30Z"/></g>
+    <g fill="#ffd98a" class="anim-window"><rect x="124" y="64" width="8" height="8"/><rect x="140" y="88" width="8" height="8"/><rect x="900" y="56" width="8" height="8"/><rect x="916" y="100" width="8" height="8"/><rect x="536" y="50" width="8" height="10"/><rect x="556" y="80" width="8" height="10"/></g>
+    <g fill="#ffd98a" class="anim-window" style="animation-delay:-2.5s"><rect x="54" y="96" width="8" height="8"/><rect x="186" y="112" width="8" height="8"/><rect x="960" y="104" width="8" height="8"/><rect x="536" y="110" width="8" height="10"/></g>`},
+  bridge:{sky:["#f19a5a","#8f3f5d"], ground:"#9a6a45", svg:`
+    <circle cx="300" cy="130" r="60" fill="#ffcf7a" opacity=".85"/>
+    <path d="M620 160 L800 40 L980 160Z" fill="#6c3b4f"/><path d="M760 66 L800 40 L842 68 L820 74 L800 62 L780 76Z" fill="#fbeef0"/>
+    <path d="M0 165 Q600 145 1200 165 V220 H0Z" fill="#a2704a"/>
+    <path d="M380 180 Q600 90 820 180" fill="none" stroke="#3b2219" stroke-width="8"/><g stroke="#3b2219" stroke-width="3"><line x1="460" y1="142" x2="460" y2="180"/><line x1="540" y1="120" x2="540" y2="180"/><line x1="600" y1="116" x2="600" y2="180"/><line x1="660" y1="120" x2="660" y2="180"/><line x1="740" y1="142" x2="740" y2="180"/></g><path d="M370 180 H830" stroke="#3b2219" stroke-width="6"/>
+    <g fill="#3b2a1e"><path d="M120 165 C116 130 112 120 118 110 C130 112 150 112 160 110 C166 120 162 130 158 165Z"/><ellipse cx="139" cy="104" rx="46" ry="16"/></g>
+    <g fill="#3b2a1e"><path d="M1050 166 V130" stroke="#3b2a1e" stroke-width="5"/><ellipse cx="1050" cy="126" rx="56" ry="10"/></g>
+    <g class="anim-birds" fill="none" stroke="#3b2219" stroke-width="2"><path d="M0 50 q6 -6 12 0 q6 -6 12 0"/><path d="M26 40 q5 -5 10 0 q5 -5 10 0"/></g>`},
+  shore:{sky:["#4a5c96","#f0946a"], ground:"#d8c08c", svg:`
+    <circle cx="640" cy="150" r="56" fill="#ffc57a"/>
+    <path d="M0 140 Q120 70 260 110 Q380 60 520 120 Q600 100 660 130 V150 H0Z" fill="#2f3f6e"/>
+    <path d="M760 150 Q880 100 1000 130 Q1100 110 1200 140 V150 H760Z" fill="#3a4b7b"/>
+    <path d="M0 148 H1200 V200 H0Z" fill="#2a9d8f"/>
+    <path d="M560 156 h160 M580 166 h120 M600 176 h80" stroke="#ffd59a" stroke-width="3" class="anim-shimmer"/>
+    <path class="anim-wave" d="M0 190 q30 -8 60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 t60 0 V220 H0Z" fill="#d8c08c"/>
+    <g class="anim-bob"><path d="M300 170 h70 l-12 10 h-46z" fill="#e8574a"/><path d="M330 170 V136 L352 166Z" fill="#fff4dc"/></g>
+    <g class="anim-sway"><path d="M1000 200 Q1010 150 1030 110" fill="none" stroke="#6b4a2a" stroke-width="7"/><g stroke="#2f6b3a" stroke-width="7" fill="none" stroke-linecap="round"><path d="M1030 110 q-40 -6 -56 18"/><path d="M1030 110 q40 -4 56 20"/><path d="M1030 110 q-20 -30 -50 -26"/><path d="M1030 110 q22 -30 50 -24"/><path d="M1030 110 q0 -30 10 -40"/></g></g>
+    <g class="anim-birds" fill="none" stroke="#1d2340" stroke-width="2"><path d="M0 50 q6 -6 12 0 q6 -6 12 0"/><path d="M24 60 q5 -5 10 0 q5 -5 10 0"/></g>`},
+  light:{sky:["#0b1222","#18233d"], ground:"#101828", svg:`
+    <g class="anim-beam"><path d="M600 70 L1300 10 L1300 130Z" fill="url(#beamGrad)"/></g>
+    <defs><linearGradient id="beamGrad" x1="0" x2="1"><stop offset="0" stop-color="#f5d48c" stop-opacity=".55"/><stop offset="1" stop-color="#f5d48c" stop-opacity="0"/></linearGradient></defs>
+    <path d="M0 160 H1200 V220 H0Z" fill="#14233a"/>
+    <path class="anim-shimmer" d="M100 176 h60 M300 184 h80 M700 178 h90 M960 186 h60" stroke="#6b86b0" stroke-width="2"/>
+    <path d="M520 168 Q600 140 690 168Z" fill="#26324a"/>
+    <path d="M584 160 L590 74 L610 74 L616 160Z" fill="#f2e8d3"/><path d="M587 110 h26 l1 18 h-28z" fill="#c8553d"/><rect x="584" y="58" width="32" height="16" fill="#f5d48c"/><path d="M580 58 L600 42 L620 58Z" fill="#c8553d"/>`}
+};
+
+const ROMAN = ["I","II","III","IV","V","VI","VII","VIII","IX","X"];
+const POS = [34,62,44,70,36,58,48,68,30,56,40,66];
+
+function sceneSVG(d){
+  const s = SCENE[d.scene];
+  return `<svg class="scene" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" aria-hidden="true">${s.svg}</svg>`;
+}
+function propSVG(kind, scene){
+  const leaf = {nile:"#3d6b36",agora:"#3e5a2e",crossroads:"#4c6b34",harbour:"#3e5a46",square:"#5a5a3e",quarter:"#3e4a5a",bridge:"#5a5a2a",shore:"#2f6b3a",light:"#22304a"}[scene];
+  if(kind==="palm") return `<svg width="70" height="90" viewBox="0 0 70 90" class="anim-sway"><path d="M34 88 Q36 50 40 26" stroke="#6b4a2a" stroke-width="5" fill="none"/><g stroke="${leaf}" stroke-width="5" fill="none" stroke-linecap="round"><path d="M40 26 q-22 -2 -32 12"/><path d="M40 26 q22 -2 30 14"/><path d="M40 26 q-12 -18 -28 -14"/><path d="M40 26 q12 -18 26 -12"/></g></svg>`;
+  if(kind==="cypress") return `<svg width="30" height="80" viewBox="0 0 30 80"><path d="M15 78 Q2 50 15 4 Q28 50 15 78Z" fill="${leaf}"/></svg>`;
+  if(kind==="tree") return `<svg width="60" height="70" viewBox="0 0 60 70" class="anim-sway"><rect x="27" y="40" width="6" height="30" fill="#6b4a2a"/><circle cx="30" cy="30" r="22" fill="${leaf}"/><circle cx="18" cy="38" r="12" fill="${leaf}"/><circle cx="42" cy="38" r="12" fill="${leaf}"/></svg>`;
+  if(kind==="baobab") return `<svg width="80" height="80" viewBox="0 0 80 80"><path d="M30 80 C28 50 26 40 32 32 H48 C54 40 52 50 50 80Z" fill="#6b4a32"/><g stroke="#6b4a32" stroke-width="4" fill="none"><path d="M34 32 L20 18"/><path d="M46 32 L60 16"/><path d="M40 32 V14"/></g><g fill="${leaf}"><circle cx="20" cy="16" r="8"/><circle cx="60" cy="14" r="8"/><circle cx="40" cy="12" r="8"/></g></svg>`;
+  if(kind==="lamp") return `<svg width="20" height="70" viewBox="0 0 20 70"><rect x="9" y="14" width="2" height="56" fill="#2a2f3a"/><rect x="5" y="6" width="10" height="10" rx="2" fill="#ffd98a" class="anim-shimmer"/></svg>`;
+  if(kind==="reed") return `<svg width="40" height="40" viewBox="0 0 40 40" class="anim-sway"><g stroke="${leaf}" stroke-width="3" fill="none"><path d="M10 40 Q8 20 4 6"/><path d="M20 40 V4"/><path d="M30 40 Q32 20 36 8"/></g></svg>`;
+  if(kind==="star") return `<svg width="6" height="6" viewBox="0 0 6 6" class="anim-twinkle"><circle cx="3" cy="3" r="2" fill="#fff6e6"/></svg>`;
+  if(kind==="wave") return `<svg width="60" height="16" viewBox="0 0 60 16" class="anim-wave"><path d="M0 8 q8 -8 15 0 t15 0 t15 0 t15 0" stroke="#e8f6f2" stroke-width="2.5" fill="none" opacity=".75"/></svg>`;
+  return "";
+}
+const PROPS = {nile:["palm","reed","palm","reed"],agora:["cypress","tree","cypress"],crossroads:["palm","palm","tree"],harbour:["lamp","tree","lamp"],square:["lamp","tree"],quarter:["lamp","tree","lamp"],bridge:["baobab","tree","baobab"],shore:["palm","palm","wave","palm"],light:["star","star","star","star"]};
+
+/* ---------- build the map ---------- */
+const distEl = $("#districts");
+function build(){
+  const narrow = innerWidth < 620;
+  const ROW = narrow ? 128 : 132;
+  let html = "", idx = 0;
+  DISTRICTS.forEach((d, di) => {
+    const list = THINKERS.filter(t => t.dist === d.id);
+    const s = SCENE[d.scene];
+    const gh = list.length * ROW + 90;
+    let st = "";
+    list.forEach((t, i) => {
+      const x = POS[(idx) % POS.length]; idx++;
+      const y = 60 + i * ROW;
+      st += `<button class="st" id="st-${t.id}" data-id="${t.id}" style="left:${x}%;top:${y}px" aria-label="${esc(t.n)}">
+        <span class="house"><svg viewBox="0 0 64 64" aria-hidden="true">${ICON[d.scene]}</svg></span>
+        <span class="lbl">${esc(t.n)}<small>${esc(t.d)}</small></span></button>`;
+    });
+    // props
+    const r = rng(di * 977 + 13); let pr = "";
+    const kinds = PROPS[d.scene]; const count = d.scene === "light" ? 26 : Math.max(4, Math.round(list.length * 1.4));
+    for(let k=0;k<count;k++){
+      const side = r();
+      const x = d.scene==="light" ? r()*98 : (side < .5 ? 1 + r()*10 : 87 + r()*11);
+      const y = 20 + r() * (gh - 80);
+      pr += `<div style="position:absolute;left:${x}%;top:${y}px;opacity:${d.scene==="light"?1:.9}">${propSVG(kinds[k % kinds.length], d.scene)}</div>`;
+    }
+    // clouds
+    let cl = "";
+    if(d.scene !== "light"){
+      const rc = rng(di*31+7);
+      for(let c=0;c<3;c++){ const w = 70 + rc()*90; cl += `<span class="cloud" style="top:${20+rc()*120}px;width:${w}px;animation-duration:${50+rc()*50}s;animation-delay:-${rc()*80}s;opacity:${.4+rc()*.4}"></span>`; }
+    }
+    const vid = mediaFor("district:"+d.id);
+    html += `<section class="district" id="d-${d.id}" data-d="${d.id}" style="background:linear-gradient(180deg,${s.sky[0]} 0px,${s.sky[1]} 360px,${s.ground} 360px,${s.ground} 100%)">
+      <div class="sky">
+        <div class="clouds">${cl}</div>
+        <div class="dcard">
+          <div class="chapter"><span class="roman">Chapter ${ROMAN[di]}</span><span class="era">${esc(d.era)}</span></div>
+          <h2>${esc(d.name)}</h2>
+          <div class="dmeta">${esc(d.place)}</div>
+          <p>${esc(d.intro)}</p>
+          <div class="dask"><b>Crossroads question</b>${esc(d.ask)}</div>
+          ${vid ? `<div class="dvid">${mediaBlock(vid,"district:"+d.id,false)}</div>` : ""}
+        </div>
+        ${sceneSVG(d)}
+      </div>
+      <div class="ground" style="height:${gh}px">
+        <div class="props">${pr}${["bridge","shore","light"].includes(d.scene) ? Array.from({length:14},(_,k)=>{const rr=rng(di*7+k*13);return `<span class="fly" style="left:${4+rr()*92}%;top:${rr()*(gh-40)}px;animation-delay:-${rr()*9}s;animation-duration:${7+rr()*6}s"></span>`}).join("") : ""}</div>
+        ${st}
+      </div>
+    </section>`;
+  });
+  distEl.innerHTML = html;
+  distEl.querySelectorAll(".st").forEach(b => b.addEventListener("click", () => openStation(b.dataset.id)));
+  // fix sky gradient boundary to real sky height
+  distEl.querySelectorAll(".district").forEach(sec => {
+    const h = sec.querySelector(".sky").offsetHeight;
+    const s = SCENE[DBY[sec.dataset.d].scene];
+    sec.style.background = `linear-gradient(180deg,${s.sky[0]} 0px,${s.sky[1]} ${h-40}px,${s.ground} ${h-40}px,${s.ground} 100%)`;
+  });
+  layoutRoad();
+  paint();
+}
+
+/* ---------- road ---------- */
+let stationLen = {}, roadLen = 0;
+function layoutRoad(){
+  const map = $("#map"), mr = map.getBoundingClientRect();
+  const svg = $("#road");
+  svg.setAttribute("viewBox", `0 0 ${mr.width} ${map.scrollHeight}`);
+  const pts = [{x: mr.width*0.5, y: 0}];
+  ORDER.forEach(id => {
+    const h = $("#st-"+id+" .house"); if(!h) return;
+    const r = h.getBoundingClientRect();
+    pts.push({x: r.left - mr.left + r.width/2, y: r.top - mr.top + r.height/2, id});
+  });
+  let d = `M${pts[0].x} ${pts[0].y}`;
+  const tmp = document.createElementNS("http://www.w3.org/2000/svg","path");
+  svg.appendChild(tmp);
+  stationLen = {};
+  for(let i=1;i<pts.length;i++){
+    const a = pts[i-1], b = pts[i], dy = (b.y - a.y) * .55;
+    d += ` C${a.x} ${a.y+dy} ${b.x} ${b.y-dy} ${b.x} ${b.y}`;
+    tmp.setAttribute("d", d);
+    stationLen[b.id] = tmp.getTotalLength();
+  }
+  tmp.remove();
+  ["roadEdge","roadBase","roadDash","roadWalked"].forEach(i => $("#"+i).setAttribute("d", d));
+  roadLen = stationLen[ORDER[ORDER.length-1]] || 1;
+  const w = $("#roadWalked");
+  w.style.transition = "none";
+  w.style.strokeDasharray = `${roadLen} ${roadLen+10}`;
+  w.style.strokeDashoffset = roadLen;
+  w.getBoundingClientRect();
+  w.style.transition = "";
+  placeTraveller(false);
+}
+function walkedLen(){
+  let max = 0;
+  done.forEach(id => { if(stationLen[id] > max) max = stationLen[id]; });
+  return max;
+}
+let tPos = 0;
+function placeTraveller(animate){
+  const path = $("#roadBase"), t = $("#traveller");
+  const target = current && stationLen[current] != null ? stationLen[current] : 0;
+  const draw = L => { const p = path.getPointAtLength(Math.max(0, L)); t.setAttribute("transform", `translate(${p.x} ${p.y})`); };
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(!animate || reduce){ tPos = target; draw(target); return; }
+  const from = tPos, start = performance.now(), dur = Math.min(2200, 500 + Math.abs(target-from)*0.8);
+  function step(now){ const k = Math.min(1,(now-start)/dur), e = k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2; tPos = from + (target-from)*e; draw(tPos); if(k<1) requestAnimationFrame(step); }
+  requestAnimationFrame(step);
+}
+
+/* ---------- state painting ---------- */
+function paint(){
+  ORDER.forEach(id => {
+    const el = $("#st-"+id); if(!el) return;
+    el.classList.toggle("done", done.has(id));
+    el.classList.toggle("current", id === current);
+    const on = !thread || BY[id].th.includes(thread);
+    el.classList.toggle("dim", !!thread && !on);
+    el.classList.toggle("lit", !!thread && on);
+  });
+  $("#doneCount").textContent = done.size;
+  $("#totalCount").textContent = ORDER.length;
+  $("#fStops").textContent = ORDER.length;
+  $("#roadWalked").style.strokeDashoffset = roadLen - walkedLen();
+  // steps
+  $("#steps").innerHTML = DISTRICTS.map(d => {
+    const ids = THINKERS.filter(t => t.dist === d.id).map(t => t.id);
+    const n = ids.filter(i => done.has(i)).length;
+    const here = current && BY[current].dist === d.id;
+    return `<button class="step${here?" here":""}" data-d="${d.id}" title="${esc(d.name)}: ${n} of ${ids.length}" aria-label="${esc(d.name)}, ${n} of ${ids.length} complete"><i style="width:${n/ids.length*100}%"></i></button>`;
+  }).join("");
+  $("#steps").querySelectorAll(".step").forEach(b => b.onclick = () => $("#d-"+b.dataset.d).scrollIntoView({behavior:"smooth"}));
+  $("#resumeBtn").hidden = !current;
+  if(current) $("#resumeBtn").textContent = "Continue at " + BY[current].n.split(" (")[0];
+}
+
+/* ---------- media ---------- */
+function mediaFor(key){ return localVids[key] || MEDIA.videos[key] || ""; }
+function ytId(u){ const m = String(u).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/); return m ? m[1] : null; }
+function mediaBlock(url, key, withAdd){
+  let inner;
+  if(url){
+    const id = ytId(url);
+    if(id && CAN_EMBED) inner = `<iframe src="https://www.youtube-nocookie.com/embed/${id}" title="Video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    else inner = `<a class="watch" href="${esc(url)}" target="_blank" rel="noopener">▶ Watch the video</a>`;
+  } else {
+    inner = `<div class="ph"><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><rect x="1" y="5" width="32" height="24" rx="6" fill="none" stroke="#5b6a88" stroke-width="2"/><path d="M14 12 L22 17 L14 22Z" fill="#5b6a88"/></svg><span>A video for this stop will appear here.</span></div>`;
+  }
+  const audio = MEDIA.audio[key] ? `<audio controls preload="none" src="${esc(MEDIA.audio[key])}" style="width:100%;display:block"></audio>` : "";
+  const add = withAdd ? `<details class="addv"><summary>Add a video link on this device</summary><div class="row"><input id="vid-input" type="url" placeholder="https://youtu.be/…" value="${esc(localVids[key]||"")}"><button class="sbtn" id="vid-save">Save</button></div></details>` : "";
+  return `<div class="media">${inner}${audio}</div>${add}`;
+}
+
+/* ---------- drawer ---------- */
+const drawer = $("#drawer"), dbody = $("#dbody"), scrim = $("#scrim");
+function openStation(id, fromHash){
+  const t = BY[id]; if(!t) return;
+  openId = id; current = id; store.set("current", id);
+  const d = DBY[t.dist], i = ORDER.indexOf(id);
+  $("#crumb").textContent = `${d.name} · ${i+1} of ${ORDER.length}`;
+  const links = t.ln.filter(l => BY[l]).map(l => `<button class="chip link" data-go="${l}">${esc(BY[l].n)}</button>`).join("");
+  const sk = SCENE[d.scene].sky, di = DISTRICTS.indexOf(d);
+  const refs = (SOURCES[t.id]||[]).map(r => `<li>${fmtRef(r)}</li>`).join("");
+  dbody.innerHTML = `
+    <div class="dband" style="background:linear-gradient(135deg,${sk[0]} 0%,${sk[1]} 60%,${SCENE[d.scene].ground} 130%)">
+      <div class="big" aria-hidden="true">${esc(t.n.replace(/^(The |bell )/,"").charAt(0).toUpperCase())}</div>
+      <div class="roman">Chapter ${ROMAN[di]} · ${esc(d.name)}</div>
+      <h2 style="margin-top:8px">${esc(t.n)}</h2>
+      <div class="when">${esc(t.d)} · ${esc(t.o)} · <span title="id for media.js">id: ${t.id}</span></div>
+    </div>
+    <p class="quote">${esc(t.q)}</p>
+    <div class="sec"><h3>The idea</h3><p>${esc(t.idea)}</p></div>
+    <div class="sec"><h3>Key concepts</h3><div class="chips">${t.c.map(c=>`<span class="chip">${esc(c)}</span>`).join("")}</div></div>
+    <div class="sec"><h3>Two lenses</h3><div class="lens">
+      <div><b>Into learning and educational thought</b>${esc(t.edu)}</div>
+      <div><b>Into policy and public life</b>${esc(t.pol)}</div></div></div>
+    <div class="sec"><h3>Critical questions</h3><ol class="qs">${t.qs.map(q=>`<li>${esc(q)}</li>`).join("")}</ol></div>
+    <div class="sec"><h3>Watch and listen</h3>${mediaBlock(mediaFor(t.id), t.id, true)}</div>
+    <div class="sec"><h3>Your connection</h3><p style="margin-bottom:10px">${esc(t.self)}</p>
+      <textarea id="note-${t.id}" aria-label="Your reflection" placeholder="Write here. It saves on this device as you type.">${esc(notes[t.id]||"")}</textarea><div class="saved" id="savedMsg"></div></div>
+    <div class="sec"><h3>Sources</h3><ul class="refs">${refs}</ul></div>
+    <div class="sec"><h3>Compare</h3><button class="sbtn" id="cmpThis">Compare ${esc(t.n.split(" (")[0])} with another thinker</button></div>
+    <div class="sec"><h3>Walk the threads to</h3><div class="chips">${links}</div>
+      <div class="chips" style="margin-top:10px">${t.th.map(x=>`<span class="chip" style="border-style:dashed">${esc(THREADS[x].label)}</span>`).join("")}</div></div>`;
+  dbody.scrollTop = 0;
+  dbody.querySelectorAll("[data-go]").forEach(b => b.onclick = () => go(b.dataset.go));
+  $("#cmpThis").onclick = () => { cmpA = t.id; if(cmpB === t.id) cmpB = t.ln[0] || ORDER[0]; openPanel("compare"); };
+  const ta = $("#note-"+t.id); let timer;
+  ta.addEventListener("input", () => { notes[t.id] = ta.value; clearTimeout(timer); timer = setTimeout(() => { store.set("notes", notes); $("#savedMsg").textContent = "Saved on this device"; }, 400); });
+  const vs = $("#vid-save");
+  if(vs) vs.onclick = () => { const v = $("#vid-input").value.trim(); if(v) localVids[t.id] = v; else delete localVids[t.id]; store.set("vids", localVids); openStation(t.id); toast(v ? "Video link saved on this device" : "Video link removed"); };
+  const isLast = i === ORDER.length - 1;
+  $("#doneBtn").textContent = done.has(id) ? (isLast ? "Journey complete" : "Walk on to the next house") : (isLast ? "Complete the journey" : "Mark complete and walk on");
+  $("#prevBtn").disabled = i === 0; $("#nextBtnTop").disabled = isLast;
+  drawer.classList.add("open"); drawer.setAttribute("aria-hidden","false");
+  if(innerWidth < 900) scrim.classList.add("on");
+  if(!fromHash && location.hash !== "#"+id){ try{ history.replaceState(null,"","#"+id); }catch(e){} }
+  $("#where").textContent = d.name;
+  paint(); placeTraveller(true);
+  const el = $("#st-"+id); if(el) el.scrollIntoView({behavior:"smooth", block:"center"});
+  setTimeout(() => $("#closeDrawer").focus({preventScroll:true}), 50);
+}
+function go(id){ openStation(id); }
+function closeDrawer(){
+  drawer.classList.remove("open"); drawer.setAttribute("aria-hidden","true"); scrim.classList.remove("on"); openId = null;
+  try{ history.replaceState(null,"",location.pathname + location.search); }catch(e){}
+  const el = current && $("#st-"+current); if(el) el.focus({preventScroll:true});
+}
+$("#closeDrawer").onclick = closeDrawer;
+$("#prevBtn").onclick = () => { const i = ORDER.indexOf(openId); if(i>0) go(ORDER[i-1]); };
+$("#nextBtnTop").onclick = () => { const i = ORDER.indexOf(openId); if(i<ORDER.length-1) go(ORDER[i+1]); };
+$("#doneBtn").onclick = () => {
+  const id = openId, i = ORDER.indexOf(id);
+  const wasDone = done.has(id);
+  done.add(id); store.set("done", [...done]);
+  const t = BY[id];
+  const dIds = THINKERS.filter(x => x.dist === t.dist).map(x => x.id);
+  if(!wasDone && dIds.every(x => done.has(x))) toast(`${DBY[t.dist].name} complete`);
+  else if(!wasDone) toast("Marked complete");
+  if(i < ORDER.length - 1) go(ORDER[i+1]); else { paint(); toast("You have walked the whole road. Now write your own instruction."); }
+};
+
+/* ---------- panels ---------- */
+const panels = {threads:$("#pThreads"), notes:$("#pNotes"), guide:$("#pGuide"), compare:$("#pCompare")};
+function openPanel(k){
+  Object.entries(panels).forEach(([n,p]) => { const on = n===k; p.classList.toggle("open", on); p.setAttribute("aria-hidden", on?"false":"true"); });
+  scrim.classList.add("on");
+  if(k==="notes") renderNotes();
+  if(k==="threads") renderThreads();
+  if(k==="compare") renderCompare();
+}
+function closePanels(){ Object.values(panels).forEach(p => { p.classList.remove("open"); p.setAttribute("aria-hidden","true"); }); if(!(drawer.classList.contains("open") && innerWidth<900)) scrim.classList.remove("on"); }
+document.querySelectorAll("[data-close]").forEach(b => b.onclick = closePanels);
+scrim.onclick = () => { closePanels(); if(innerWidth<900) closeDrawer(); };
+$("#btnThreads").onclick = () => openPanel("threads");
+$("#btnNotes").onclick = () => openPanel("notes");
+$("#btnGuide").onclick = () => openPanel("guide");
+$("#btnCompare").onclick = () => openPanel("compare");
+
+/* ---------- sources ---------- */
+function fmtRef(r){ return esc(r).replace(/_([^_]+)_/g, "<em>$1</em>"); }
+$("#credGrid").innerHTML = DISTRICTS.map((d,i) => `<section><h3>Chapter ${ROMAN[i]} · ${esc(d.name)}</h3>${THINKERS.filter(t=>t.dist===d.id).map(t => `<div class="who">${esc(t.n)}</div><ul class="refs">${(SOURCES[t.id]||[]).map(r=>`<li>${fmtRef(r)}</li>`).join("")}</ul>`).join("")}</section>`).join("");
+
+/* ---------- compare ---------- */
+let cmpA = "socrates", cmpB = "freire";
+function yearOf(t){ const m = t.d.match(/(\d{3,4})(?:[–-]\d+)?\s*(BCE)?/); if(!m) return null; const y = +m[1]; return /BCE/.test(t.d) ? -y : y; }
+function renderCompare(){
+  const opts = DISTRICTS.map(d => `<optgroup label="${esc(d.name)}">${THINKERS.filter(t=>t.dist===d.id).map(t=>`<option value="${t.id}">${esc(t.n)}</option>`).join("")}</optgroup>`).join("");
+  ["#cmpA","#cmpB"].forEach((sel,i) => { const el = $(sel); el.innerHTML = opts; el.value = i ? cmpB : cmpA; el.onchange = () => { if(i) cmpB = el.value; else cmpA = el.value; renderCompare(); }; });
+  const A = BY[cmpA], B = BY[cmpB];
+  const col = t => `<div><h4>${esc(t.n)}</h4><small>${esc(t.d)} · ${esc(DBY[t.dist].name)}</small><p style="color:var(--gold-2)">${esc(t.q)}</p><b>Key concepts</b><p>${t.c.map(esc).join(" · ")}</p><b>Learning</b><p>${esc(t.edu)}</p><b>Policy</b><p>${esc(t.pol)}</p><p><button class="chip link" data-go="${t.id}">Open house</button></p></div>`;
+  const shared = A.th.filter(x => B.th.includes(x));
+  const ya = yearOf(A), yb = yearOf(B);
+  const gap = ya!=null && yb!=null ? Math.abs(ya - yb) : null;
+  const short = t => t.n.split(" (")[0];
+  const prompts = [];
+  shared.forEach(x => prompts.push(`On ${THREADS[x].label.toLowerCase()}: ${THREADS[x].hint} How would ${short(A)} answer, how would ${short(B)} answer, and where would each challenge the other?`));
+  if(!shared.length) prompts.push(`${short(A)} and ${short(B)} share no thread on this map. Build one: what question could bring them into the same conversation?`);
+  if(gap && gap > 50) prompts.push(`Roughly ${gap.toLocaleString()} years separate them. What has changed in the conditions of life that makes ${short(B)}'s questions different from ${short(A)}'s, and what has not changed at all?`);
+  prompts.push(`Choose one live policy in your own country. Write a short critique of it in the voice of ${short(A)}, then a reply from ${short(B)}.`);
+  prompts.push(`Which of the two would be more useful for governing AI in a Caribbean or Global South state, and what would the other warn you about?`);
+  $("#cmpOut").innerHTML = (cmpA === cmpB ? `<p class="empty">Pick two different thinkers.</p>` : `<div class="cmp-cols">${col(A)}${col(B)}</div><div class="sec"><h3>Debate prompts</h3><ol class="qs">${prompts.map(q=>`<li>${esc(q)}</li>`).join("")}</ol></div>`);
+  $("#cmpOut").querySelectorAll("[data-go]").forEach(b => b.onclick = () => { closePanels(); go(b.dataset.go); });
+}
+$("#dids").innerHTML = DISTRICTS.map(d => `<code>${d.id}</code>`).join(" ");
+
+function renderThreads(){
+  $("#threadList").innerHTML = `<button class="tchoice" data-t="" aria-pressed="${!thread}"><b>Show every house</b><span>Clear the thread and see the whole village.</span></button>` +
+    Object.entries(THREADS).map(([k,v]) => `<button class="tchoice" data-t="${k}" aria-pressed="${thread===k}"><b>${esc(v.label)}</b><span>${esc(v.hint)} · ${THINKERS.filter(t=>t.th.includes(k)).length} houses</span></button>`).join("");
+  $("#threadList").querySelectorAll(".tchoice").forEach(b => b.onclick = () => { thread = b.dataset.t || null; $("#btnThreads").setAttribute("aria-pressed", thread ? "true":"false"); paint(); renderThreads(); });
+  const list = thread ? THINKERS.filter(t => t.th.includes(thread)) : [];
+  $("#trail").innerHTML = list.map(t => `<button data-go="${t.id}"><small>${esc(DBY[t.dist].name.replace("The ",""))}</small><b>${esc(t.n)}</b></button>`).join("");
+  $("#trail").querySelectorAll("[data-go]").forEach(b => b.onclick = () => { closePanels(); go(b.dataset.go); });
+}
+function notesText(){
+  return ORDER.filter(id => (notes[id]||"").trim()).map(id => `${BY[id].n} (${DBY[BY[id].dist].name})\nPrompt: ${BY[id].self}\n${notes[id].trim()}\n`).join("\n");
+}
+function renderNotes(){
+  const ids = ORDER.filter(id => (notes[id]||"").trim());
+  $("#notesList").innerHTML = ids.length ? ids.map(id => `<div class="note"><b>${esc(BY[id].n)}</b><p>${esc(notes[id])}</p></div>`).join("") : `<p class="empty">No reflections yet. Open any house and write under “Your connection”.</p>`;
+  $("#dlNotes").hidden = !CAN_EMBED;
+}
+$("#copyNotes").onclick = async () => {
+  const txt = notesText() || "No reflections yet.";
+  try{ await navigator.clipboard.writeText(txt); toast("Reflections copied"); }
+  catch(e){ const ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); toast("Reflections copied"); }catch(_){ toast("Select and copy the text manually"); } ta.remove(); }
+};
+$("#dlNotes").onclick = () => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([notesText()],{type:"text/plain"})); a.download = "sankofa-village-notebook.txt"; a.click(); };
+$("#resetBtn").onclick = () => { $("#resetConfirm").hidden = false; };
+$("#resetNo").onclick = () => { $("#resetConfirm").hidden = true; };
+$("#resetYes").onclick = () => { done = new Set(); notes = {}; current = null; store.set("done",[]); store.set("notes",{}); store.set("current",null); $("#resetConfirm").hidden = true; renderNotes(); paint(); placeTraveller(true); toast("Progress cleared"); };
+
+/* ---------- misc ---------- */
+let tt; function toast(m){ const t = $("#toast"); t.textContent = m; t.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => t.classList.remove("on"), 2600); }
+$("#startBtn").onclick = () => go(ORDER[0]);
+$("#resumeBtn").onclick = () => current && go(current);
+document.addEventListener("keydown", e => {
+  if(e.key === "Escape"){ if(Object.values(panels).some(p=>p.classList.contains("open"))) closePanels(); else if(openId) closeDrawer(); }
+  if(openId && !/TEXTAREA|INPUT/.test(document.activeElement.tagName)){
+    if(e.key === "ArrowRight") $("#nextBtnTop").click();
+    if(e.key === "ArrowLeft") $("#prevBtn").click();
+  }
+});
+// current district label on scroll
+const io = new IntersectionObserver(es => es.forEach(en => { if(en.isIntersecting && !openId) $("#where").textContent = DBY[en.target.dataset.d].name; }), {rootMargin:"-45% 0px -45% 0px"});
+// hero stars
+(function stars(){
+  const c = $("#heroStars"), x = c.getContext("2d");
+  function size(){ c.width = c.offsetWidth * devicePixelRatio; c.height = c.offsetHeight * devicePixelRatio; }
+  size(); addEventListener("resize", size);
+  const S = Array.from({length:90}, () => ({x:Math.random(), y:Math.random()*.55, r:Math.random()*1.4+.3, p:Math.random()*6}));
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function frame(t){ x.clearRect(0,0,c.width,c.height); S.forEach(s => { x.globalAlpha = reduce ? .7 : .35 + .65*Math.abs(Math.sin(t/1400 + s.p)); x.fillStyle = "#fff6e6"; x.beginPath(); x.arc(s.x*c.width, s.y*c.height, s.r*devicePixelRatio, 0, 7); x.fill(); }); if(!reduce) requestAnimationFrame(frame); }
+  requestAnimationFrame(frame);
+})();
+
+build();
+document.querySelectorAll(".district").forEach(s => io.observe(s));
+
+/* reveal + parallax */
+const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const rv = new IntersectionObserver(es => es.forEach(en => { if(en.isIntersecting) en.target.classList.add("in"); }), {rootMargin:"0px 0px -15% 0px"});
+function watchReveal(){ document.querySelectorAll(".district").forEach(s => { if(REDUCE) s.classList.add("in"); else rv.observe(s); }); }
+watchReveal();
+let ticking = false;
+function parallax(){
+  ticking = false; if(REDUCE) return;
+  const vh = innerHeight;
+  document.querySelectorAll(".district").forEach(sec => {
+    const r = sec.getBoundingClientRect(); if(r.bottom < -200 || r.top > vh + 200) return;
+    const k = (r.top) / vh;
+    const sc = sec.querySelector(".scene"), cl = sec.querySelector(".clouds");
+    if(sc) sc.style.transform = `translateY(${k * 36}px)`;
+    if(cl) cl.style.transform = `translateY(${k * 70}px)`;
+  });
+  const hy = Math.min(scrollY, 900);
+  const sk = $("#skyline"); if(sk) sk.style.transform = `translateY(${hy * .25}px)`;
+}
+addEventListener("scroll", () => { if(!ticking){ ticking = true; requestAnimationFrame(parallax); } }, {passive:true});
+parallax();
+
+/* fly-through */
+let flying = false, flyRaf = 0;
+function stopFly(){ flying = false; cancelAnimationFrame(flyRaf); $("#flybar").hidden = true; }
+function startFly(){
+  if(openId) closeDrawer(); closePanels();
+  flying = true; $("#flybar").hidden = false;
+  const stops = [...document.querySelectorAll(".district")].map(sec => ({y: sec.getBoundingClientRect().top + scrollY - 70, d: DBY[sec.dataset.d]}));
+  stops.push({y: $("#sources").getBoundingClientRect().top + scrollY - 70, d: null});
+  let i = 0;
+  function leg(){
+    if(!flying) return;
+    if(i >= stops.length){ stopFly(); toast("End of the fly-through. Open any house to begin."); return; }
+    const st = stops[i], from = scrollY, to = st.y, dist = to - from;
+    const dur = REDUCE ? 0 : Math.min(5200, 1400 + Math.abs(dist) * 1.1), t0 = performance.now();
+    $("#flyCap").textContent = st.d ? `Chapter ${ROMAN[DISTRICTS.indexOf(st.d)]} · ${st.d.name}` : "Sources and further reading";
+    function f(now){
+      if(!flying) return;
+      const k = dur ? Math.min(1, (now - t0) / dur) : 1, e = k<.5 ? 4*k*k*k : 1 - Math.pow(-2*k+2,3)/2;
+      window.scrollTo(0, from + dist * e);
+      if(k < 1) flyRaf = requestAnimationFrame(f); else { i++; setTimeout(leg, st.d ? 3600 : 1500); }
+    }
+    flyRaf = requestAnimationFrame(f);
+  }
+  leg();
+}
+$("#flyBtn").onclick = startFly;
+$("#flyStop").onclick = stopFly;
+["wheel","touchstart","keydown"].forEach(ev => addEventListener(ev, e => { if(flying && !(e.target && e.target.id === "flyStop")) stopFly(); }, {passive:true}));
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { const w = innerWidth; if(w !== build.w){ build.w = w; build(); document.querySelectorAll(".district").forEach(s => io.observe(s)); watchReveal(); parallax(); } }, 200); });
+build.w = innerWidth;
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(() => layoutRoad());
+function fromHash(){ const h = location.hash.slice(1); if(BY[h]) openStation(h, true); }
+addEventListener("hashchange", fromHash);
+fromHash();
+})();
+</script>
+
+</body>
+</html>
