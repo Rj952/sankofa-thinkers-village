@@ -455,7 +455,6 @@ footer b{color:var(--parch);font-weight:600}
     <p class="sub">Primary works by each thinker, with selected studies, listed in APA 7th edition style. Dates in brackets give the original publication or composition date.</p>
     <div class="disclaim" role="note"><b>A note on accuracy</b>This resource was researched and written with the assistance of AI tools and reviewed by the author. Every effort has been made to be accurate, but it may still contain errors, omissions or simplifications in dates, quotations, attributions, interpretations or references. Lines shown in quotation marks are drawn from widely circulated translations; other taglines are summaries, not direct quotations. Please check details against the original sources before citing them in academic work, and treat the summaries here as starting points for your own reading. If you spot an error, please let the author know so it can be corrected.</div>
     <div class="cred-grid" id="credGrid"></div>
-    <div class="changes" id="changes"></div>
   </div>
 </section>
 <div class="flybar" id="flybar" hidden><span id="flyCap">Fly-through</span><button class="sbtn" id="flyStop">Stop</button></div>
@@ -1484,12 +1483,7 @@ marti:"From \u201cMaestros ambulantes\u201d (1884): \u201cSer culto es el único
    REVIEWED.freire = {by:"Dr A. Name", date:"2026-12-01"}; */
 const REVIEWED = {};
 
-const CHANGELOG = [
-{date:"2026-11-03", items:["Added nine Caribbean entries: Hostos, Firmin, Martí, Price-Mars, Una Marson, Claudia Jones, Elsa Goveia, Rastafari thought and George Beckford.","Split the Caribbean into two chapters: The Caribbean Awakening and The Caribbean Shore.","Added error reporting, review status, 'Look it up' links, quotation labels, policy case files, read-aloud, lite mode, offline use and portfolio export.","Reference for Bell Hooks now reads 'Hooks, B.' to match the site's spelling.","Paget Henry's birth year added (1946)."]},
-{date:"2026-11-03", items:["Capitalised Bell Hooks throughout the site and added her birth name."]},
-{date:"2026-11-03", items:["Added a note on accuracy to the sources section, footer and each house."]},
-{date:"2026-11-03", items:["Copyedit: softened Locke's role in the Carolina constitutions to 'was involved in drafting'; Eric Williams's thesis now says profits from slavery 'helped finance' industrialisation; replaced two lines for Amy Jacques Garvey and Rex Nettleford that read like quotations but were not; clarified Marx's line as from Capital."]}
-];
+const CHANGELOG = [];
 
 const CASES = [
 {id:"language", title:"Which language should children learn in?",
@@ -1983,7 +1977,6 @@ function toggleListen(t){
 /* ---------- case files & change log ---------- */
 $("#caseGrid").innerHTML = CASES.map(c => `<article class="case"><span class="lab">Case file</span><h3>${esc(c.title)}</h3><p>${esc(c.context)}</p><p class="q">${esc(c.question)}</p><span class="lab">Thinkers</span><div class="chips">${c.lenses.filter(id=>BY[id]).map(id=>`<button class="chip link" data-go="${id}">${esc(BY[id].n)}</button>`).join("")}</div><span class="lab">Tasks</span><ol>${c.tasks.map(x=>`<li>${esc(x)}</li>`).join("")}</ol></article>`).join("");
 $("#caseGrid").querySelectorAll("[data-go]").forEach(b => b.onclick = () => go(b.dataset.go));
-$("#changes").innerHTML = `<h3>What's changed</h3>` + CHANGELOG.map(c => `<time>${esc(c.date)}</time><ul>${c.items.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`).join("");
 $("#fChapters").textContent = DISTRICTS.length;
 
 /* ---------- lite mode ---------- */
