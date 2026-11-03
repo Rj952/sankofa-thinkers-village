@@ -146,6 +146,9 @@ body::after{content:"";position:fixed;inset:-50%;z-index:95;pointer-events:none;
 .credits-in{max-width:1100px;margin:0 auto}
 .credits h2{font-size:clamp(36px,5vw,60px);text-align:center}
 .credits .sub{text-align:center;color:var(--mute);max-width:62ch;margin:12px auto 0}
+.disclaim{max-width:760px;margin:28px auto 0;border:1px solid rgba(233,180,76,.45);background:rgba(233,180,76,.08);border-radius:14px;padding:16px 20px;font-size:14.5px;color:#e9dfca}
+.disclaim b{display:block;font-family:var(--f-mono);font-weight:500;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.verify{font-size:12.5px;color:var(--mute);margin-top:8px;font-style:italic}
 .cred-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 48px;margin-top:48px}
 .cred-grid section h3{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:12px}
 .cred-grid .who{font-weight:600;color:var(--parch);font-size:14px;margin-top:12px}
@@ -403,6 +406,7 @@ footer b{color:var(--parch);font-weight:600}
     <div class="eyebrow" style="text-align:center">End credits</div>
     <h2 id="srcH">Sources and further reading</h2>
     <p class="sub">Primary works by each thinker, with selected studies, listed in APA 7th edition style. Dates in brackets give the original publication or composition date.</p>
+    <div class="disclaim" role="note"><b>A note on accuracy</b>This resource was researched and written with the assistance of AI tools and reviewed by the author. Every effort has been made to be accurate, but it may still contain errors, omissions or simplifications in dates, quotations, attributions, interpretations or references. Lines shown in quotation marks are drawn from widely circulated translations; other taglines are summaries, not direct quotations. Please check details against the original sources before citing them in academic work, and treat the summaries here as starting points for your own reading. If you spot an error, please let the author know so it can be corrected.</div>
     <div class="cred-grid" id="credGrid"></div>
   </div>
 </section>
@@ -411,6 +415,7 @@ footer b{color:var(--parch);font-weight:600}
 <footer>
   <p><b>Sankofa Thinkers' Village</b> · Designed by Dr. Rohan Jowallah, Ed.D., FHEA</p>
   <p>For learners and leaders across the Caribbean and the Global South. Creative rights reserved by the author.</p>
+  <p style="font-size:12.5px;max-width:70ch;margin:8px auto 0">This is a teaching resource, not an authoritative reference. It may contain errors; verify dates, quotations and sources before citing. <a href="#sources" style="color:var(--gold-2)">Read the note on accuracy</a>.</p>
 </footer>
 
 <div class="scrim" id="scrim"></div>
@@ -1619,7 +1624,7 @@ function openStation(id, fromHash){
     <div class="sec"><h3>Watch and listen</h3>${mediaBlock(mediaFor(t.id), t.id, true)}</div>
     <div class="sec"><h3>Your connection</h3><p style="margin-bottom:10px">${esc(t.self)}</p>
       <textarea id="note-${t.id}" aria-label="Your reflection" placeholder="Write here. It saves on this device as you type.">${esc(notes[t.id]||"")}</textarea><div class="saved" id="savedMsg"></div></div>
-    <div class="sec"><h3>Sources</h3><ul class="refs">${refs}</ul></div>
+    <div class="sec"><h3>Sources</h3><ul class="refs">${refs}</ul><p class="verify">Summaries on this page may simplify or contain errors. Check the original works before citing.</p></div>
     <div class="sec"><h3>Compare</h3><button class="sbtn" id="cmpThis">Compare ${esc(t.n.split(" (")[0])} with another thinker</button></div>
     <div class="sec"><h3>Walk the threads to</h3><div class="chips">${links}</div>
       <div class="chips" style="margin-top:10px">${t.th.map(x=>`<span class="chip" style="border-style:dashed">${esc(THREADS[x].label)}</span>`).join("")}</div></div>`;
